@@ -1,0 +1,52 @@
+
+API Doc
+
+http://localhost:8081/ping
+
+http://localhost:8081/readTravellerInfo?id=3
+
+
+Mysql:
+
+mysql -h localhost -u root -p
+ad...123
+
+show databases;
+
+use copassdb;
+
+show tables;
+
+describe TRAVELLER_PROFILE;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| id      | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(20)  | NO   |     | NULL    |                |
+| age     | varchar(20)  | YES  |     | NULL    |                |
+| email   | varchar(20)  | NO   |     | NULL    |                |
+| gender  | char(1)      | YES  |     | NULL    |                |
+| birth   | date         | YES  |     | NULL    |                |
+| contact | char(10)     | YES  |     | NULL    |                |
+| notes   | varchar(100) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+
+insert into traveller_profile
+values(default,'sample','23','emailid','m','2000-02-02','9876543211','happy trip');
+
+mysql> describe trip;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| trip_id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| traveller_id   | int(11)      | YES  |     | NULL    |                |
+| source         | varchar(20)  | NO   |     | NULL    |                |
+| destination    | varchar(20)  | NO   |     | NULL    |                |
+| hops           | varchar(100) | YES  |     | NULL    |                |
+| travel_date    | date         | YES  |     | NULL    |                |
+| travel_month   | char(3)      | YES  |     | NULL    |                |
+| mode           | char(10)     | YES  |     | NULL    |                |
+| isAlone        | char(1)      | YES  |     | NULL    |                |
+| isTicketBooked | char(1)      | YES  |     | NULL    |                |
+| isDomestic     | char(1)      | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
