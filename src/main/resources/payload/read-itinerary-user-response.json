@@ -1,16 +1,5 @@
 {
-  "user": {
-    "id": "12345",
-    "name": "krish",
-    "emailId": "",
-    "contactNo": "972222222222",
-    "acceptPackage": true,
-    "rating" : 4.5,
-    "gender": "male",
-    "dob": "12/18/1986",
-    "isVerified": true
-  },
-  "data": [
+  "itineraries": [
     {
       "source": "MAS",
       "destination": "DXB",
