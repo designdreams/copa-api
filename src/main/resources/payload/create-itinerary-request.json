@@ -1,6 +1,5 @@
 {
   "user": {
-    "id": "12345",
     "name": "krish",
     "emailId": "",
     "contactNo": "972222222222",
@@ -10,7 +9,7 @@
     "dob": "12/18/1986",
     "isVerified": true
   },
-  "data": [
+  "itineraries": [
     {
       "source": "MAS",
       "destination": "DXB",
