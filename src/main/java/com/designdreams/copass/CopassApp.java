@@ -11,27 +11,27 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CopassApp {
 
-	public static void main(String[] args) throws Exception {
-		ApplicationContext applicationContext = null;
+    public static void main(String[] args) throws Exception {
+        ApplicationContext applicationContext = null;
 
-		try {
-			SpringApplication.run(CopassApp.class, args);
+        try {
 
-			applicationContext = new AnnotationConfigApplicationContext(
-					DBConfiguration.class);
-			AppStaticFactory.setContext(applicationContext);
+            SpringApplication.run(CopassApp.class, args);
 
-			System.out.println(" Read Traveller context "+AppStaticFactory.getContext());
+            applicationContext = new AnnotationConfigApplicationContext(
+                    DBConfiguration.class);
+            AppStaticFactory.setContext(applicationContext);
 
+            System.out.println(" Read Traveller context " + AppStaticFactory.getContext());
 
-		} catch (Exception e) {
-			System.out.println(" COPASS ");
+        } catch (Exception e) {
+            System.out.println(" COPASS ");
 
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
 
-		System.out.println(" COPASS API started......!!!!! "+Arrays.asList(applicationContext.getBeanDefinitionNames()));
+        System.out.println(" COPASS API started......!!!!! " + Arrays.asList(applicationContext.getBeanDefinitionNames()));
 
-	}
+    }
 
 }

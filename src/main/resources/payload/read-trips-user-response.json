@@ -1,36 +1,40 @@
 {
-  "user": {
-    "emailId": "",
-  },
-  "trips": [
+  "travellerId": "amy@efg.com",
+  "tripList": [
     {
-      "source": "MAS",
-      "destination": "DXB",
-      "travelStartDate": "2020-02-03",
-      "mode": "Airways",
-      "airways": "Emirates",
-      "travellingWith": "Family",
-      "canTakePackageInd": true,
-      "ticketBooked": false,
-      "domestic": false,
-      "finalDestination": false
-    },
-    {
-      "source": "DXB",
-      "destination": "JFK",
-      "travelStartDate": "2020-02-03",
-      "mode": "Airways",
-      "airways": "Emirates",
-      "travellingWith": "Family",
-      "canTakePackageInd": true,
-      "ticketBooked": false,
-      "domestic": false,
-      "finalDestination": false
-    },
-    {
+      "tripId": "1",
       "source": "JFK",
       "destination": "PHX",
-      "travelStartDate": "2020-02-04",
+      "travelStartDate": "2020-02-03",
+      "travelMonth": "JAN",
+      "mode": "Airways",
+      "airways": "Emirates",
+      "travellingWith": "Family",
+      "canTakePackageInd": true,
+      "ticketBooked": false,
+      "domestic": false,
+      "finalDestination": true
+    },
+    {
+      "tripId": "2",
+      "source": "MAS",
+      "destination": "PHX",
+      "travelStartDate": "2019-02-03",
+      "travelMonth": "JAN",
+      "mode": "Airways",
+      "airways": "Emirates",
+      "travellingWith": "Family",
+      "canTakePackageInd": true,
+      "ticketBooked": false,
+      "domestic": false,
+      "finalDestination": true
+    },
+    {
+      "tripId": "3",
+      "source": "JFK",
+      "destination": "PHX",
+      "travelStartDate": "2020-02-03",
+      "travelMonth": "JAN",
       "mode": "Airways",
       "airways": "Emirates",
       "travellingWith": "Family",

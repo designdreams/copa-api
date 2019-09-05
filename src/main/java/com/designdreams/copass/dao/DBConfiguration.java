@@ -45,5 +45,12 @@ public class DBConfiguration {
         ((TravellerDAOImpl) travellerDAOObj).setJdbcTemplate(jdbcTemplate());
         return travellerDAOObj;
     }
+
+    @Bean
+    public TripDAO tripDAO(){
+        TripDAO tripDAO = new TripDAOImpl();
+        ((TripDAOImpl) tripDAO).setJdbcTemplate(jdbcTemplate());
+        return tripDAO;
+    }
  
 }

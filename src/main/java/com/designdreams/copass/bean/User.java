@@ -1,13 +1,33 @@
 package com.designdreams.copass.bean;
 
-public class Traveller {
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class User {
+
+    @JsonProperty(required = true)
     private String emailId;
+
+    @JsonIgnore
     private String name;
+
+    @JsonIgnore
     private String gender;
+
+    @JsonIgnore
     private String age;
+
+    @JsonIgnore
     private String contactNo;
-    private String description;
+
+    @JsonIgnore
+    private String aboutMe;
+
+    @JsonIgnore
+    private Trip[] trips;
 
     public String getEmailId() {
         return emailId;
@@ -15,14 +35,6 @@ public class Traveller {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getGender() {
@@ -49,11 +61,19 @@ public class Traveller {
         this.contactNo = contactNo;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
     }
 }

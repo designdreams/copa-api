@@ -2,7 +2,7 @@
   "user": {
     "emailId": ""
   },
-  "itineraries": [
+  "trips": [
     {
       "source": "MAS",
       "destination": "DXB",

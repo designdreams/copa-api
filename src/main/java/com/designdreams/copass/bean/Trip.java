@@ -1,19 +1,69 @@
 package com.designdreams.copass.bean;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
+
+/*
+
+mysql> describe trip;
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| trip_id            | int(11)      | NO   | PRI | NULL    | auto_increment |
+| traveller_id       | varchar(320) | YES  |     | NULL    |                |
+| source             | varchar(20)  | NO   |     | NULL    |                |
+| destination        | varchar(20)  | NO   |     | NULL    |                |
+| travel_start_date  | date         | YES  |     | NULL    |                |
+| mode               | char(10)     | YES  |     | NULL    |                |
+| airways            | varchar(20)  | YES  |     | NULL    |                |
+| travellingWith     | varchar(10)  | YES  |     | NULL    |                |
+| isTicketBooked     | char(1)      | YES  |     | NULL    |                |
+| isDomestic         | char(1)      | YES  |     | NULL    |                |
+| canTakePackageInd  | char(1)      | YES  |     | NULL    |                |
+| isFinalDestination | char(1)      | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+11 rows
+
+ */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Trip {
 
     private String tripId;
+
+    @JsonProperty(required = true)
+    @NotEmpty(message = "source is required")
     private String source;
+
+    @JsonProperty(required = true)
+    @NotEmpty(message = "destination is required")
     private String destination;
-    private List<String> hops;
-    private String travelDate;
+
+    @JsonProperty(required = true)
+    @NotEmpty(message = "travel start date is required")
+    private String travelStartDate;
+
     private String travelMonth;
+
+    @JsonProperty(required = true)
+    @NotEmpty(message = "mode is required")
     private String mode;
-    private boolean isAlone;
+
+    private String airways;
+
+    private String travellingWith;
+
     private boolean isTicketBooked;
+
     private boolean isDomestic;
+
+    private boolean canTakePackageInd;
+
+    private boolean isFinalDestination;
 
     public String getTripId() {
         return tripId;
@@ -39,20 +89,12 @@ public class Trip {
         this.destination = destination;
     }
 
-    public List<String> getHops() {
-        return hops;
+    public String getTravelStartDate() {
+        return travelStartDate;
     }
 
-    public void setHops(List<String> hops) {
-        this.hops = hops;
-    }
-
-    public String getTravelDate() {
-        return travelDate;
-    }
-
-    public void setTravelDate(String travelDate) {
-        this.travelDate = travelDate;
+    public void setTravelStartDate(String travelStartDate) {
+        this.travelStartDate = travelStartDate;
     }
 
     public String getTravelMonth() {
@@ -71,12 +113,12 @@ public class Trip {
         this.mode = mode;
     }
 
-    public boolean isAlone() {
-        return isAlone;
+    public String getTravellingWith() {
+        return travellingWith;
     }
 
-    public void setAlone(boolean alone) {
-        isAlone = alone;
+    public void setTravellingWith(String travellingWith) {
+        this.travellingWith = travellingWith;
     }
 
     public boolean isTicketBooked() {
@@ -95,5 +137,46 @@ public class Trip {
         isDomestic = domestic;
     }
 
+    public String getAirways() {
+        return airways;
+    }
 
+    public void setAirways(String airways) {
+        this.airways = airways;
+    }
+
+    public boolean isCanTakePackageInd() {
+        return canTakePackageInd;
+    }
+
+    public void setCanTakePackageInd(boolean canTakePackageInd) {
+        this.canTakePackageInd = canTakePackageInd;
+    }
+
+    public boolean isFinalDestination() {
+        return isFinalDestination;
+    }
+
+    public void setFinalDestination(boolean finalDestination) {
+        isFinalDestination = finalDestination;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "tripId='" + tripId + '\'' +
+                ", source='" + source + '\'' +
+                ", destination='" + destination + '\'' +
+                ", travelStartDate='" + travelStartDate + '\'' +
+                ", travelMonth='" + travelMonth + '\'' +
+                ", mode='" + mode + '\'' +
+                ", airways='" + airways + '\'' +
+                ", travellingWith='" + travellingWith + '\'' +
+                ", isTicketBooked=" + isTicketBooked +
+                ", isDomestic=" + isDomestic +
+                ", canTakePackageInd=" + canTakePackageInd +
+                ", isFinalDestination=" + isFinalDestination +
+                '}';
+    }
 }
