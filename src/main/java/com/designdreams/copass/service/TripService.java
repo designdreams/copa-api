@@ -2,9 +2,7 @@ package com.designdreams.copass.service;
 
 import com.designdreams.copass.bean.Trip;
 import com.designdreams.copass.dao.TripDAOImpl;
-import com.designdreams.copass.payload.CreateItineraryRequest;
-import com.designdreams.copass.payload.ReadItineraryRequest;
-import com.designdreams.copass.payload.ReadItineraryResponse;
+import com.designdreams.copass.payload.*;
 import com.designdreams.copass.utils.AppUtils;
 import com.designdreams.copass.utils.ResponseUtil;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -96,7 +94,7 @@ public class TripService {
 
             tripList = tripDAO.getTripDetailsList(emailId);
 
-            if (tripList.size() > 0) {
+            if ( null!=tripList && tripList.size() > 0) {
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());
@@ -134,10 +132,52 @@ public class TripService {
         return "success";
     }
 
-    @RequestMapping("/findTrip")
-    public String findTrip() {
+    @RequestMapping(value = "/findTrip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> findTrip(@RequestBody SearchItineraryRequest searchItineraryRequest) {
 
-        return "success";
+        List<Trip> tripList = null;
+        String emailId = null;
+        String searchItineraryResponseStr = null;
+        ResponseEntity<String> responseEntity = null;
+        String source = null;
+        String destination = null;
+        String startDate = null;
+        String traceId = null;
+
+        try {
+
+            emailId = searchItineraryRequest.getUser().getEmailId();
+            source = searchItineraryRequest.getSource();
+            destination = searchItineraryRequest.getDestination();
+            startDate = searchItineraryRequest.getTravelStartDate();
+
+            System.out.println(" searched by user :: "+emailId);
+
+            tripList = tripDAO.searchTripDetailsList(traceId, source, destination, startDate);
+
+            if (null!=tripList && tripList.size() > 0) {
+
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.writer(new DefaultPrettyPrinter());
+
+                SearchItineraryResponse searchItineraryResponse = new SearchItineraryResponse();
+                searchItineraryResponse.setTripList(tripList);
+
+                searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
+
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, searchItineraryResponseStr);
+
+            } else {
+
+                responseEntity = ResponseUtil.getResponse(HttpStatus.NOT_FOUND, "Trips Not Found", "Try again later");
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error", "Try again later");
+        }
+
+        return responseEntity;
     }
 
 

@@ -37,6 +37,7 @@ public class TripRowMapper implements RowMapper<Trip> {
         Trip trip = new Trip();
 
         trip.setTripId(resultSet.getString("trip_id"));
+        trip.setTravellerId(resultSet.getString("traveller_id"));
         trip.setSource(resultSet.getString("source"));
         trip.setDestination(resultSet.getString("destination"));
         trip.setMode(resultSet.getString("mode"));

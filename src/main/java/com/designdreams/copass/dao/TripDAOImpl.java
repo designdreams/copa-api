@@ -25,6 +25,12 @@ public class TripDAOImpl implements TripDAO {
     @Value("${getTripListQuery}")
     private String getTripListQuery;
 
+    @Value("${searchTripListQuery}")
+    private String searchTripListQuery;
+
+    @Value("${searchTripListWithDateQuery}")
+    private String searchTripListWithDateQuery;
+
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -62,6 +68,7 @@ public class TripDAOImpl implements TripDAO {
 
 
     public String getTripDetails(int id) {
+
         String sql = getTripInfoQuery;
         String name = null;
 
@@ -78,6 +85,7 @@ public class TripDAOImpl implements TripDAO {
         }
 
         return name;
+
     }
 
 
@@ -98,6 +106,39 @@ public class TripDAOImpl implements TripDAO {
         } catch (EmptyResultDataAccessException e) {
             name = "NOT_FOUND";
             System.out.println(" NOT_FOUND :: QUERY : " + getTripInfoQuery + "emailId:: " + emailId);
+        } catch (DataAccessException e) {
+            name = "DB_ERROR";
+            e.printStackTrace();
+        }
+
+        return tripList;
+
+    }
+
+
+    public List<Trip> searchTripDetailsList(String traceId, String src, String dest, String date) {
+
+        String sql = searchTripListQuery;
+        String name = null;
+        List<Trip> tripList = null;
+
+        try {
+
+            System.out.println(" QUERY : " + searchTripListQuery + "src:: " + src +" dest:: "+dest);
+
+            if( null == date)
+                tripList = jdbcTemplate.query(sql, new Object[]{src, dest}, new TripRowMapper());
+            else
+                tripList = jdbcTemplate.query(sql, new Object[]{src, dest, date}, new TripRowMapper());
+
+            tripList.stream()
+                    .map(trip -> trip.toString())
+                    .forEach(System.out::println);
+
+        } catch (EmptyResultDataAccessException e) {
+            name = "NOT_FOUND";
+            System.out.println(" NOT_FOUND :: QUERY : " + getTripInfoQuery + "traceId:: " + traceId);
+
         } catch (DataAccessException e) {
             name = "DB_ERROR";
             e.printStackTrace();

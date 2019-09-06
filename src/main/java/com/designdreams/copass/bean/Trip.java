@@ -35,6 +35,8 @@ public class Trip {
 
     private String tripId;
 
+    private String travellerId;
+
     @JsonProperty(required = true)
     @NotEmpty(message = "source is required")
     private String source;
@@ -73,6 +75,14 @@ public class Trip {
         this.tripId = tripId;
     }
 
+
+    public String getTravellerId() {
+        return travellerId;
+    }
+
+    public void setTravellerId(String travellerId) {
+        this.travellerId = travellerId;
+    }
     public String getSource() {
         return source;
     }
