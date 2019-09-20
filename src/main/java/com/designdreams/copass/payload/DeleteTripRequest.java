@@ -1,6 +1,6 @@
 package com.designdreams.copass.payload;
 
-public class DeleteItineraryRequest {
+public class DeleteTripRequest {
 
     private String travellerId;
     private  String itineraryId;

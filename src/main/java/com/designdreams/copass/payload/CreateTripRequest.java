@@ -8,11 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CreateItineraryRequest {
-
-    @JsonProperty(required = true)
-    @NotEmpty(message = "travellerId(email)is required")
-    private String travellerId;
+public class CreateTripRequest {
 
     @JsonProperty(required = true)
     @Valid
@@ -26,19 +22,10 @@ public class CreateItineraryRequest {
         this.trip = trip;
     }
 
-    public String getTravellerId() {
-        return travellerId;
-    }
-
-    public void setTravellerId(String travellerId) {
-        this.travellerId = travellerId;
-    }
-
     @Override
     public String toString() {
         return "CreateItineraryRequest{" +
-                "travellerId='" + travellerId + '\'' +
-                ", itinerary=" + trip.toString() +
+                ", itinerary=" + (null!=trip?trip.toString():null) +
                 '}';
     }
 

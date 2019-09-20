@@ -1,0 +1,43 @@
+{
+  "_id": "1212121212",
+  "emailId":"amy@efg.com",
+  "user": {
+    "name": "krish",
+    "emailId": "",
+    "contactNo": "972222222222",
+    "acceptPackage": true,
+    "rating" : 4.5,
+    "gender": "male",
+    "dob": "12/18/1986",
+    "isVerified": false
+  },
+  "trips": [
+    {
+      "source": "MAS",
+      "destination": "DXB",
+      "travelDate": "11-24-2019",
+      "airways": "Emirates",
+      "isTicketsBooked": true,
+      "travellingWith": "Alone|Family|Kids|Elders",
+      "enableNotification": true
+    },
+    {
+      "source": "DXB",
+      "destination": "JFK",
+      "travelDate": "11-24-2019",
+      "airways": "Emirates",
+      "isTicketsBooked": true,
+      "travellingWith": "Alone",
+      "enableNotification": false
+    },
+    {
+      "source": "JFK",
+      "destination": "PHX",
+      "travelDate": "11-24-2019",
+      "airways": "JetBlue",
+      "isTicketsBooked": true,
+      "travellingWith": "Elders",
+      "enableNotification": false
+    }
+  ]
+}

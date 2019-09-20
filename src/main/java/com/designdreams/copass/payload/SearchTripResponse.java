@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-public class SearchItineraryResponse {
+public class SearchTripResponse {
 
     private List<Trip> TripList;
 

@@ -1,0 +1,19 @@
+{
+  "emailId": "",
+  "trip": {
+    "source": "DDD",
+    "destination": "eee",
+    "travelStartDate": "2019-11-24",
+    "mode": "Airways",
+    "airways": "QATAR",
+    "travellingWith": "family",
+    "isTicketBooked": true,
+    "isDomestic": false,
+    "canTakePackageInd": false,
+    "isFinalDestination": false
+  }
+}
+
+// Update happens only if src , destination and date match,
+//source and destination cannot be changed for update.
+//Delete and add as new itinerary

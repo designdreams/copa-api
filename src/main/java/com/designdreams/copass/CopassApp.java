@@ -1,6 +1,6 @@
 package com.designdreams.copass;
 
-import com.designdreams.copass.dao.DBConfiguration;
+import com.designdreams.copass.mysql.DBConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -10,6 +10,8 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class CopassApp {
+
+
 
     public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = null;
@@ -23,6 +25,7 @@ public class CopassApp {
             AppStaticFactory.setContext(applicationContext);
 
             System.out.println(" Read Traveller context " + AppStaticFactory.getContext());
+
 
         } catch (Exception e) {
             System.out.println(" COPASS ");

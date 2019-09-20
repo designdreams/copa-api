@@ -4,6 +4,8 @@ import com.designdreams.copass.bean.User;
 
 public class CreateUserRequest {
 
+    private User User;
+
     public User getUser() {
         return User;
     }
@@ -11,9 +13,5 @@ public class CreateUserRequest {
     public void setUser(User User) {
         this.User = User;
     }
-
-    private User User;
-
-
 
 }

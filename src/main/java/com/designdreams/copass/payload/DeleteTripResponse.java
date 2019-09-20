@@ -1,6 +1,6 @@
 package com.designdreams.copass.payload;
 
-public class DeleteItineraryResponse {
+public class DeleteTripResponse {
 
     private String status;
     private String code;

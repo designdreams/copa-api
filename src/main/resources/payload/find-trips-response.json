@@ -2,7 +2,7 @@
   "travellers": [
     {
       "user": "wwww@asasas.com",
-      "itineraries": [
+      "trips": [
         {
           "source": "MAS",
           "destination": "DXB",
@@ -34,7 +34,7 @@
     },
     {
       "user": "sss@asas.com",
-      "itineraries": [
+      "trips": [
         {
           "source": "MAS",
           "destination": "DXB",

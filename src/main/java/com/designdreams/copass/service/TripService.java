@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 public class TripService {
 
     @Autowired
@@ -26,7 +27,7 @@ public class TripService {
             value = "/createTrip",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createTrip(@RequestBody CreateItineraryRequest createItineraryRequest,
+    public ResponseEntity<String> createTrip(@RequestBody CreateTripRequest createTripRequest,
                                              @RequestHeader Map requestHeader) {
 
         String travellerId;
@@ -36,31 +37,26 @@ public class TripService {
 
         try {
 
-            System.out.println(" createItineraryRequest! "+createItineraryRequest.toString());
+            System.out.println(" createTripRequest! " + createTripRequest.toString());
 
             traceId = AppUtils.getTraceId(requestHeader.get("request-id"));
 
-            if(null!=(respMsg = ResponseUtil.validate(createItineraryRequest)))
+            if (null != (respMsg = ResponseUtil.validate(createTripRequest)))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", respMsg);
 
-            travellerId = createItineraryRequest.getTravellerId();
+            Trip trip = createTripRequest.getTrip();
 
-            Trip trip = new Trip();
-            trip.setSource(createItineraryRequest.getTrip().getSource());
-            trip.setDestination(createItineraryRequest.getTrip().getDestination());
-            trip.setTravelStartDate(createItineraryRequest.getTrip().getTravelStartDate());
-            trip.setMode(createItineraryRequest.getTrip().getMode());
-            trip.setTravellingWith(createItineraryRequest.getTrip().getTravellingWith());
-            trip.setTicketBooked(createItineraryRequest.getTrip().isTicketBooked());
-            trip.setCanTakePackageInd(createItineraryRequest.getTrip().isCanTakePackageInd());
-            trip.setFinalDestination(createItineraryRequest.getTrip().isFinalDestination());
-            trip.setDomestic(createItineraryRequest.getTrip().isDomestic());
+            travellerId = trip.getTravellerId();
 
-            if("SUCCESS".equalsIgnoreCase(tripDAO.createTrip(traceId, travellerId, trip))){
+            if ("SUCCESS".equalsIgnoreCase(tripDAO.createTrip(traceId, travellerId, trip))) {
                 System.out.println(" Successfully created trip !");
                 responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "SUCCESS", "Successfully created trip!");
 
-            }else{
+            } else if ("USER_NOT_FOUND".equalsIgnoreCase(tripDAO.createTrip(traceId, travellerId, trip))) {
+                System.out.println(" user not found to created trip !");
+                responseEntity = ResponseUtil.getResponse(HttpStatus.FORBIDDEN, "FAILURE", "User not registered to created trip!");
+
+            } else {
                 System.out.println(" Could not created trip !");
                 responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "FAILURE", "Failed to create trip!");
 
@@ -80,40 +76,49 @@ public class TripService {
             value = "/readTrip",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> readTrip(@RequestBody ReadItineraryRequest readItineraryRequest) {
+    public ResponseEntity<String> readTrip(@RequestBody ReadTripRequest readItineraryRequest) {
 
         List<Trip> tripList = null;
         String emailId = null;
-        ReadItineraryResponse readItineraryResponse = null;
+        ReadTripResponse readItineraryResponse = null;
         String readTripResponse = null;
         ResponseEntity<String> responseEntity = null;
 
         try {
 
-            emailId = readItineraryRequest.getUser().getEmailId();
+            emailId = readItineraryRequest.getUserId();
 
             tripList = tripDAO.getTripDetailsList(emailId);
 
-            if ( null!=tripList && tripList.size() > 0) {
+            if (null == tripList) {
+
+                responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_FETCH_ERROR", "Try again later");
+
+            } else if (tripList.size() == 0) {
+
+                // responseEntity = ResponseUtil.getResponse(HttpStatus.NOT_FOUND, "TRIPS_NOT_FOUND", "No trips registered for email");
+
+                readItineraryResponse = new ReadTripResponse();
+                readItineraryResponse.setTripList(tripList);
+
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, readTripResponse);
+
+
+            } else {
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());
-                readItineraryResponse = new ReadItineraryResponse();
-                readItineraryResponse.setTravellerId(emailId);
+                readItineraryResponse = new ReadTripResponse();
                 readItineraryResponse.setTripList(tripList);
 
                 readTripResponse = mapper.writeValueAsString(readItineraryResponse);
 
                 responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, readTripResponse);
 
-            } else {
-
-                responseEntity = ResponseUtil.getResponse(HttpStatus.NOT_FOUND, "Trips Not Found", "Try again later");
-
             }
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error", "Try again later");
+            responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR", "Try again later");
         }
 
         return responseEntity;
@@ -133,7 +138,7 @@ public class TripService {
     }
 
     @RequestMapping(value = "/findTrip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> findTrip(@RequestBody SearchItineraryRequest searchItineraryRequest) {
+    public ResponseEntity<String> findTrip(@RequestBody SearchTripRequest searchItineraryRequest) {
 
         List<Trip> tripList = null;
         String emailId = null;
@@ -146,21 +151,21 @@ public class TripService {
 
         try {
 
-            emailId = searchItineraryRequest.getUser().getEmailId();
+            emailId = searchItineraryRequest.getUserId();
             source = searchItineraryRequest.getSource();
             destination = searchItineraryRequest.getDestination();
             startDate = searchItineraryRequest.getTravelStartDate();
 
-            System.out.println(" searched by user :: "+emailId);
+            System.out.println(" searched by user :: " + emailId);
 
             tripList = tripDAO.searchTripDetailsList(traceId, source, destination, startDate);
 
-            if (null!=tripList && tripList.size() > 0) {
+            if (null != tripList && tripList.size() > 0) {
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());
 
-                SearchItineraryResponse searchItineraryResponse = new SearchItineraryResponse();
+                SearchTripResponse searchItineraryResponse = new SearchTripResponse();
                 searchItineraryResponse.setTripList(tripList);
 
                 searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);

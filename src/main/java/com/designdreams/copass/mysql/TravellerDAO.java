@@ -1,4 +1,4 @@
-package com.designdreams.copass.dao;
+package com.designdreams.copass.mysql;
 
 public interface TravellerDAO {
 

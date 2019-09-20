@@ -1,15 +1,15 @@
 package com.designdreams.copass.payload;
 
-import com.designdreams.copass.bean.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
-//import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 
-public class SearchItineraryRequest {
+//import org.springframework.format.annotation.DateTimeFormat;
+
+public class SearchTripRequest {
 
     @JsonProperty(required = true)
-    private User user;
+    private String userId;
 
     @JsonProperty(required = true)
     @NotEmpty(message = "Source cannot be empty")
@@ -22,12 +22,12 @@ public class SearchItineraryRequest {
   //  @DateTimeFormat(pattern = "YYYY-mm-dd")
     private String travelStartDate;
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getSource() {

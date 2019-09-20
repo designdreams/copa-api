@@ -1,6 +1,6 @@
 package com.designdreams.copass.payload;
 
-public class CreateItineraryResponse {
+public class CreateTripResponse {
 
     private String status;
     private String code;

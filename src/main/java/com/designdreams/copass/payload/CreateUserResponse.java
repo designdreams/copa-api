@@ -1,6 +1,6 @@
 package com.designdreams.copass.payload;
 
-public class CreateTravellerResponse {
+public class CreateUserResponse {
 
     private String status;
 

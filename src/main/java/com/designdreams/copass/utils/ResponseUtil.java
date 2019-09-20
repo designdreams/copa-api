@@ -1,6 +1,6 @@
 package com.designdreams.copass.utils;
 
-import com.designdreams.copass.payload.CreateItineraryRequest;
+import com.designdreams.copass.payload.CreateTripRequest;
 import com.designdreams.copass.payload.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -47,14 +47,14 @@ public class ResponseUtil {
 
     }
 
-    public static String validate(CreateItineraryRequest createItineraryRequest) {
+    public static String validate(CreateTripRequest createTripRequest) {
 
         Set errMsgSet = null;
         String errMsg = "unknown error";
 
         try {
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-            errMsgSet = validator.validate(createItineraryRequest);
+            errMsgSet = validator.validate(createTripRequest);
             errMsg = (null != errMsgSet && !errMsgSet.isEmpty()) ? ((ConstraintViolation) errMsgSet.toArray()[0]).getMessage() : null;
 
         } catch (Exception e) {

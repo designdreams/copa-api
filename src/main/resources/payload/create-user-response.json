@@ -1,4 +1,4 @@
 {
-"respCode" : "SUCCESS",
-"respMsg": "user created successfully",
+  "respCode": "SUCCESS",
+  "respMessage": "Registered user successfully"
 }

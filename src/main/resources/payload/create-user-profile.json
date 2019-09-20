@@ -1,12 +1,10 @@
 {
-  "user": {
-    "name": "krish",
-    "emailId": "",
-    "contactNo": "972222222222",
-    "acceptPackage": true,
-    "rating" : 4.5,
-    "gender": "male",
-    "dob": "12/18/1986",
-    "isVerified": false
+  "user":{
+    "emailId":"ashs@efg.com",
+    "name":"ashhh",
+    "gender":"m",
+    "age":29,
+    "contactNo": "+111231231233",
+    "aboutMe":" man , ant man, human"
   }
 }

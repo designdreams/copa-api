@@ -1,11 +1,9 @@
 package com.designdreams.copass.payload;
 
 import com.designdreams.copass.bean.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ReadItineraryRequest {
+public class GetUserResponse {
 
-    @JsonProperty(required = true)
     private User user;
 
     public User getUser() {

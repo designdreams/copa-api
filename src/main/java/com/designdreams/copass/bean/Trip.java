@@ -35,6 +35,8 @@ public class Trip {
 
     private String tripId;
 
+    @JsonProperty(required = true)
+    @NotEmpty(message = "TravellerId is required")
     private String travellerId;
 
     @JsonProperty(required = true)
