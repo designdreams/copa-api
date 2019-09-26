@@ -1,0 +1,35 @@
+
+
+Cluster : dd-cluster-c
+DB      : dd-database
+URL     : https://cloud.mongodb.com/v2/5d7c993ed5ec13595d51479f#clusters/commandLineTools/dd-cluster-c
+
+Queries:
+========
+{trips.source : "CCC",trips.destination : "ddd"}
+
+
+Indexes::
+
+=== pri ===
+{
+    "emailId" : 1
+}
+
+{
+    background : false,
+    unique : true,
+    name : "primary"
+}
+
+== sec ===
+
+{
+    "trips.source" : 1,
+    "trips.destination" : 1
+}
+
+{
+    background : true,
+    name : "secondary"
+}

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class TripDAOImpl implements TripDAO {
@@ -142,62 +143,78 @@ public class TripDAOImpl implements TripDAO {
 
 
     @Override
-    public List<Trip> searchTripDetailsList(String traceId, String src, String dest, String date) {
+    public List<Trip> searchTripDetailsList(String traceId, final String src, final String dest, String date) {
 
         String name = null;
         List<Trip> tripList = null;
-        MongoCursor<Document> doc = null;
+        List<Trip> filteredTripList = null;
+
+        MongoCursor<Document> docCursor = null;
         try {
 
             System.out.println("src:: " + src + " dest:: " + dest);
-            Document query = new Document();
 
-            Document bson = new Document();
             Document match = new Document();
 
-            match.put("source", src);
-            match.put("destination", dest);
+            match.put("trips.source", src);
+            match.put("trips.destination", dest);
 
-            // {awards: {$elemMatch: {award:'National Medal', year:1975}
 
             if (null != date) {
                 match.put("date", date);
             }
 
-            bson.put("$elemMatch", match);
-            query.put("trips", bson);
+            System.out.println(match.toJson());
 
-            System.out.printf(query.toJson());
+            docCursor = mongoClient.getDatabase(database).getCollection(collection).find(match).iterator();
 
-            doc = mongoClient.getDatabase(database).getCollection(collection).find(query).iterator();
+            //{trips.source : "CCC",trips.destination : "ddd"}
 
-            tripList = new ArrayList<>();
+            tripList = new ArrayList();
+            List<Document> docList = new ArrayList();
 
-            // {trips: {$elemMatch: {source : "CCC" destination : "ddd"}}}
+            List tmpList = null;
 
-            String json = null;
-            while (doc != null && doc.hasNext()) {
+            while (docCursor != null && docCursor.hasNext()) {
 
-                json = doc.next().toJson();
-                tripList.add(AppUtil.getGson().fromJson(json, Trip.class));
+                docList = docCursor.next().getList("trips", Document.class);
 
-                System.out.println("TRIP " + json);
+                if (docList != null) {
+
+                    tmpList = docList.stream()
+                            .map(e -> AppUtil.getGson().fromJson(e.toJson(), Trip.class))
+                            .collect(Collectors.toList());
+
+                    tripList.addAll(tmpList);
+
+                }
+
             }
+
+            // filter trips
+            filteredTripList = tripList.stream()
+                    .filter(trip -> isExactTripMatch(trip, src, dest))
+                    .collect(Collectors.toList());
+
+            System.out.println("All TRIPS " + filteredTripList);
 
             if (tripList.size() < 1)
                 throw new RuntimeException("NOT FOUND");
 
         } catch (RuntimeException e) {
-            name = "NOT_FOUND";
             System.out.println(" NOT_FOUND :: traceId:: " + traceId);
+            e.printStackTrace();
 
         } catch (Exception e) {
-            name = "DB_ERROR";
             e.printStackTrace();
         }
 
-        return tripList;
+        return filteredTripList;
 
+    }
+
+    public boolean isExactTripMatch(Trip trip, String src, String dest) {
+        return (trip != null && trip.getSource().equalsIgnoreCase(src) && trip.getDestination().equalsIgnoreCase(dest));
     }
 
 }
