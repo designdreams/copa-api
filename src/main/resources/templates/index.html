@@ -1,41 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>coming soon....</title>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
-    <style>
-
-        .login-module{
-
-            align:center;
-
-        }
-
-    </style>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
 </head>
 <body>
 
-<div>
+<div id="title">
 
-    <h2>
+    <h2 class="title">
 
-        COMPASS - 0.0.1
+        COMPASS
 
     </h2>
 
 </div>
-<section class = "login-module">
+<div id = "login-module">
 
     <div id="login-label">
-        LOGIN
+        Sign in with Google...
     </div>
 
-    <div>
+    <div id="gbutton">
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 
@@ -43,7 +35,8 @@
         <a href="#" onclick="signOut();">Sign out</a>
     </div>
 
-</section>
+
+</div>
 
 
 <script>
@@ -55,6 +48,7 @@ function onSignIn(googleUser) {
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+   alert(" Google sign in success ");
 }
 
   function signOut() {

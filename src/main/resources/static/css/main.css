@@ -1,0 +1,25 @@
+html {
+  background: url('/images/bg_compass.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#login-module{
+    width: 25%;
+    margin: 20% 45%;
+}
+
+.title{
+    color: antiquewhite;
+
+}
+
+#login-label{
+    color: #f9cc16;
+}
+
+#gbutton{
+width:40%
+}
