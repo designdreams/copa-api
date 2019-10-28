@@ -25,7 +25,7 @@ public class CreateTripRequest {
     @Override
     public String toString() {
         return "CreateItineraryRequest{" +
-                ", itinerary=" + (null!=trip?trip.toString():null) +
+                ", itinerary=" + (null != trip ? trip.toString() : null) +
                 '}';
     }
 

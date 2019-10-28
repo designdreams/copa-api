@@ -13,4 +13,5 @@ public class AppUtils {
     public  static String getTraceId(Object reqId){
         return null!=reqId?(String)reqId:UUID.randomUUID().toString();
     }
+
 }

@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCursor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 @Component
 public class TripDAOImpl implements TripDAO {
 
+    private static final Logger logger = LogManager.getLogger(TripDAOImpl.class);
+
     @Autowired
     MongoClient mongoClient;
 
@@ -31,41 +35,77 @@ public class TripDAOImpl implements TripDAO {
     @Override
     public String createTrip(String uuid, String emailId, Trip trip) {
 
-        String status = null;
+        String status = "COULD_NOT_CREATE_TRIP";
+        List<Document> trips = null;
+        long tripCount = 0;
+        long sameDayTripCount = 0;
 
         try {
 
             List<Trip> tripList = new ArrayList<>();
             tripList.add(trip);
 
-            System.out.println(tripList);
+            logger.info(tripList);
             Document match = new Document();
             match.put("emailId", emailId);
 
-            // TODO change to direct query
             Document doc = mongoClient.getDatabase(database).getCollection(collection).find(match).first();
 
             if (null == doc || (doc != null && doc.isEmpty())) {
-                // user not found.
-                throw new RuntimeException("USER_NOT_FOUND");
+                status = "USER_NOT_REGISTERED";
+                return status;
+
+            } else {
+
+                // check if trip already present
+
+                trips = doc.containsKey("trips") ? doc.getList("trips", Document.class) : null;
+
+                if (null != trips) {
+
+                    for (Document t : trips) {
+
+                        if (t.get("source").toString().equalsIgnoreCase(trip.getSource()) &&
+                                t.get("destination").toString().equalsIgnoreCase(trip.getDestination())
+                                && t.get("travelStartDate").toString().equalsIgnoreCase(trip.getTravelStartDate()))
+                            sameDayTripCount++;
+                    }
+
+                    if (sameDayTripCount > 0) {
+                        status = "INVALID_SAME_DAY_DUPLICATE_TRIP";
+                        return status;
+                    }
+
+
+                    for (Document t : trips) {
+
+                        if (t.get("source").toString().equalsIgnoreCase(trip.getSource())
+                                && t.get("destination").toString().equalsIgnoreCase(trip.getDestination()))
+                            tripCount++;
+                    }
+
+
+                    if (tripCount > 0) {
+                        status = "DUPLICATE_TRIP";
+                        return status;
+                    }
+
+                }
             }
 
             Document tripDoc = Document.parse(AppUtil.getGson().toJson(trip));
             Document update = new Document();
             update.put("$push", new Document("trips", tripDoc));
 
-            System.out.println(tripDoc.toJson());
+            logger.info(tripDoc.toJson());
             mongoClient.getDatabase(database).getCollection(collection).updateOne(match, update);
 
             status = "SUCCESS";
 
-        } catch (RuntimeException e) {
-            status = "USER_NOT_FOUND";
-            e.printStackTrace();
-
         } catch (Exception e) {
+
             status = "FAILURE";
-            e.printStackTrace();
+            logger.error(e, e);
         }
 
         return status;
@@ -91,7 +131,7 @@ public class TripDAOImpl implements TripDAO {
 
         } catch (DataAccessException e) {
             tripJson = "DB_ERROR";
-            e.printStackTrace();
+            logger.error(e,e);
         }
 
         return tripJson;
@@ -112,9 +152,9 @@ public class TripDAOImpl implements TripDAO {
     public List<Trip> getTripDetailsList(String emailId) {
 
         String status = null;
-        List<Trip> tripList = new ArrayList<>();
+        List<Trip> tripList = null;
         String jsonArray = null;
-        List<Document> trips;
+        List<Document> trips = null;
 
 
         try {
@@ -124,16 +164,17 @@ public class TripDAOImpl implements TripDAO {
             bson.put("emailId", emailId);
             Document doc = mongoClient.getDatabase(database).getCollection(collection).find(bson).first();
 
-            trips = doc.containsKey("trips") ? doc.getList("trips", Document.class) : null;
+            if (null != doc)
+                trips = doc.containsKey("trips") ? doc.getList("trips", Document.class) : null;
 
             if (trips != null) {
                 tripList = toList(AppUtil.getGson().toJson(trips), Trip.class);
             }
 
-            System.out.println(" tripList ===> " + tripList);
+            logger.info(" tripList:" + tripList);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e,e);
             tripList = null;
         }
 
@@ -152,7 +193,7 @@ public class TripDAOImpl implements TripDAO {
         MongoCursor<Document> docCursor = null;
         try {
 
-            System.out.println("src:: " + src + " dest:: " + dest);
+            logger.info("{} : src:: {} dest:: {}", traceId, src, dest);
 
             Document match = new Document();
 
@@ -161,10 +202,10 @@ public class TripDAOImpl implements TripDAO {
 
 
             if (null != date) {
-                match.put("date", date);
+                match.put("trips.date", date);
             }
 
-            System.out.println(match.toJson());
+            logger.info(match.toJson());
 
             docCursor = mongoClient.getDatabase(database).getCollection(collection).find(match).iterator();
 
@@ -196,17 +237,12 @@ public class TripDAOImpl implements TripDAO {
                     .filter(trip -> isExactTripMatch(trip, src, dest))
                     .collect(Collectors.toList());
 
-            System.out.println("All TRIPS " + filteredTripList);
-
-            if (tripList.size() < 1)
-                throw new RuntimeException("NOT FOUND");
-
-        } catch (RuntimeException e) {
-            System.out.println(" NOT_FOUND :: traceId:: " + traceId);
-            e.printStackTrace();
+            logger.info("All TRIPS " + filteredTripList);
 
         } catch (Exception e) {
-            e.printStackTrace();
+
+            logger.error(e, e);
+
         }
 
         return filteredTripList;

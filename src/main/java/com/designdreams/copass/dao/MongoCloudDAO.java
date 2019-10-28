@@ -4,6 +4,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MongoCloudDAO {
+
+    private static final Logger logger = LogManager.getLogger(DAOConfig.class);
 
     @Value("${MONGO_DB}")
     String database;
@@ -42,11 +46,10 @@ public class MongoCloudDAO {
             MongoCollection<Document> mongoCollection = mongoDatabase.getCollection(collection);
             BasicDBObject bson = new BasicDBObject();
 
-            System.out.println(" Connected to GCP Mongo :: " + mongoCollection.countDocuments());
+            logger.info(" Connected to GCP Mongo :: " + mongoCollection.countDocuments());
 
         } catch (Exception e) {
-            e.printStackTrace();
-
+            logger.error(e, e);
             return false;
         }
 

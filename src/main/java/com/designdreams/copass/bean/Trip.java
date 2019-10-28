@@ -3,32 +3,7 @@ package com.designdreams.copass.bean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.Objects;
-
-/*
-
-mysql> describe trip;
-+--------------------+--------------+------+-----+---------+----------------+
-| Field              | Type         | Null | Key | Default | Extra          |
-+--------------------+--------------+------+-----+---------+----------------+
-| trip_id            | int(11)      | NO   | PRI | NULL    | auto_increment |
-| traveller_id       | varchar(320) | YES  |     | NULL    |                |
-| source             | varchar(20)  | NO   |     | NULL    |                |
-| destination        | varchar(20)  | NO   |     | NULL    |                |
-| travel_start_date  | date         | YES  |     | NULL    |                |
-| mode               | char(10)     | YES  |     | NULL    |                |
-| airways            | varchar(20)  | YES  |     | NULL    |                |
-| travellingWith     | varchar(10)  | YES  |     | NULL    |                |
-| isTicketBooked     | char(1)      | YES  |     | NULL    |                |
-| isDomestic         | char(1)      | YES  |     | NULL    |                |
-| canTakePackageInd  | char(1)      | YES  |     | NULL    |                |
-| isFinalDestination | char(1)      | YES  |     | NULL    |                |
-+--------------------+--------------+------+-----+---------+----------------+
-11 rows
-
- */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trip {

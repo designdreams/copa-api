@@ -3,12 +3,17 @@ package com.designdreams.copass.dao;
 import com.designdreams.copass.bean.User;
 import com.designdreams.copass.utils.AppUtil;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoWriteException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDAOImpl implements UserDAO {
+
+    private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
 
     @Autowired
     MongoClient mongoClient;
@@ -29,8 +34,15 @@ public class UserDAOImpl implements UserDAO {
             mongoClient.getDatabase(database).getCollection(collection).insertOne(doc);
             return true;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        }  catch (MongoWriteException e) {
+            // Duplicate key. Email already registered
+            if(11000 == e.getError().getCode()){
+                return true;
+            }
+            logger.error(e, e);
+
+        }  catch (Exception e) {
+            logger.error(e, e);
         }
 
         return false;
@@ -47,11 +59,11 @@ public class UserDAOImpl implements UserDAO {
 
             doc = mongoClient.getDatabase(database).getCollection(collection).find(match).first();
 
-            System.out.println(doc.toJson());
+            logger.info("{} - {}",uuid, doc.toJson());
             response = doc.get("user").toString();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e, e);
         }
 
         return response;
@@ -67,10 +79,10 @@ public class UserDAOImpl implements UserDAO {
 
             count = mongoClient.getDatabase(database).getCollection(collection).deleteMany(match).getDeletedCount();
 
-            return true;
+            if(count > 0) return true;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("{} : {} ", e, uuid, e);
         }
 
         return false;

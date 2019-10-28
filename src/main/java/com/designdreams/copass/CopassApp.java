@@ -1,6 +1,8 @@
 package com.designdreams.copass;
 
 import com.designdreams.copass.mysql.DBConfiguration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +13,7 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CopassApp {
 
-
+    private static final Logger logger = LogManager.getLogger(CopassApp.class);
 
     public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = null;
@@ -24,16 +26,14 @@ public class CopassApp {
                     DBConfiguration.class);
             AppStaticFactory.setContext(applicationContext);
 
-            System.out.println(" Read Traveller context " + AppStaticFactory.getContext());
-
+            logger.info(" Read Traveller context " + AppStaticFactory.getContext());
 
         } catch (Exception e) {
-            System.out.println(" COPASS ");
-
+            logger.error(e, e);
             e.printStackTrace();
         }
 
-        System.out.println(" COPASS API started......!!!!! " + Arrays.asList(applicationContext.getBeanDefinitionNames()));
+        logger.info(" COPASS API started......!!!!! " + Arrays.asList(applicationContext.getBeanDefinitionNames()));
 
     }
 

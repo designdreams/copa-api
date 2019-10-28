@@ -7,10 +7,14 @@ import com.designdreams.copass.utils.AppUtils;
 import com.designdreams.copass.utils.ResponseUtil;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +24,8 @@ import java.util.Map;
 @CrossOrigin
 public class TripService {
 
+    private static final Logger logger = LogManager.getLogger(TripService.class);
+
     @Autowired
     TripDAOImpl tripDAO;
 
@@ -28,18 +34,23 @@ public class TripService {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTrip(@RequestBody CreateTripRequest createTripRequest,
-                                             @RequestHeader Map requestHeader) {
+                                             @RequestHeader Map<String, String> requestHeader) {
 
         String travellerId;
         ResponseEntity<String> responseEntity = null;
         String respMsg;
         String traceId;
+        String status = null;
+        String uuid = null;
 
         try {
 
-            System.out.println(" createTripRequest! " + createTripRequest.toString());
+            logger.info(" createTripRequest! " + createTripRequest.toString());
 
-            traceId = AppUtils.getTraceId(requestHeader.get("request-id"));
+            uuid = requestHeader.get("x-app-trace-id");
+
+            if(StringUtils.isEmpty(uuid))
+                return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
             if (null != (respMsg = ResponseUtil.validate(createTripRequest)))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", respMsg);
@@ -48,22 +59,24 @@ public class TripService {
 
             travellerId = trip.getTravellerId();
 
-            if ("SUCCESS".equalsIgnoreCase(tripDAO.createTrip(traceId, travellerId, trip))) {
-                System.out.println(" Successfully created trip !");
+            status = tripDAO.createTrip(uuid, travellerId, trip);
+
+            if ("SUCCESS".equalsIgnoreCase(status)) {
                 responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "SUCCESS", "Successfully created trip!");
 
-            } else if ("USER_NOT_FOUND".equalsIgnoreCase(tripDAO.createTrip(traceId, travellerId, trip))) {
-                System.out.println(" user not found to created trip !");
-                responseEntity = ResponseUtil.getResponse(HttpStatus.FORBIDDEN, "FAILURE", "User not registered to created trip!");
+            } else if ("USER_NOT_REGISTERED".equalsIgnoreCase(status)) {
+                responseEntity = ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, status, "User not registered!");
+
+            } else if (status.contains("DUPLICATE_TRIP")) {
+                responseEntity = ResponseUtil.getResponse(HttpStatus.CONFLICT, status, "You have a trip already on this SRC,DEST or DATE!");
 
             } else {
-                System.out.println(" Could not created trip !");
-                responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "FAILURE", "Failed to create trip!");
+                responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, status, "Failed to create trip!");
 
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e, e);
             responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "FAILURE", "Error in creating trip!");
 
         }
@@ -76,15 +89,25 @@ public class TripService {
             value = "/readTrip",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> readTrip(@RequestBody ReadTripRequest readItineraryRequest) {
+    public ResponseEntity<String> readTrip(
+            @RequestBody ReadTripRequest readItineraryRequest,
+            @RequestHeader Map<String, String> headers) {
 
         List<Trip> tripList = null;
         String emailId = null;
         ReadTripResponse readItineraryResponse = null;
         String readTripResponse = null;
         ResponseEntity<String> responseEntity = null;
+        String uuid = null;
 
         try {
+
+            uuid = headers.get("x-app-trace-id");
+
+            if(StringUtils.isEmpty(uuid))
+                return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
+
+            // authorize user based n email id. he should not see others trips by emailID
 
             emailId = readItineraryRequest.getUserId();
 
@@ -92,11 +115,10 @@ public class TripService {
 
             if (null == tripList) {
 
-                responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_FETCH_ERROR", "Try again later");
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No Trips found for the user");
 
             } else if (tripList.size() == 0) {
 
-                // responseEntity = ResponseUtil.getResponse(HttpStatus.NOT_FOUND, "TRIPS_NOT_FOUND", "No trips registered for email");
 
                 readItineraryResponse = new ReadTripResponse();
                 readItineraryResponse.setTripList(tripList);
@@ -117,7 +139,7 @@ public class TripService {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error( e, e);
             responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR", "Try again later");
         }
 
@@ -138,7 +160,9 @@ public class TripService {
     }
 
     @RequestMapping(value = "/findTrip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> findTrip(@RequestBody SearchTripRequest searchItineraryRequest) {
+    public ResponseEntity<String> findTrip(
+            @RequestBody SearchTripRequest searchItineraryRequest,
+            @RequestHeader Map<String, String> headers) {
 
         List<Trip> tripList = null;
         String emailId = null;
@@ -148,15 +172,21 @@ public class TripService {
         String destination = null;
         String startDate = null;
         String traceId = null;
+        String uuid = null;
 
         try {
+
+            uuid = headers.get("x-app-trace-id");
+
+            if(StringUtils.isEmpty(uuid))
+                return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
             emailId = searchItineraryRequest.getUserId();
             source = searchItineraryRequest.getSource();
             destination = searchItineraryRequest.getDestination();
             startDate = searchItineraryRequest.getTravelStartDate();
 
-            System.out.println(" searched by user :: " + emailId);
+            logger.info(" searched by user :: " + emailId);
 
             tripList = tripDAO.searchTripDetailsList(traceId, source, destination, startDate);
 
@@ -174,11 +204,11 @@ public class TripService {
 
             } else {
 
-                responseEntity = ResponseUtil.getResponse(HttpStatus.NOT_FOUND, "Trips Not Found", "Try again later");
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No trips found for the input");
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e, e);
             responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error", "Try again later");
         }
 

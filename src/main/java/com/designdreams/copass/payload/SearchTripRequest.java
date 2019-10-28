@@ -1,10 +1,9 @@
 package com.designdreams.copass.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
-
-//import org.springframework.format.annotation.DateTimeFormat;
 
 public class SearchTripRequest {
 
@@ -16,10 +15,10 @@ public class SearchTripRequest {
     private String source;
 
     @JsonProperty(required = true)
-    @NotEmpty(message = "destination cannot be empty")
+    @NotEmpty(message = "Destination cannot be empty")
     private String destination;
 
-  //  @DateTimeFormat(pattern = "YYYY-mm-dd")
+    //@DateTimeFormat(pattern = "YYYY-MM-dd")
     private String travelStartDate;
 
     public String getUserId() {
