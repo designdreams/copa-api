@@ -5,7 +5,8 @@
     <title>coming soon....</title>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+          content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
@@ -21,7 +22,7 @@
     </h2>
 
 </div>
-<div id = "login-module">
+<div id="login-module">
 
     <div id="login-label">
         Sign in with Google...
@@ -41,6 +42,12 @@
 
 <script>
 
+var APP_URL= 'http://localhost:8080/authorize';
+//var APP_URL= 'https://dd-project-c.appspot.com/authorize';
+
+var id_token = '';
+var email = '';
+var id = '';
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
@@ -48,16 +55,46 @@ function onSignIn(googleUser) {
   console.log('Name: ' + profile.getName());
   console.log('Image URL: ' + profile.getImageUrl());
   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-   alert(" Google sign in success ");
+  alert(" Google sign in success ");
+
+    id_token = googleUser.getAuthResponse().id_token;
+    email = profile.getEmail();
+    id = profile.getId();
+
+   console.log(id_token);
+   postAuth();
+   var APP_URL= 'https://dd-project-c.appspot.com/auth';
+   postAuth();
+}
+
+function postAuth(){
+    var data = JSON.stringify({
+      "user": {
+        "emailId": email,
+         "id": id
+      }
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST',APP_URL);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("cache-control", "no-cache");
+    xhr.setRequestHeader("auth_token", id_token);
+
+    xhr.onload = function() {
+      console.log('Signed in as: ' + xhr.responseText);
+    };
+    alert(data);
+    xhr.send(data);
 }
 
   function signOut() {
+   postAuth();
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
   }
-
 
 
 
