@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <title>coming soon....</title>
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
-
     <style>
 
-        .login-module{
+        .error-module{
+
+            align:center;
+
+        }
+
+       #error-label{
 
             align:center;
 
@@ -29,36 +32,14 @@
     </h2>
 
 </div>
-<section class = "login-module">
+<section class = "error-module">
 
-    <div id="login-label">
-        ERROR
+    <div id="error-label"><h1>
+        NOT AUTHORIZED - Try with correct Login </h1>
     </div>
 
 </section>
 
 
-<script>
-
-
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-}
-
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-
-
-
-
-</script>
 </body>
 </html>

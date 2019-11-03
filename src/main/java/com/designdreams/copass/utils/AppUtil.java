@@ -16,5 +16,14 @@ public class AppUtil {
         return UUID.randomUUID().toString();
     }
 
+    public  static String getMonthFromdate(String date){
+        //TODO
+        return "JAN";
+    }
+
+
+    public  static String getTraceId(Object reqId){
+        return null!=reqId?(String)reqId:UUID.randomUUID().toString();
+    }
 
 }

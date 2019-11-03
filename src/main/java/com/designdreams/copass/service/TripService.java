@@ -6,6 +6,8 @@ import com.designdreams.copass.payload.*;
 import com.designdreams.copass.utils.ResponseUtil;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.json.webtoken.JsonWebToken;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class TripService {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTrip(@RequestBody CreateTripRequest createTripRequest,
-                                             @RequestHeader Map<String, String> requestHeader) {
+                                             @RequestHeader Map<String, String> headers) {
 
         String travellerId;
         ResponseEntity<String> responseEntity = null;
@@ -40,18 +42,23 @@ public class TripService {
         String traceId;
         String status = null;
         String uuid = null;
+        String token = null;
 
         try {
 
             logger.info(" createTripRequest! " + createTripRequest.toString());
 
-            uuid = requestHeader.get("x-app-trace-id");
+            uuid = headers.get("x-app-trace-id");
+            token = headers.get("x-app-auth-token");
 
             if(StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
             if (null != (respMsg = ResponseUtil.validate(createTripRequest)))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", respMsg);
+
+            if(null == token || null == Auth.validateToken(uuid,token ))
+                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
             Trip trip = createTripRequest.getTrip();
 
@@ -97,17 +104,35 @@ public class TripService {
         String readTripResponse = null;
         ResponseEntity<String> responseEntity = null;
         String uuid = null;
+        String token = null;
+        JsonWebToken.Payload payload = null;
+        String emailFromToken = "";
 
         try {
 
             uuid = headers.get("x-app-trace-id");
+            token = headers.get("x-app-auth-token");
 
             if(StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
+            if(null == token || null == (payload = Auth.validateToken(uuid,token )))
+                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
+
             // authorize user based n email id. he should not see others trips by emailID
 
             emailId = readItineraryRequest.getUserId();
+
+            payload = Auth.validateToken(uuid, token);
+
+            if(null!=payload)
+                emailFromToken = ((GoogleIdToken.Payload) payload).getEmail();
+            else
+                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
+
+            if(!emailId.equalsIgnoreCase(emailFromToken)){
+                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "user with this email account is not authorized");
+            }
 
             tripList = tripDAO.getTripDetailsList(emailId);
 
@@ -116,7 +141,6 @@ public class TripService {
                 responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No Trips found for the user");
 
             } else if (tripList.size() == 0) {
-
 
                 readItineraryResponse = new ReadTripResponse();
                 readItineraryResponse.setTripList(tripList);
@@ -171,13 +195,19 @@ public class TripService {
         String startDate = null;
         String traceId = null;
         String uuid = null;
+        String token = null;
 
         try {
 
             uuid = headers.get("x-app-trace-id");
+            token = headers.get("x-app-auth-token");
 
             if(StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
+
+            if(null == token || null == Auth.validateToken(uuid,token ))
+                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
+
 
             emailId = searchItineraryRequest.getUserId();
             source = searchItineraryRequest.getSource();

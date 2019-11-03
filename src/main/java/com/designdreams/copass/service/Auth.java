@@ -1,18 +1,18 @@
 package com.designdreams.copass.service;
 
 
-import com.google.api.client.extensions.appengine.http.UrlFetchTransport;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.webtoken.JsonWebToken;
-import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
@@ -21,111 +21,43 @@ import java.util.Map;
 public class Auth {
 
     private static final JacksonFactory jacksonFactory = new JacksonFactory();
+    private static final Logger logger = LogManager.getLogger(Auth.class);
 
-    @PostMapping(
-            value = "/auth",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public String authenticate(
-            @RequestBody String request,
-            @RequestHeader Map<String, String> headers) {
-
-        String CLIENT_ID = "579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik";
-        String status = "FAILED";
-
-        try {
-            System.out.println(" Auth service " + request);
-            String idTokenString = headers.get("auth_token");
-
-            System.out.println(idTokenString);
-
-            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(UrlFetchTransport.getDefaultInstance(), jacksonFactory)
-                    // Specify the CLIENT_ID of the app that accesses the backend:
-                    .setAudience(Collections.singletonList(CLIENT_ID))
-                    // Or, if multiple clients access the backend:
-                    //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-                    .build();
-
-            GoogleIdToken idToken = verifier.verify(idTokenString);
-            if (idToken != null) {
-                JsonWebToken.Payload payload = idToken.getPayload();
-
-                // Print user identifier
-                String userId = payload.getSubject();
-                System.out.println("User ID: " + userId);
-
-                // Get profile information from payload
-                String email = ((GoogleIdToken.Payload) payload).getEmail();
-                System.out.println("email: " + email);
-
-                boolean emailVerified = Boolean.valueOf(((GoogleIdToken.Payload) payload).getEmailVerified());
-                String name = (String) payload.get("name");
-                String pictureUrl = (String) payload.get("picture");
-                String locale = (String) payload.get("locale");
-                String familyName = (String) payload.get("family_name");
-                String givenName = (String) payload.get("given_name");
-
-                System.out.println("payload :" + payload.getJwtId());
-                // Use or store profile information
-                // ...
-
-                status = "SUCCESS";
-
-            } else {
-                System.out.println("Invalid ID token.");
-            }
-
-        } catch (GeneralSecurityException e) {
-
-            e.printStackTrace();
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
-
-        return status;
-    }
-
-
-    @PostMapping("/authorize")
+    @PostMapping("/auth")
     public ModelAndView authenticated(
             @RequestBody String request,
             @RequestHeader Map<String, String> headers) {
 
-        String CLIENT_ID = "579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik";
+
         String status = "FAILED";
         ModelAndView mnv = null;
+        JsonWebToken.Payload payload = null;
+        String uuid = null;
+        String idTokenString =null;
 
         try {
 
-            System.out.println(" Auth service " + request);
+            logger.info(" Auth service " + request);
 
-            String idTokenString = headers.get("auth_token");
+            idTokenString = headers.get("x-app-auth-token");
+            uuid = headers.get("x-app-trace-id");
 
-            System.out.println("token" + idTokenString);
-
-            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(UrlFetchTransport.getDefaultInstance(), jacksonFactory)
-                    // Specify the CLIENT_ID of the app that accesses the backend:
-                    .setAudience(Collections.singletonList(CLIENT_ID))
-                    // Or, if multiple clients access the backend:
-                    //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-                    .build();
+            //logger.info("token " + idTokenString);
 
             if (null == idTokenString)
                 throw new RuntimeException("EMPTY_TOKEN_STRING");
 
-            GoogleIdToken idToken = verifier.verify(idTokenString);
-            if (idToken != null) {
-                JsonWebToken.Payload payload = idToken.getPayload();
+            payload = validateToken(uuid, idTokenString);
+
+            if (payload != null) {
 
                 // Print user identifier
                 String userId = payload.getSubject();
-                System.out.println("User ID: " + userId);
+                logger.info("User ID: " + userId);
 
                 // Get profile information from payload
                 String email = ((GoogleIdToken.Payload) payload).getEmail();
-                System.out.println("email: " + email);
+                logger.info("email: " + email);
 
                 boolean emailVerified = Boolean.valueOf(((GoogleIdToken.Payload) payload).getEmailVerified());
                 String name = (String) payload.get("name");
@@ -134,28 +66,64 @@ public class Auth {
                 String familyName = (String) payload.get("family_name");
                 String givenName = (String) payload.get("given_name");
 
-                System.out.println("payload :" + payload.getJwtId());
+                logger.info("payload :" + payload.getJwtId());
                 // Use or store profile information
-
-                status = "SUCCESS";
 
                 mnv = new ModelAndView("home");
                 mnv.addObject("message", name);
+                mnv.addObject("pictureUrl", pictureUrl);
+                mnv.addObject("locale", locale);
+
+                logger.info("Auth success for {}", email);
 
             } else {
-                System.out.println("Invalid ID token.");
+                logger.info("Invalid ID token ");
             }
 
-        } catch (GeneralSecurityException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
+            logger.error("Unknown Exception occurred ", e);
 
-        } catch (IOException e) {
-
-            e.printStackTrace();
         }
 
         return mnv;
     }
 
+    public static JsonWebToken.Payload validateToken(String uuid, String idTokenString) {
+
+        String CLIENT_ID = "579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com";
+        String CLIENT_ID_1 = "579504878975-dg9bab7a53fvhmpet6kuuho4j1e40p8o.apps.googleusercontent.com";
+        String CLIENT_ID_2 = "579504878975-89b6fg2ctc46c0aqslrg5b37c234rj5h.apps.googleusercontent.com";
+
+        try {
+            if(null == idTokenString)
+                return null;
+
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(GoogleNetHttpTransport.newTrustedTransport(), jacksonFactory)
+                    // Specify the CLIENT_ID of the app that accesses the backend:
+                    .setAudience(Collections.singletonList(CLIENT_ID))
+                    // Or, if multiple clients access the backend:
+                    .setAudience(Arrays.asList(CLIENT_ID, CLIENT_ID_1, CLIENT_ID_2))
+                    .build();
+
+            GoogleIdToken idToken = verifier.verify(idTokenString);
+
+            if (idToken != null) {
+                JsonWebToken.Payload payload = idToken.getPayload();
+                return payload;
+            } else {
+                return null;
+            }
+        } catch (GeneralSecurityException e) {
+            logger.error("Sec Exception occurred ", e);
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            logger.error("Unknown Exception occurred ", e);
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

@@ -74,6 +74,9 @@ public class UserDAOImpl implements UserDAO {
         long count = 0L;
 
         try {
+
+            logger.info(" delete user {} - {}",uuid, emailId);
+
             Document match = new Document();
             match.put("emailId", emailId);
 
@@ -82,7 +85,7 @@ public class UserDAOImpl implements UserDAO {
             if(count > 0) return true;
 
         } catch (Exception e) {
-            logger.error("{} : {} ", e, uuid, e);
+            logger.error("{} : {} ", uuid, e);
         }
 
         return false;
