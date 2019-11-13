@@ -158,4 +158,20 @@ public class UserService {
         }
 
     }
+
+    public boolean ifUserPresent(String uuid, String emailId){
+
+        if (null != userDAOImpl.getUser(uuid, emailId))
+        return true;
+        else
+        return false;
+    }
+
+    public boolean registerUserFirstTime(String uuid, User user){
+
+        if( userDAOImpl.createUser(uuid, user))
+            return true;
+        else
+            return false;
+    }
 }

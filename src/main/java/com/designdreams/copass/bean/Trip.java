@@ -3,7 +3,10 @@ package com.designdreams.copass.bean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trip {
@@ -11,29 +14,34 @@ public class Trip {
     private String tripId;
 
     @JsonProperty(required = true)
-    @NotEmpty(message = "TravellerId is required")
+    @NotEmpty(message = "Valid TravellerId is required")
+    @Email(message = "Valid TravellerId is required")
     private String travellerId;
 
     @JsonProperty(required = true)
     @NotEmpty(message = "source is required")
+    @Size(min = 2, max = 3, message = "Invalid Source, Limit to 3 characters")
     private String source;
 
     @JsonProperty(required = true)
     @NotEmpty(message = "destination is required")
+    @Size(min = 2, max = 3, message = "Invalid Destination, Limit to 3 characters")
     private String destination;
 
-    @JsonProperty(required = true)
-    @NotEmpty(message = "travel start date is required")
+    @JsonProperty
+    @Size(max = 10, message = "Invalid Date, Limit to 10 characters")
     private String travelStartDate;
 
     private String travelMonth;
 
-    @JsonProperty(required = true)
-    @NotEmpty(message = "mode is required")
+    @JsonProperty
+    @Size(max = 10, message = "Invalid mode, Limit to 10 characters")
     private String mode;
 
+    @Size(max = 15, message = "Invalid airways, Limit to 10 characters")
     private String airways;
 
+    @Size(max = 10, message = "Invalid travel with, Limit to 10 characters")
     private String travellingWith;
 
     private boolean isTicketBooked;

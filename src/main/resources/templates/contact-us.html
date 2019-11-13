@@ -29,21 +29,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
         <a class="navbar-brand" href="#">COPASS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="/home">Home
+                <span class="sr-only">(current)</span>
+                </a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
+                <a class="nav-link" href="/addTrip">Add Trip</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/addTrip">Add Trip</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/findTrip">Find Trip</a>
+                <a class="nav-link" href="/findTrip">Find Trip</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/contactUs">Contact us</a>
@@ -59,15 +60,23 @@
 <!-- Page Content -->
 <div class="container">
 
-    <h3 id="greet" class="wish-name">Hello, [[${message}]]</h3>
+    <!--<h3 class="wish-name">Hello, [[${message}]]</h3>-->
+    <div id="contact-content">
+
+        <h1> Contact Us </h1>
+
+        <div>
+            <h3>
+                xxxxxxxxxxx@gmail.com
+            </h3>
+            <h5> Thank you! </h5>
+        </div>
+
+
+    </div>
 
     <div class="row">
         <div class="col-lg-12 text-center">
-
-            <div id="trips" class="trip-list"></div>
-
-
-
             <p class="lead">Find your Travel Companion! Happy and Safe Travel!</p>
             <!--<ul class="list-unstyled">-->
             <!--<li>Bootstrap 4.3.1</li>-->
@@ -81,39 +90,8 @@
 <script src="bs/vendor/jquery/jquery.slim.min.js"></script>
 <script src="bs/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!--<form id="authcon-form" method="POST" action="/home"></form>-->
 </body>
 
-
-<script th:inline="javascript">
-
-
-/*<![CDATA[*/
-var email = /*[[${email}]]*/ 'default';
-
-var message = /*[[${message}]]*/ '';
-
-// fix for home link
-
-if(window.location.pathname.includes('home')){
- email = localStorage.getItem("data-id");
-message = localStorage.getItem("data-nm");
-    document.getElementById("greet").innerHTML = "";
- document.getElementById("greet").innerHTML = "Hello, "+message;
-
-}else {
-if(typeof(Storage) !== "undefined") {
-    localStorage.clear();
-  localStorage.setItem("data-id", email);
-  localStorage.setItem("data-nm", message);
-}else{
-alert(" Your browser does not support this website. Please other browsers");
-}
-}
-/*]]>*/
-
-
-readTrip(email);
-
-</script>
 
 </html>

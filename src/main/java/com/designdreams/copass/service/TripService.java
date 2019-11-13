@@ -34,7 +34,8 @@ public class TripService {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTrip(@RequestBody CreateTripRequest createTripRequest,
-                                             @RequestHeader Map<String, String> headers) {
+                                             @RequestHeader Map<String, String> headers,
+                                             @CookieValue(required=false, value = "app_token") String token) {
 
         String travellerId;
         ResponseEntity<String> responseEntity = null;
@@ -42,14 +43,16 @@ public class TripService {
         String traceId;
         String status = null;
         String uuid = null;
-        String token = null;
 
         try {
 
             logger.info(" createTripRequest! " + createTripRequest.toString());
 
             uuid = headers.get("x-app-trace-id");
-            token = headers.get("x-app-auth-token");
+
+            if( null == token)
+                token = headers.get("x-app-auth-token");
+
 
             if(StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
@@ -96,7 +99,8 @@ public class TripService {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> readTrip(
             @RequestBody ReadTripRequest readItineraryRequest,
-            @RequestHeader Map<String, String> headers) {
+            @RequestHeader Map<String, String> headers,
+            @CookieValue(required=false, value = "app_token") String token) {
 
         List<Trip> tripList = null;
         String emailId = null;
@@ -104,13 +108,17 @@ public class TripService {
         String readTripResponse = null;
         ResponseEntity<String> responseEntity = null;
         String uuid = null;
-        String token = null;
+        //String token = null;
         JsonWebToken.Payload payload = null;
         String emailFromToken = "";
 
         try {
 
+            logger.info("token {}",token);
+
             uuid = headers.get("x-app-trace-id");
+
+            if( null == token)
             token = headers.get("x-app-auth-token");
 
             if(StringUtils.isEmpty(uuid))
@@ -129,10 +137,10 @@ public class TripService {
                 emailFromToken = ((GoogleIdToken.Payload) payload).getEmail();
             else
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
-
-            if(!emailId.equalsIgnoreCase(emailFromToken)){
-                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "user with this email account is not authorized");
-            }
+//             TODO - uncomment for prod
+//            if(!emailId.equalsIgnoreCase(emailFromToken)){
+//                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "user with this email account is not authorized");
+//            }
 
             tripList = tripDAO.getTripDetailsList(emailId);
 
@@ -184,7 +192,8 @@ public class TripService {
     @RequestMapping(value = "/findTrip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> findTrip(
             @RequestBody SearchTripRequest searchItineraryRequest,
-            @RequestHeader Map<String, String> headers) {
+            @RequestHeader Map<String, String> headers,
+            @CookieValue(required=false, value = "app_token") String token) {
 
         List<Trip> tripList = null;
         String emailId = null;
@@ -195,12 +204,13 @@ public class TripService {
         String startDate = null;
         String traceId = null;
         String uuid = null;
-        String token = null;
 
         try {
 
             uuid = headers.get("x-app-trace-id");
-            token = headers.get("x-app-auth-token");
+
+            if( null == token)
+                token = headers.get("x-app-auth-token");
 
             if(StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");

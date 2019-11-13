@@ -1,5 +1,5 @@
 html {
-  background: url('/images/bg_compass.jpg') no-repeat center center fixed;
+  //background: url('/images/bg_compass.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -20,6 +20,142 @@ html {
     color: #f9cc16;
 }
 
+/*
 #gbutton{
-width:40%
+margin-left: 42% !important;
+
+}*/
+
+.g-signin2s{
+margin-left: 40%;
+}
+
+
+h3.wish-name {
+color: chocolate;
+margin: 3% 1%;
+}
+
+#trips{
+     margin: 5%;
+}
+
+#trips h3{
+margin : 2%;
+}
+
+/*
+
+.trip-list{
+    margin: 20% 10% 20% 10%;
+}
+
+*/
+
+
+thead tr{
+color:#fcfcfc;
+background-color: #343a40 !important;
+}
+
+thead tr th{
+   padding: 2%;
+ }
+
+tr.aroww{
+  padding: 2%;
+   background-color: #c3cfda;
+   font-family: "DejaVu Sans", sans-serif;
+   font-weight: bold;
+}
+
+
+tr.roww{
+  padding: 2%;
+   background-color:#FFFFFF;
+   font-family: "DejaVu Sans", sans-serif;
+   font-weight: bold;
+}
+
+
+tr td{
+   padding: 1.5%;
+ }
+
+
+
+/*
+ tr.roww:nth-child(odd){
+   padding: 2%;
+   background-color: #antiquewhite;
+   font-family: "DejaVu Sans", sans-serif;
+   font-weight: bold;
+ }
+*/
+
+table {
+    width: 100% !important;
+}
+
+/*
+#trips table tr{
+  font-family: "DejaVu Sans", sans-serif;
+  font-weight: bold;
+  padding: 2%;
+  list-style-type: none;
+}
+
+tbody tr:nth-child(odd){
+    color: beige;
+    background-color: #343a40;
+}
+
+*/
+
+
+#trips ul li {
+  font-family: "DejaVu Sans", sans-serif;
+  font-weight: bold;
+  padding: 2%;
+  list-style-type: none;
+}
+
+#trips ul li:nth-child(odd) {
+    color: beige;
+    background-color: #343a40;
+    }
+
+/*
+
+
+#search-bar{
+    margin: 4% 5% 5% 4%;
+
+}
+*/
+
+#legend-name{
+    padding: 1.5%;
+}
+
+#trips-add{
+margin: 5% 1% 0% 5%
+}
+
+#add-trip-result{
+    background: #65ce9a;
+    padding: 2.5%;
+}
+
+label.search{
+padding-left:3%
+}
+
+#contact-content{
+margin: 10%
+}
+
+#error-content{
+margin: 10%
+
 }

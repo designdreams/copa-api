@@ -1,45 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>coming soon....</title>
 
-    <style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        .error-module{
+    <title>COPASS</title>
 
-            align:center;
+    <!-- Bootstrap core CSS -->
+    <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        }
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
-       #error-label{
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <!--<script src="js/home.js"></script>-->
+    <script th:src="@{js/home.js}"></script>
 
-            align:center;
-
-        }
-
-    </style>
 
 </head>
 <body>
 
-<div>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">COPASS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="/home">Home-->
+                        <!--<span class="sr-only">(current)</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item active">-->
+                    <!--<a class="nav-link" href="/addTrip">Add Trip</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="/findTrip">Find Trip</a>-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="/contactUs">Contact us</a>-->
+                <!--</li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout" onclick="signOut();">Sign out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <h2>
+<!-- Page Content -->
+<div class="container">
 
-        COMPASS
+    <!--<h3 class="wish-name">Hello, [[${message}]]</h3>-->
+    <div id="error-content">
 
-    </h2>
+        <h2> ERROR - NOT AUTHORIZED !</h2>
 
-</div>
-<section class = "error-module">
 
-    <div id="error-label"><h1>
-        NOT AUTHORIZED - Try with correct Login </h1>
+        <h4> For any assistance and queries, Contact us
+
     </div>
 
-</section>
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <p class="lead">Find your Travel Companion! Happy and Safe Travel!</p>
+            <!--<ul class="list-unstyled">-->
+            <!--<li>Bootstrap 4.3.1</li>-->
+            <!--<li>jQuery 3.4.1</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+</div>
 
+<!-- Bootstrap core JavaScript -->
+<script src="bs/vendor/jquery/jquery.slim.min.js"></script>
+<script src="bs/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!--<form id="authcon-form" method="POST" action="/home"></form>-->
 </body>
+
+
+<script th:inline="javascript">
+
+/*<![CDATA[*/
+var email = /*[[${email}]]*/ 'default';
+console.log(email);
+/*]]>*/
+
+function addTrip_wrapper(){
+
+var id = localStorage.getItem("data-id");
+addTrip(id);
+
+}
+
+function reset(){
+
+}
+
+
+
+</script>
+
 </html>

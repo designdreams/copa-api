@@ -59,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
 
             doc = mongoClient.getDatabase(database).getCollection(collection).find(match).first();
 
-            logger.info("{} - {}",uuid, doc.toJson());
+            logger.info("{} - {}",uuid, (null!=doc?doc.toJson():"null"));
             response = doc.get("user").toString();
 
         } catch (Exception e) {
