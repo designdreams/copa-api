@@ -29,7 +29,7 @@ public class Trip {
     private String destination;
 
     @JsonProperty
-    @Size(max = 10, message = "Invalid Date, Limit to 10 characters")
+    @Size(max = 16, message = "Invalid Date, Limit to 16 characters")
     private String travelStartDate;
 
     private String travelMonth;
@@ -38,7 +38,7 @@ public class Trip {
     @Size(max = 10, message = "Invalid mode, Limit to 10 characters")
     private String mode;
 
-    @Size(max = 15, message = "Invalid airways, Limit to 10 characters")
+    @Size(max = 10, message = "Invalid airways, Limit to 10 characters")
     private String airways;
 
     @Size(max = 10, message = "Invalid travel with, Limit to 10 characters")

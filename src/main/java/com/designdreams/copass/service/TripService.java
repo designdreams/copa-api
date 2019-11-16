@@ -64,6 +64,8 @@ public class TripService {
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
             Trip trip = createTripRequest.getTrip();
+            trip.setSource(trip.getSource().toUpperCase());
+            trip.setDestination(trip.getDestination().toUpperCase());
 
             travellerId = trip.getTravellerId();
 
@@ -138,9 +140,9 @@ public class TripService {
             else
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 //             TODO - uncomment for prod
-//            if(!emailId.equalsIgnoreCase(emailFromToken)){
-//                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "user with this email account is not authorized");
-//            }
+            if(!emailId.equalsIgnoreCase(emailFromToken)){
+                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "user with this email account is not authorized");
+            }
 
             tripList = tripDAO.getTripDetailsList(emailId);
 

@@ -5,10 +5,10 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Find your travel companion">
+    <meta name="author" content="travel, companion">
 
-    <title>COPASS</title>
+    <title>COPAYANA</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="#">COPASS</a>
+        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo.png" alt=""></img>CO PAYANA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -51,6 +51,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/logout" onclick="signOut();">Sign out</a>
                 </li>
+                <li class="nav-item">
+                    <img id="pro-pic" class="profile-pic" src=/*[[${pictureUrl}]]*/ alt="">
+                </li>
             </ul>
         </div>
     </div>
@@ -68,11 +71,8 @@
 
 
 
-            <p class="lead">Find your Travel Companion! Happy and Safe Travel!</p>
-            <!--<ul class="list-unstyled">-->
-            <!--<li>Bootstrap 4.3.1</li>-->
-            <!--<li>jQuery 3.4.1</li>-->
-            <!--</ul>-->
+            <p class="lead bottomline"> Happy and Safe Journey!</p>
+
         </div>
     </div>
 </div>
@@ -91,6 +91,7 @@
 var email = /*[[${email}]]*/ 'default';
 
 var message = /*[[${message}]]*/ '';
+var profile = /*[[${pictureUrl}]]*/ '';
 
 // fix for home link
 
@@ -111,6 +112,8 @@ alert(" Your browser does not support this website. Please other browsers");
 }
 /*]]>*/
 
+/* document.getElementById("pro-pic").src=profile;
+*/
 
 readTrip(email);
 

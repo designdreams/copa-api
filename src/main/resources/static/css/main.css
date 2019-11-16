@@ -6,9 +6,38 @@ html {
   background-size: cover;
 }
 
+#copayana_logo{
+    width: 12%;
+}
+
+.bottomline{
+color: #787d7d;
+font-family: serif;
+}
+
+.banner-message{
+    /* color: #787d7d */
+    font-family: initial;
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    color: #ffffff;
+    font-size: 30px;
+    /* transform: translate(-0%, -0%); */
+    /* top: 10%; */
+    /* margin-top: 5%; */
+    }
+
+#banner-container{
+
+}
+
+#banner-img{
+width:100%
+}
+
 #login-module{
-    width: 25%;
-    margin: 20% 45%;
+    margin: 10% 35%;
 }
 
 .title{
@@ -32,16 +61,22 @@ margin-left: 40%;
 
 
 h3.wish-name {
-color: chocolate;
+color: #7f8184;
 margin: 3% 1%;
 }
 
 #trips{
-     margin: 5%;
+     margin: 3%;
 }
 
+#find-trips{
+     margin: 2%;
+}
 #trips h3{
-margin : 2%;
+    font-size: 200%;
+    color: #9a9556;
+    font-family: serif;
+    margin: 2%;
 }
 
 /*
@@ -53,12 +88,13 @@ margin : 2%;
 */
 
 
-thead tr{
-color:#fcfcfc;
-background-color: #343a40 !important;
+#trips thead tr{
+    color: #dee2e6;
+    background-color: #343a40 !important;
+    font-family: serif;
 }
 
-thead tr th{
+#trips thead tr th{
    padding: 2%;
  }
 
@@ -66,7 +102,6 @@ tr.aroww{
   padding: 2%;
    background-color: #c3cfda;
    font-family: "DejaVu Sans", sans-serif;
-   font-weight: bold;
 }
 
 
@@ -74,7 +109,6 @@ tr.roww{
   padding: 2%;
    background-color:#FFFFFF;
    font-family: "DejaVu Sans", sans-serif;
-   font-weight: bold;
 }
 
 
@@ -135,15 +169,20 @@ tbody tr:nth-child(odd){
 */
 
 #legend-name{
+    font-size: 200%;
+    color: #9a9556;
+    font-family: serif;
+    /* margin: 2%; */
     padding: 1.5%;
 }
 
 #trips-add{
-margin: 5% 1% 0% 5%
+/* : 5% 1% 0% 5% */
 }
 
 #add-trip-result{
-    background: #65ce9a;
+    margin: 2%;
+    background: #9a9556;
     padding: 2.5%;
 }
 
@@ -152,10 +191,27 @@ padding-left:3%
 }
 
 #contact-content{
-margin: 10%
+    margin-top: 5%;
 }
 
 #error-content{
 margin: 10%
 
+}
+
+#pro-pic{
+
+}
+
+#copayana_center{
+width:300px
+}
+
+.contact-email{
+    color: #9a9556;
+    font-size: 25px !important;
+}
+
+.navbar-brand{
+    color: #e6df7a !important;
 }

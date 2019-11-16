@@ -76,6 +76,8 @@ public class AuthController {
 
                 boolean emailVerified = Boolean.valueOf(((GoogleIdToken.Payload) payload).getEmailVerified());
                 String name = (String) payload.get("name");
+                name = (name !=null)? name.toUpperCase():"";
+
                 String pictureUrl = (String) payload.get("picture");
                 String locale = (String) payload.get("locale");
                 String familyName = (String) payload.get("family_name");
@@ -110,6 +112,7 @@ public class AuthController {
                 cook = new Cookie("app_token",idTokenString);
                 //cook.setSecure(true);
                 cook.setHttpOnly(true);
+                cook.setMaxAge(60*15);
 
                 response.addCookie(cook);
 

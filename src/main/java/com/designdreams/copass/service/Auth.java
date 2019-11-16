@@ -6,6 +6,10 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.webtoken.JsonWebToken;
+import com.google.appengine.repackaged.org.joda.time.DateTimeComparator;
+import org.apache.commons.validator.GenericValidator;
+import org.apache.commons.validator.routines.DateValidator;
+import org.apache.http.client.utils.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -23,72 +28,72 @@ public class Auth {
     private static final JacksonFactory jacksonFactory = new JacksonFactory();
     private static final Logger logger = LogManager.getLogger(Auth.class);
 
-    @PostMapping("/auth")
-    public ModelAndView authenticated(
-            @RequestBody String request,
-            @RequestHeader Map<String, String> headers) {
-
-
-        String status = "FAILED";
-        ModelAndView mnv = null;
-        JsonWebToken.Payload payload = null;
-        String uuid = null;
-        String idTokenString =null;
-
-        try {
-
-            logger.info(" Auth service " + request);
-
-            idTokenString = headers.get("x-app-auth-token");
-            uuid = headers.get("x-app-trace-id");
-
-            //logger.info("token " + idTokenString);
-
-            if (null == idTokenString)
-                throw new RuntimeException("EMPTY_TOKEN_STRING");
-
-            payload = validateToken(uuid, idTokenString);
-
-            if (payload != null) {
-
-                // Print user identifier
-                String userId = payload.getSubject();
-                logger.info("User ID: " + userId);
-
-                // Get profile information from payload
-                String email = ((GoogleIdToken.Payload) payload).getEmail();
-                logger.info("email: " + email);
-
-                boolean emailVerified = Boolean.valueOf(((GoogleIdToken.Payload) payload).getEmailVerified());
-                String name = (String) payload.get("name");
-                String pictureUrl = (String) payload.get("picture");
-                String locale = (String) payload.get("locale");
-                String familyName = (String) payload.get("family_name");
-                String givenName = (String) payload.get("given_name");
-
-                logger.info("payload :" + payload.getJwtId());
-                // Use or store profile information
-
-                mnv = new ModelAndView("home");
-                mnv.addObject("message", name);
-                mnv.addObject("pictureUrl", pictureUrl);
-                mnv.addObject("locale", locale);
-
-                logger.info("Auth success for {}", email);
-
-            } else {
-                logger.info("Invalid ID token ");
-            }
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            logger.error("Unknown Exception occurred ", e);
-
-        }
-
-        return mnv;
-    }
+//    @PostMapping("/auth")
+//    public ModelAndView authenticated(
+//            @RequestBody String request,
+//            @RequestHeader Map<String, String> headers) {
+//
+//
+//        String status = "FAILED";
+//        ModelAndView mnv = null;
+//        JsonWebToken.Payload payload = null;
+//        String uuid = null;
+//        String idTokenString =null;
+//
+//        try {
+//
+//            logger.info(" Auth service " + request);
+//
+//            idTokenString = headers.get("x-app-auth-token");
+//            uuid = headers.get("x-app-trace-id");
+//
+//            //logger.info("token " + idTokenString);
+//
+//            if (null == idTokenString)
+//                throw new RuntimeException("EMPTY_TOKEN_STRING");
+//
+//            payload = validateToken(uuid, idTokenString);
+//
+//            if (payload != null) {
+//
+//                // Print user identifier
+//                String userId = payload.getSubject();
+//                logger.info("User ID: " + userId);
+//
+//                // Get profile information from payload
+//                String email = ((GoogleIdToken.Payload) payload).getEmail();
+//                logger.info("email: " + email);
+//
+//                boolean emailVerified = Boolean.valueOf(((GoogleIdToken.Payload) payload).getEmailVerified());
+//                String name = (String) payload.get("name");
+//                String pictureUrl = (String) payload.get("picture");
+//                String locale = (String) payload.get("locale");
+//                String familyName = (String) payload.get("family_name");
+//                String givenName = (String) payload.get("given_name");
+//
+//                logger.info("payload :" + payload.getJwtId());
+//                // Use or store profile information
+//
+//                mnv = new ModelAndView("home");
+//                mnv.addObject("message", name);
+//                mnv.addObject("pictureUrl", pictureUrl);
+//                mnv.addObject("locale", locale);
+//
+//                logger.info("Auth success for {}", email);
+//
+//            } else {
+//                logger.info("Invalid ID token ");
+//            }
+//
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//            logger.error("Unknown Exception occurred ", e);
+//
+//        }
+//
+//        return mnv;
+//    }
 
     public static JsonWebToken.Payload validateToken(String uuid, String idTokenString) {
 
@@ -125,5 +130,25 @@ public class Auth {
         }
 
         return null;
+    }
+
+
+    public static boolean valiateDate(String date){
+
+        String dateFormat = "yyyy-MM-dd";
+        String currentDate = java.time.LocalDate.now().toString();
+
+        logger.info("validate date " +GenericValidator.isDate(date, dateFormat, true));
+        logger.info("validate -- date " +DateTimeComparator.getDateOnlyInstance().compare(currentDate, date));
+
+       if (date !=null && !date.isEmpty() &&
+               GenericValidator.isDate(date, dateFormat, true)
+       &&  DateTimeComparator.getDateOnlyInstance().compare(date, currentDate) >= 0){
+
+           return true;
+
+       }
+
+        return false;
     }
 }

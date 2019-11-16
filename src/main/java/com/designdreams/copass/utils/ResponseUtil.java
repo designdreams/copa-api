@@ -3,6 +3,7 @@ package com.designdreams.copass.utils;
 import com.designdreams.copass.dao.UserDAOImpl;
 import com.designdreams.copass.payload.CreateTripRequest;
 import com.designdreams.copass.payload.Response;
+import com.designdreams.copass.service.Auth;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,6 +62,12 @@ public class ResponseUtil {
             Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
             errMsgSet = validator.validate(createTripRequest);
             errMsg = (null != errMsgSet && !errMsgSet.isEmpty()) ? ((ConstraintViolation) errMsgSet.toArray()[0]).getMessage() : null;
+
+
+            // validate Date
+            if(!Auth.valiateDate(((CreateTripRequest)createTripRequest).getTrip().getTravelStartDate())){
+                errMsg = "Invalid date. Choose valid date";
+            }
 
         } catch (Exception e) {
             logger.error(e, e);

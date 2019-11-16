@@ -76,8 +76,17 @@ xhr.send(data);
 
 function populateTripsHtmlNew(action, obj){
 
+
+
+if(action == 'FIND'){
+var listDiv = document.getElementById("find-trips");
+document.getElementById("find-trips").innerHTML = "";
+
+}else{
 var listDiv = document.getElementById("trips");
 document.getElementById("trips").innerHTML = "";
+}
+
 
 var tripHead = document.createElement("h3");
 tripHead.class = "trip-head";
@@ -217,7 +226,7 @@ xhr.withCredentials = true;
 xhr.addEventListener("readystatechange", function () {
 
   if (this.readyState > 0) {
-   document.getElementById("trips").innerHTML = 'Please wait! Pulling trips.....';
+   document.getElementById("find-trips").innerHTML = 'Please wait! Pulling trips.....';
     }
 
   if (this.readyState === 4) {
@@ -230,14 +239,14 @@ xhr.addEventListener("readystatechange", function () {
         var obj = JSON.parse(response);
 
         if(obj.respCode == 'NO_TRIPS_FOUND'){
-                document.getElementById("trips").innerHTML = 'You do not have any matching trips!';
+                document.getElementById("find-trips").innerHTML = 'You do not have any matching trips!';
         }else{
             //populateTripsHtml(obj);
             populateTripsHtmlNew('FIND', obj);
         }
     }else{
     //alert(response);
-        document.getElementById("trips").innerHTML = 'SORRY! PLEASE TRY LATER!';
+        document.getElementById("find-trips").innerHTML = 'SORRY! PLEASE TRY LATER!';
     }
 }
 });
@@ -327,11 +336,14 @@ function populateResult(obj){
 var listDiv = document.getElementById("add-trip-result");
 
 if(obj && obj.respCode == "SUCCESS"){
-listDiv.innerHTML = "Great! Your trip id added successfully!";
+listDiv.innerHTML = "Great! Your trip is added successfully!";
 }else if(obj && obj.respCode == "INVALID_SAME_DAY_DUPLICATE_TRIP"){
 listDiv.innerHTML = "Trip already added!!";
 
-}else{
+}else if(obj && obj.respCode == "DUPLICATE_TRIP"){
+ listDiv.innerHTML = "Trip already added!!";
+
+ }else{
 listDiv.innerHTML = "Could not add Trip. Please Try Again!";
 
 }
