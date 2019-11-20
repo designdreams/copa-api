@@ -214,10 +214,12 @@ function findTrip(){
 
 var source = document.getElementById("src").value;
 var destination = document.getElementById("dest").value;
+var date = document.getElementById("trip-date").value;
 
 var data = JSON.stringify({
 	"source": source,
-	"destination": destination
+	"destination": destination,
+	"travelStartDate" : date
 	});
 
 var xhr = new XMLHttpRequest();

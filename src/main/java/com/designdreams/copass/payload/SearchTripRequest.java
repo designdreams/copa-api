@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class SearchTripRequest {
 
@@ -18,7 +19,8 @@ public class SearchTripRequest {
     @NotEmpty(message = "Destination cannot be empty")
     private String destination;
 
-    //@DateTimeFormat(pattern = "YYYY-MM-dd")
+    @JsonProperty
+    @Size(max = 16, message = "Invalid Date, Limit to 16 characters")
     private String travelStartDate;
 
     public String getUserId() {

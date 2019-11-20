@@ -85,8 +85,8 @@ public class TripDAOImpl implements TripDAO {
                     }
 
 
-                    if (tripCount > 0) {
-                        status = "DUPLICATE_TRIP";
+                    if (tripCount > 3) {
+                        status = "DUPLICATE_TRIP_PLACE_MAX_3";
                         return status;
                     }
 
@@ -201,8 +201,8 @@ public class TripDAOImpl implements TripDAO {
             match.put("trips.destination", dest);
 
 
-            if (null != date) {
-                match.put("trips.date", date);
+            if (null != date && !date.isEmpty()) {
+                match.put("trips.travelStartDate", date);
             }
 
             logger.info(match.toJson());

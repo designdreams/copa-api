@@ -168,7 +168,7 @@
                         <label class="col-md-4 control-label" for="add-button"></label>
                         <div class="col-md-8">
                             <button id="add-button" name="add-button" class="btn btn-success" >Add</button>
-                            <button id="reset-button" name="reset-button" class="btn btn-info" onclick="reset()">Reset</button>
+                            <button id="reset-button" name="reset-button" class="btn btn-info" onclick="reset();restAll()">Reset</button>
                         </div>
                     </div>
 
@@ -227,7 +227,9 @@ date.setDate(date.getDate());
 
     });
 
-
+function resetAll(){
+document.getElementById("trip-date").value = "";
+}
 
 </script>
 

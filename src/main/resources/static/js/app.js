@@ -1,8 +1,10 @@
-var APP_URL= 'http://localhost:8080/authcon';
+//var APP_URL= 'http://localhost:8080/authcon';
 //var APP_URL= 'https://dd-project-c.appspot.com/authcon';
+var APP_URL= 'www.copayana.com/authcon';
 
-var HOST = 'http://localhost:8080/';
-// HOST= 'https://dd-project-c.appspot.com/';
+//var HOST = 'http://localhost:8080/';
+// var HOST= 'https://dd-project-c.appspot.com/';
+ var HOST= 'www.copayana.com/';
 
 var id_token = '';
 var email = '';
