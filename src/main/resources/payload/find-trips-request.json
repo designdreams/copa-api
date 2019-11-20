@@ -1,0 +1,5 @@
+{
+  "source": "MAS",
+  "destination": "DXB",
+  "travelDate": "11-24-2019" // optional
+}

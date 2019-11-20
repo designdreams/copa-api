@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "432000ee-c7f1-426c-8e54-19241b46a290",
+		"name": "copass",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "E0-getTripList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\":{\n\t\t\"emailId\":\"jessie@efg.com\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/readTrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"readTrip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E0-createTrip",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"travellerId\":\"swwav@asd.com\",\n  \"trip\": \n    {\n      \"source\": \"CCC\",\n      \"destination\": \"DXB\",\n      \"travelStartDate\": \"2019-11-24\",\n      \"mode\":\"Airways\",\n      \"airways\":\"QATAR\",\n      \"travellingWith\":\"family\",\n      \"isTicketBooked\":true,\n      \"isDomestic\":false,\n      \"canTakePackageInd\":false,\n      \"isFinalDestination\":false\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/createTrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"createTrip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E0-searchTripList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"source\":\"CCC\",\n\t\"destination\":\"DXB\",\n\t\"user\":{\n\t\t\"emailId\":\"hariv@asd.com\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/findTrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"findTrip"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

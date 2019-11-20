@@ -1,13 +1,17 @@
 package com.designdreams.copass.dao;
 
+import com.designdreams.copass.bean.Trip;
+
+import java.util.List;
+
 public interface TripDAO {
 
-    public String getTripDetails(int tripId);
+     String createTrip(String uuid, String emailId, Trip trip);
 
-//    public String getTripDetailsList(String emailId);
-//
-//    public String findTrip(String src, String dest, String startDate, String endDate);
-//
-//    public String findTripByAirways(String src, String dest, String startDate, String endDate, String airways);
+     String getTripDetails(String uuid, String emailId, String tripId);
+
+     List<Trip> getTripDetailsList(String emailId);
+
+     List<Trip> searchTripDetailsList(String traceId, String src, String dest, String date);
 
 }

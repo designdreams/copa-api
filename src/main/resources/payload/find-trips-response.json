@@ -1,0 +1,50 @@
+{
+  "travellers": [
+    {
+      "user": "wwww@asasas.com",
+      "trips": [
+        {
+          "source": "MAS",
+          "destination": "DXB",
+          "travelDate": "11-24-2019",
+          "airways": "Emirates",
+          "isTicketsBooked": true,
+          "travellingWith": "Alone|Family|Kids|Elders",
+          "enableNotification": true
+        },
+        {
+          "source": "DXB",
+          "destination": "JFK",
+          "travelDate": "11-24-2019",
+          "airways": "Emirates",
+          "isTicketsBooked": true,
+          "travellingWith": "Alone|Family|Kids|Elders",
+          "enableNotification": false
+        },
+        {
+          "source": "JFK",
+          "destination": "PHX",
+          "travelDate": "11-24-2019",
+          "airways": "JetBlue",
+          "isTicketsBooked": true,
+          "travellingWith": "Alone|Family|Kids|Elders",
+          "enableNotification": false
+        }
+      ]
+    },
+    {
+      "user": "sss@asas.com",
+      "trips": [
+        {
+          "source": "MAS",
+          "destination": "DXB",
+          "travelDate": "11-24-2019",
+          "airways": "Emirates",
+          "isTicketsBooked": true,
+          "travellingWith": "Alone|Family|Kids|Elders",
+          "enableNotification": true
+        }
+      ]
+    }
+  ]
+}

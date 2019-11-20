@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Find your travel companion">
+    <meta name="author" content="travel, companion">
+
+    <title>COPAYANA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
+
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" href="css/main.css"/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/site.webmanifest">
+
+    <link rel="shortcut icon" type="image/png" th:href="@{images/favicon.ico}"/>
+
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo.png" alt=""></img>CO PAYANA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">About Us
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+                    <div class="g-signin2 nav-link" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="banner-container">
+    <img id="banner-img" src="/images/banner/copayana-bg1.png" alt="">
+    <h1 class="mt-5 banner-message">We got you! Finding travel companion made easy!</h1>
+</div>
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+
+            <div id="login-module">
+                <form id="login-auth" name="login-auth-form" action="/authcon" method="POST">
+                    <input id="x-app-token-param" name="app-token" type="hidden" value="">
+                </form>
+            </div>
+
+            <p class="lead bottomline"> Happy and Safe Journey!</p>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="bs/vendor/jquery/jquery.slim.min.js"></script>
+<script src="bs/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

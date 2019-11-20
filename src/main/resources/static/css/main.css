@@ -1,0 +1,242 @@
+html {
+  //background: url('/images/bg_compass.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#copayana_logo{
+    width: 12%;
+}
+
+.bottomline{
+color: #787d7d;
+font-family: serif;
+}
+
+.banner-message{
+    /* color: #787d7d */
+    font-family: initial;
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    color: #ffffff;
+    /* font-size: 30px; */
+    /* transform: translate(-0%, -0%); */
+    /* top: 10%; */
+    /* margin-top: 5%; */
+    }
+
+#banner-container{
+
+}
+
+#banner-img{
+width:100%
+}
+
+#login-module{
+    margin: 10% 35%;
+}
+
+.title{
+    color: antiquewhite;
+
+}
+
+#login-label{
+    color: #f9cc16;
+}
+
+/*
+#gbutton{
+margin-left: 42% !important;
+
+}*/
+
+.g-signin2s{
+margin-left: 40%;
+}
+
+
+h3.wish-name {
+color: #7f8184;
+margin: 3% 1%;
+}
+
+#trips{
+     margin: 3%;
+}
+
+#find-trips{
+     margin: 2%;
+}
+#trips h3{
+    font-size: 200%;
+    color: #9a9556;
+    font-family: serif;
+    margin: 2%;
+}
+
+/*
+
+.trip-list{
+    margin: 20% 10% 20% 10%;
+}
+
+*/
+
+
+#trips thead tr{
+    color: #dee2e6;
+    background-color: #343a40 !important;
+    font-family: serif;
+}
+
+#trips thead tr th{
+   padding: 2%;
+ }
+
+tr.aroww{
+  padding: 2%;
+   background-color: #c3cfda;
+   font-family: "DejaVu Sans", sans-serif;
+}
+
+
+tr.roww{
+  padding: 2%;
+   background-color:#FFFFFF;
+   font-family: "DejaVu Sans", sans-serif;
+}
+
+
+tr td{
+   padding: 1.5%;
+ }
+
+/*
+ @media all and (max-width: 1200px) { /* screen size until 1200px
+     body {
+         font-size: 1.5em; /* 1.5x default size
+     }
+ }
+ @media all and (max-width: 1000px) { /* screen size until 1000px
+     body {
+         font-size: 1.2em; /* 1.2x default size
+         }
+     }
+     */
+ @media all and (max-width: 500px) { /* screen size until 500px */
+
+    /* body {
+         font-size: 0.8em; /* 0.8x default size
+         } */
+
+         .banner-message{
+         font-size: 0.8em;
+         top:15%
+         }
+     }
+
+
+
+/*
+ tr.roww:nth-child(odd){
+   padding: 2%;
+   background-color: #antiquewhite;
+   font-family: "DejaVu Sans", sans-serif;
+   font-weight: bold;
+ }
+*/
+
+table {
+    width: 100% !important;
+}
+
+/*
+#trips table tr{
+  font-family: "DejaVu Sans", sans-serif;
+  font-weight: bold;
+  padding: 2%;
+  list-style-type: none;
+}
+
+tbody tr:nth-child(odd){
+    color: beige;
+    background-color: #343a40;
+}
+
+*/
+
+
+#trips ul li {
+  font-family: "DejaVu Sans", sans-serif;
+  font-weight: bold;
+  padding: 2%;
+  list-style-type: none;
+}
+
+#trips ul li:nth-child(odd) {
+    color: beige;
+    background-color: #343a40;
+    }
+
+/*
+
+
+#search-bar{
+    margin: 4% 5% 5% 4%;
+
+}
+*/
+
+#legend-name{
+    font-size: 200%;
+    color: #9a9556;
+    font-family: serif;
+    /* margin: 2%; */
+    padding: 1.5%;
+}
+
+#trips-add{
+/* : 5% 1% 0% 5% */
+}
+
+#add-trip-result{
+    color: #f8f9fa;
+    margin: 2%;
+    background: #9a9556;
+    padding: 2.5%;
+}
+
+label.search{
+padding-left:3%
+}
+
+#contact-content{
+    margin-top: 5%;
+}
+
+#error-content{
+margin: 10%
+
+}
+
+#pro-pic{
+
+}
+
+#copayana_center{
+width:300px
+}
+
+.contact-email{
+    color: #9a9556;
+    font-size: 25px !important;
+}
+
+.navbar-brand{
+    color: #e6df7a !important;
+}

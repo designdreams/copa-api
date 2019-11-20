@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "432000ee-c7f1-426c-8e54-19241b46a290",
+		"name": "copass",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "E0-getTripList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"userId\":\"kkaa@efg.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/readTrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"readTrip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E0-createTrip",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"trip\": {\n        \"travellerId\": \"ashs@efg.com\",\n        \"source\": \"DDD\",\n        \"destination\": \"eee\",\n        \"travelStartDate\": \"2019-11-24\",\n        \"mode\": \"Airways\",\n        \"airways\": \"QATAR\",\n        \"travellingWith\": \"family\",\n        \"isTicketBooked\": true,\n        \"isDomestic\": false,\n        \"canTakePackageInd\": false,\n        \"isFinalDestination\": false\n    }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/createTrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"createTrip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E0 :Find Trip",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"source\":\"CxC\",\n\t\"destination\":\"ddd\",\n\t\"userId\":\"kkaa@efg.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/findTrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"findTrip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GCP :: https://dd-project-c.appspot.com/check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://dd-project-c.appspot.com/check",
+					"protocol": "https",
+					"host": [
+						"dd-project-c",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "E0-registerUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\":{\n\t\t\"emailId\":\"kk@efg.com\",\n\t\t\"name\":\"kk\",\n\t\t\"gender\":\"m\",\n\t\t\"age\":24,\n\t\t\"contactNo\": \"+111231231231\",\n\t\t\"aboutMe\":\"super man , spider man, human\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/user/get",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"emailId\":\"rajini@efg.com\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8081/user/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

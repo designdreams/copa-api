@@ -1,10 +1,16 @@
 
+gcp:
+https://codelabs.developers.google.com/codelabs/cloud-app-engine-springboot/index.html?index=..%2F..index#0
+https://console.cloud.google.com/apis/library
+
 API Doc
 
 http://localhost:8081/ping
 
 http://localhost:8081/readTravellerInfo?id=3
 
+https://stackoverflow.com/questions/53972024/java-lang-noclassdeffounderror-com-google-appengine-api-urlfetch-httpmethod
+https://developers.google.com/identity/sign-in/android/backend-auth
 
 Mysql:
 
@@ -16,6 +22,19 @@ show databases;
 use copassdb;
 
 show tables;
+
+CREATE TABLE TRAVELLER_PROFILE
+(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(20) NOT NULL,
+age VARCHAR(20),
+email VARCHAR(20) NOT NULL,
+gender CHAR(1),
+birth DATE,
+contact CHAR(10),
+notes VARCHAR(100)
+);
+
 
 describe TRAVELLER_PROFILE;
 +---------+--------------+------+-----+---------+----------------+
@@ -34,19 +53,142 @@ describe TRAVELLER_PROFILE;
 insert into traveller_profile
 values(default,'sample','23','emailid','m','2000-02-02','9876543211','happy trip');
 
+
+CREATE TABLE TRIP
+(
+trip_id INT AUTO_INCREMENT PRIMARY KEY,
+traveller_id VARCHAR(320),
+source VARCHAR(20) NOT NULL,
+destination VARCHAR(20) NOT NULL,
+travel_start_date DATE,
+mode CHAR(10) ,
+airways VARCHAR(20),
+travellingWith VARCHAR(10),
+isTicketBooked CHAR(1),
+isDomestic CHAR(1),
+canTakePackageInd CHAR(1),
+isFinalDestination CHAR(1)
+);
+
+
 mysql> describe trip;
-+----------------+--------------+------+-----+---------+----------------+
-| Field          | Type         | Null | Key | Default | Extra          |
-+----------------+--------------+------+-----+---------+----------------+
-| trip_id        | int(11)      | NO   | PRI | NULL    | auto_increment |
-| traveller_id   | int(11)      | YES  |     | NULL    |                |
-| source         | varchar(20)  | NO   |     | NULL    |                |
-| destination    | varchar(20)  | NO   |     | NULL    |                |
-| hops           | varchar(100) | YES  |     | NULL    |                |
-| travel_date    | date         | YES  |     | NULL    |                |
-| travel_month   | char(3)      | YES  |     | NULL    |                |
-| mode           | char(10)     | YES  |     | NULL    |                |
-| isAlone        | char(1)      | YES  |     | NULL    |                |
-| isTicketBooked | char(1)      | YES  |     | NULL    |                |
-| isDomestic     | char(1)      | YES  |     | NULL    |                |
-+----------------+--------------+------+-----+---------+----------------+
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| trip_id            | int(11)      | NO   | PRI | NULL    | auto_increment |
+| traveller_id       | varchar(320) | YES  |     | NULL    |                |
+| source             | varchar(20)  | NO   |     | NULL    |                |
+| destination        | varchar(20)  | NO   |     | NULL    |                |
+| travel_start_date  | date         | YES  |     | NULL    |                |
+| mode               | char(10)     | YES  |     | NULL    |                |
+| airways            | varchar(20)  | YES  |     | NULL    |                |
+| travellingWith     | varchar(10)  | YES  |     | NULL    |                |
+| isTicketBooked     | char(1)      | YES  |     | NULL    |                |
+| isDomestic         | char(1)      | YES  |     | NULL    |                |
+| canTakePackageInd  | char(1)      | YES  |     | NULL    |                |
+| isFinalDestination | char(1)      | YES  |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+
+11 rows in set (0.00 sec)
+
+insert into trip
+values(default,'jessie@efg.com','MAS','SEA','2020-02-03','Airways','Qatar','Alone','N','N','Y','Y');
+
+insert into trip
+values(default,'amy@efg.com','JFK','PHX','2020-02-03','Airways','Emirates','Family','N','N','Y','Y');
+insert into trip
+values(default,'amy@efg.com','MAS','PHX','2019-02-03','Airways','Emirates','Family','N','N','Y','Y');
+insert into trip
+values(default,'amy@efg.com','JFK','PHX','2020-02-03','Airways','Emirates','Family','N','N','Y','Y');
+
+
+
+API::
+
+CREATE::
+
+http://localhost:8081/createTrip
+Content-Type:application/json
+
+{
+  "travellerId":"swwav@asd.com",
+  "trip":
+    {
+      "source": "CCC",
+      "destination": "DXB",
+      "travelStartDate": "2019-11-24",
+      "mode":"Airways",
+      "airways":"QATAR",
+      "travellingWith":"family",
+      "isTicketBooked":true,
+      "isDomestic":false,
+      "canTakePackageInd":false,
+      "isFinalDestination":false
+    }
+}
+
+resp:
+{
+    "respCode": "SUCCESS",
+    "respMessage": "Successfully created trip!"
+}
+
+
+READ::
+
+http://localhost:8081/readTrip
+Content-Type:application/json
+
+{
+	"user":{
+		"emailId":"swwav@asd.com"
+	}
+}
+
+{
+    "travellerId": "swwav@asd.com",
+    "tripList": [
+        {
+            "tripId": "14",
+            "source": "HYD",
+            "destination": "DXB",
+            "travelStartDate": "2019-11-24",
+            "travelMonth": "JAN",
+            "mode": "Airways",
+            "airways": null,
+            "travellingWith": "family",
+            "canTakePackageInd": false,
+            "ticketBooked": false,
+            "domestic": false,
+            "finalDestination": false
+        },
+        {
+            "tripId": "15",
+            "source": "BEN",
+            "destination": "DXB",
+            "travelStartDate": "2019-11-24",
+            "travelMonth": "JAN",
+            "mode": "Airways",
+            "airways": null,
+            "travellingWith": "family",
+            "canTakePackageInd": false,
+            "ticketBooked": false,
+            "domestic": false,
+            "finalDestination": false
+        },
+        {
+            "tripId": "16",
+            "source": "CCC",
+            "destination": "DXB",
+            "travelStartDate": "2019-11-24",
+            "travelMonth": "JAN",
+            "mode": "Airways",
+            "airways": null,
+            "travellingWith": "family",
+            "canTakePackageInd": false,
+            "ticketBooked": false,
+            "domestic": false,
+            "finalDestination": false
+        }
+    ]
+}
