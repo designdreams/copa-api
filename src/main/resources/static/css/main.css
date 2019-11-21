@@ -17,11 +17,13 @@ font-family: serif;
 
 .banner-message{
     /* color: #787d7d */
-    font-family: initial;
-    position: absolute;
+    margin:3%;
+    /*font-family: initial;*/
+    /* position: absolute; */
     top: 12%;
     left: 12%;
-    color: #ffffff;
+    color: #5f5757;
+    font-family: initial;
     /* font-size: 30px; */
     /* transform: translate(-0%, -0%); */
     /* top: 10%; */
@@ -122,12 +124,16 @@ tr td{
          font-size: 1.5em; /* 1.5x default size
      }
  }
- @media all and (max-width: 1000px) { /* screen size until 1000px
-     body {
-         font-size: 1.2em; /* 1.2x default size
+
+ */
+ @media all and (max-width: 1000px) { /* screen size until 1000px */
+
+         .banner-message{
+         font-size: 1.5em;
+         margin:3%;
          }
      }
-     */
+
  @media all and (max-width: 500px) { /* screen size until 500px */
 
     /* body {
@@ -135,8 +141,7 @@ tr td{
          } */
 
          .banner-message{
-         font-size: 0.8em;
-         top:15%
+         font-size: 1.2em;
          }
      }
 

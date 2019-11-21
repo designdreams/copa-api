@@ -1,6 +1,6 @@
-
-var HOST = 'http://localhost:8080/';
+//var HOST = 'http://localhost:8080/';
 // HOST= 'https://dd-project-c.appspot.com/';
+ var HOST= 'http://www.copayana.com/';
 
 
   function signOut() {
