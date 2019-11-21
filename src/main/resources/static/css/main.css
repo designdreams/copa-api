@@ -96,6 +96,12 @@ margin: 3% 1%;
     font-family: serif;
 }
 
+#find-trips thead tr{
+    color: #dee2e6;
+    background-color: #343a40 !important;
+    font-family: serif;
+}
+
 #trips thead tr th{
    padding: 2%;
  }
