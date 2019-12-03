@@ -251,3 +251,8 @@ width:300px
 .navbar-brand{
     color: #e6df7a !important;
 }
+
+.autocomplete-result:hover{
+    background: #B9DCEB;
+
+}
