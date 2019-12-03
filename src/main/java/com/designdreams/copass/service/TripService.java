@@ -222,8 +222,8 @@ public class TripService {
 
 
             emailId = searchItineraryRequest.getUserId();
-            source = searchItineraryRequest.getSource();
-            destination = searchItineraryRequest.getDestination();
+            source = searchItineraryRequest.getSource().toUpperCase();
+            destination = searchItineraryRequest.getDestination().toUpperCase();
             startDate = searchItineraryRequest.getTravelStartDate();
 
             logger.info(" searched by user :: " + emailId);
