@@ -138,16 +138,22 @@ public class Auth {
         String dateFormat = "yyyy-MM-dd";
         String currentDate = java.time.LocalDate.now().toString();
 
-        logger.info("validate date " +GenericValidator.isDate(date, dateFormat, true));
-        logger.info("validate -- date " +DateTimeComparator.getDateOnlyInstance().compare(currentDate, date));
 
        if (date !=null && !date.isEmpty() &&
                GenericValidator.isDate(date, dateFormat, true)
        &&  DateTimeComparator.getDateOnlyInstance().compare(date, currentDate) >= 0){
 
+           logger.info("validate date " +GenericValidator.isDate(date, dateFormat, true));
+           logger.info("validate -- date " +DateTimeComparator.getDateOnlyInstance().compare(currentDate, date));
+
            return true;
 
        }
+
+        // empty date is allowed
+        if (date !=null && date.isEmpty()){
+            return true;
+        }
 
         return false;
     }

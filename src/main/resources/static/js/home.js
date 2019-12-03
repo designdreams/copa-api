@@ -212,8 +212,8 @@ listDiv.appendChild(table);
 
 function findTrip(){
 
-var source = document.getElementById("src").value;
-var destination = document.getElementById("dest").value;
+var source = document.getElementById("src").value.substring(0, 3);
+var destination = document.getElementById("dest").value.substring(0, 3);
 var date = document.getElementById("trip-date").value;
 
 var data = JSON.stringify({
@@ -270,8 +270,8 @@ xhr.send(data);
 
 function addTrip(id){
 
-var source = document.getElementById("trip-from").value;
-var destination = document.getElementById("trip-to").value;
+var source = document.getElementById("trip-from").value.substring(0, 3);
+var destination = document.getElementById("trip-to").value.substring(0, 3);
 var date = document.getElementById("trip-date").value;
 var airways = document.getElementById("airways").value;
 var tripWith = document.getElementById("trip-with").value;
