@@ -1,6 +1,6 @@
 //var APP_URL= 'http://localhost:8080/authcon';
 //var APP_URL= 'https://dd-project-c.appspot.com/authcon';
-var APP_URL= 'http//www.copayana.com/authcon';
+//var APP_URL= 'http//www.copayana.com/authcon';
 
 
 var id_token = '';
