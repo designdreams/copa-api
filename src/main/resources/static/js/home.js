@@ -174,8 +174,26 @@ for (var i = 0; i < len; ++i) {
 
   col_from.appendChild(document.createTextNode(obj.tripList[i].source));
   col_to.appendChild(document.createTextNode(obj.tripList[i].destination));
-  col_date.appendChild(document.createTextNode(obj.tripList[i].travelStartDate));
-  col_airways.appendChild(document.createTextNode(obj.tripList[i].airways));
+
+  var date = "";
+  if(obj.tripList[i].travelStartDate == null ||
+  obj.tripList[i].travelStartDate == ""){
+  date = "Not Planned";
+  }else{
+  date = obj.tripList[i].travelStartDate;
+  }
+
+  col_date.appendChild(document.createTextNode(date));
+
+    var airways = "";
+    if(obj.tripList[i].airways == null ||
+    obj.tripList[i].airways == ""){
+    airways = "Any";
+    }else{
+    airways = obj.tripList[i].airways;
+    }
+
+  col_airways.appendChild(document.createTextNode(airways));
   col_travellingWith.appendChild(document.createTextNode(obj.tripList[i].travellingWith));
 
   if(action == 'FIND'){
