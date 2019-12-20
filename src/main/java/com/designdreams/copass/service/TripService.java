@@ -163,7 +163,7 @@ public class TripService {
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());
                 readItineraryResponse = new ReadTripResponse();
-                 tripList.sort((Trip t1,Trip t2)->t2.getTravelStartDate().compareTo(t1.getTravelStartDate()));
+                // tripList.sort((Trip t1,Trip t2)->t2.getTravelStartDate().compareTo(t1.getTravelStartDate()));
                 readItineraryResponse.setTripList(tripList);
 
                 readTripResponse = mapper.writeValueAsString(readItineraryResponse);
@@ -237,7 +237,7 @@ public class TripService {
                 mapper.writer(new DefaultPrettyPrinter());
 
                 SearchTripResponse searchItineraryResponse = new SearchTripResponse();
-                 tripList.sort((Trip t1,Trip t2)->t2.getTravelStartDate().compareTo(t1.getTravelStartDate()));
+                // tripList.sort((Trip t1,Trip t2)->t2.getTravelStartDate().compareTo(t1.getTravelStartDate()));
                 searchItineraryResponse.setTripList(tripList);
 
                 searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
