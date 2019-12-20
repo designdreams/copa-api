@@ -147,7 +147,7 @@ public class AuthController {
             Cookie cook = null;
             mnv = null;
             mnv = new ModelAndView("index");
-            cook = new Cookie("app_token","");
+            cook = new Cookie("app_token",null);
             cook.setMaxAge(-1);
             response.addCookie(cook);
 

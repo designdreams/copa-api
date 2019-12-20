@@ -28,7 +28,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo.png" alt=""></img>CO PAYANA</a>
+        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,9 +45,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/findTrip">Find Trip</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contactUs">Contact us</a>
-                </li>
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="/contactUs">Contact us</a>-->
+                <!--</li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="/logout" onclick="signOut();">Sign out</a>
                 </li>
@@ -65,16 +65,22 @@
     <h5 id="greet" class="wish-name">Welcome, [[${message}]]</h5>
 
     <div id="home-content">
-    View your planned trips here. If you have not added any, please add it using Add Trip.
-        If you want to search a trip companion, use Find Trip. Good luck!
+    Your planned trips will appear here. If you are planning any, please add it using Add Trip or
+        to search a trip companion, use Find Trip from menu. Good luck!
     </div>
+
 
     <div class="row">
         <div class="col-lg-12 text-center">
 
+
             <div id="trips" class="trip-list"></div>
 
             <p class="lead bottomline"> Happy and Safe Journey!</p>
+
+            <hr>
+            <div id="footer"> <a href="/privacy.html" target="_blank">Privacy</a> | <a href="/tnc.html" target="_blank">Terms</a> | <a href="/contact-us.html" target="_blank">Contact us</a> | @copyright 2019</div>
+
 
         </div>
     </div>

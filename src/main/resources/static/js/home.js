@@ -1,11 +1,11 @@
 var HOST = 'http://localhost:8080/';
 // HOST= 'https://dd-project-c.appspot.com/';
- //var HOST= 'http://www.copayana.com/';
+ //var HOST= 'https://www.copayana.com/';
 
 
   function signOut() {
 
-  alert('Logging out');
+  alert('You are signing out from this website. If needed, Please sign out from google in your browser!');
 
     logOut();
     var auth2 = gapi.auth2.getAuthInstance();
@@ -44,7 +44,7 @@ xhr.addEventListener("readystatechange", function () {
         var obj = JSON.parse(response);
 
         if(obj.respCode == 'NO_TRIPS_FOUND'){
-                document.getElementById("trips").innerHTML = 'You do not have any active trips! Add now..';
+                document.getElementById("trips").innerHTML = '<span class="no-trip">You do not have any active trips! Add using the menu.</span>';
         }else{
             //populateTripsHtml(obj);
             populateTripsHtmlNew('READ', obj);
@@ -404,12 +404,16 @@ if(obj && obj.respCode == "SUCCESS"){
 //listDiv.innerHTML = "Great! Your trip is added successfully!";
 openAddResponseModal("Great! Your trip is added successfully!");
 
+// redirect to home
+window.location.href = HOST+"home";
+
+
 }else if(obj && obj.respCode == "INVALID_SAME_DAY_DUPLICATE_TRIP"){
 
 //listDiv.innerHTML = ;
 openAddResponseModal("Trip already added!!");
 
-}else if(obj && obj.respCode == "DUPLICATE_TRIP"){
+}else if(obj && obj.respCode.includes("DUPLICATE_TRIP")){
 
  //listDiv.innerHTML = "Trip already added!!";
 openAddResponseModal("Trip already added!!");
