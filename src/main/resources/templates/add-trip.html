@@ -63,7 +63,20 @@
 
     <!--<h3 class="wish-name">Hello, [[${message}]]</h3>-->
 
-    <div id="add-trip-result"></div>
+    <!--<div id="add-trip-result"></div>-->
+
+    <!-- Modal content -->
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span id="add-trip-modal-close" class="close" onclick="closeAddResponseModal()">&times;</span>
+            <p id="add-response-info"></p>
+        </div>
+
+    </div>
+
 
     <div id="trips-add" class="trip-list">
 
@@ -79,7 +92,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="trip-from">From*</label>
                         <div class="col-md-4">
-                            <input id="trip-from" name="trip-from" type="text" placeholder="Ex: PHX" class="form-control input-md text-uppercase" minlength="3" maxlength="3" required="">
+                            <input id="trip-from" name="trip-from" type="text" placeholder="City or Airport" class="form-control input-md text-uppercase" minlength="3" maxlength="30" required="" autocomplete="off">
                         </div>
                     </div>
 
@@ -87,7 +100,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="trip-to">To*</label>
                         <div class="col-md-4">
-                            <input id="trip-to" name="trip-to" type="text" placeholder="Ex.MAA" class="form-control input-md text-uppercase" minlength="3" maxlength="3" required="">
+                            <input id="trip-to" name="trip-to" type="text" placeholder="City or Airport" class="form-control input-md text-uppercase" minlength="3" maxlength="30" required="" autocomplete="off">
 
                         </div>
                     </div>
@@ -141,7 +154,7 @@
 
                     <!-- Multiple Checkboxes -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" id="trip-box">Options</label>
+                        <!--<label class="col-md-4 control-label" id="trip-box">Options</label>-->
                         <div class="col-md-4">
                             <div class="checkbox">
                                 <label for="trip-box-0">
@@ -161,9 +174,21 @@
                                     Ready to take small package?
                                 </label>
                             </div>
+                           
                         </div>
                     </div>
+                    
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="notes">Notes</label>
+                        <div class="col-md-4">
+                            <textarea id="notes" name="notes"  class="form-control input-md" rows="3" cols="50" maxlength="150"></textarea>
 
+                        </div>
+                    </div>
+                    
+					
+					<p id="disclaimer" class="disclaimer">DISCLAIMER:  <i>Please be aware that on clicking Add button, your email Id will be shared with co-travellers willing to contact you.</i></p>
+					
                     <!-- Button (Double) -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="add-button"></label>
@@ -174,8 +199,10 @@
                     </div>
 
                 </fieldset>
+           
             </form>
 
+			
 
         </div>
 
