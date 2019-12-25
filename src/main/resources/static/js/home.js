@@ -213,7 +213,9 @@ for (var i = 0; i < len; ++i) {
 
     var onclick = document.createAttribute("onclick");
        // onclick.value = "openInfo(); return false;";
-       var contact_info = "Email Me :: "+obj.tripList[i].travellerId;
+       var contact_info = "<b>Email Me ::</b> "+obj.tripList[i].travellerId+"<br>"+
+       	"<b>Notes :: </b>"+obj.tripList[i].notes;
+      
          onclick.value = "modalblock('"+contact_info+"'); return false;"
 
     var datatoggle = document.createAttribute("data-toggle");
