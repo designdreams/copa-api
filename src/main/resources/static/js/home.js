@@ -339,7 +339,7 @@ var tripWith = document.getElementById("trip-with").value;
 var isTicketBooked = document.getElementById("trip-box-0").checked;
 var isFinalDestination = document.getElementById("trip-box-1").checked;
 var canTakePackageInd = document.getElementById("trip-box-2").checked;
-
+var notes = document.getElementById('notes').value;
 
 var data = JSON.stringify({
     "trip": {
@@ -353,7 +353,8 @@ var data = JSON.stringify({
         "isTicketBooked": isTicketBooked,
         "isDomestic": false,
         "canTakePackageInd": canTakePackageInd,
-        "isFinalDestination": isFinalDestination
+        "isFinalDestination": isFinalDestination,
+        "notes": notes
     }
 	});
 

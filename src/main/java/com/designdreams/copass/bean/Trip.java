@@ -51,8 +51,18 @@ public class Trip {
     private boolean canTakePackageInd;
 
     private boolean isFinalDestination;
+    
+    private String notes;
 
-    public String getTripId() {
+    public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public String getTripId() {
         return tripId;
     }
 
@@ -172,6 +182,7 @@ public class Trip {
                 ", isDomestic=" + isDomestic +
                 ", canTakePackageInd=" + canTakePackageInd +
                 ", isFinalDestination=" + isFinalDestination +
+                ", notes=" + notes +
                 '}';
     }
 }
