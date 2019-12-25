@@ -22,7 +22,7 @@ public class WelcomeService {
 							 HttpServletResponse response,
 							 @CookieValue(required=false, value = "app_token") String token) {
 
-		if(null == token){
+		if(null == token && token.isEmpty()){
 
 			ModelAndView err_model = new ModelAndView("error");
 			return err_model;
@@ -41,7 +41,8 @@ public class WelcomeService {
 								@CookieValue(required=false, value = "app_token") String token) {
 
 
-		if(null == token){
+		if(null == token || token.isEmpty()){
+
 
 			ModelAndView err_model = new ModelAndView("error");
 			return err_model;
@@ -59,7 +60,7 @@ public class WelcomeService {
 								 HttpServletResponse response,
 								 @CookieValue(required=false, value = "app_token") String token) {
 
-		if(null == token){
+		if(null == token && token.isEmpty()){
 
 			ModelAndView err_model = new ModelAndView("error");
 			return err_model;
