@@ -105,13 +105,14 @@ var hcol_date = document.createElement('th');
 var hcol_airways = document.createElement('th');
 var hcol_with = document.createElement('th');
 var hcol_email = document.createElement('th');
+var hcol_trash = document.createElement('th');
 
 hcol_from.appendChild(document.createTextNode("From"));
 hcol_to.appendChild(document.createTextNode("To"));
 hcol_date.appendChild(document.createTextNode("Date"));
 hcol_airways.appendChild(document.createTextNode("Airways"));
 hcol_with.appendChild(document.createTextNode("With"));
-
+hcol_trash.appendChild(document.createTextNode(""));
 if(action == 'FIND'){
 hcol_email.appendChild(document.createTextNode("Contact"));
 }
@@ -124,6 +125,7 @@ hrow.appendChild(hcol_to);
 hrow.appendChild(hcol_date);
 hrow.appendChild(hcol_airways);
 hrow.appendChild(hcol_with);
+hrow.appendChild(hcol_trash);
 
 if(action == 'FIND'){
 hrow.appendChild(hcol_email);
@@ -156,6 +158,7 @@ for (var i = 0; i < len; ++i) {
   var col_date = document.createElement('td');
   var col_airways = document.createElement('td');
   var col_travellingWith = document.createElement('td');
+  var col_trash = document.createElement('td');
 
   if(action == 'FIND'){
   var col_email = document.createElement('td');
@@ -166,6 +169,7 @@ for (var i = 0; i < len; ++i) {
   col_date.class = "coll";
   col_airways.class = "coll";
   col_travellingWith.class = "coll";
+  col_trash.class= "coll";
 
   if(action == 'FIND'){
   col_email.class = "coll";
@@ -237,6 +241,39 @@ for (var i = 0; i < len; ++i) {
     detail.appendChild(document.createTextNode("Info"));
    col_email.appendChild(detail);
 
+   }else{
+	   var trashIt = document.createElement('a');
+
+
+	    var title = document.createAttribute("title");
+	    title.value = obj.tripList[i].travellerId;
+
+	     var href = document.createAttribute("href");
+	        href.value = "#";
+
+	        var id = document.createAttribute("id");
+	                id.value = "myDelBtn";
+
+	    var onclick = document.createAttribute("onclick");
+	    onclick.value="deleteEntry()";
+	       
+
+	    var datatoggle = document.createAttribute("data-toggle");
+
+	        datatoggle.value = "popover";
+
+	    var datacontent = document.createAttribute("data-content");
+	        datacontent.value = title.value;
+
+
+	        trashIt.setAttributeNode(title);
+	        trashIt.setAttributeNode(onclick);
+	        trashIt.setAttributeNode(href);
+	        trashIt.setAttributeNode(id);
+	        trashIt.innerHTML="<i class='fa fa-trash-o'></i>";
+
+	    
+	        col_trash.appendChild(trashIt);
    }
 
     row.appendChild(col_from);
@@ -244,6 +281,7 @@ for (var i = 0; i < len; ++i) {
     row.appendChild(col_date);
     row.appendChild(col_airways);
     row.appendChild(col_travellingWith);
+    row.appendChild(col_trash);
 
     if(action == 'FIND'){
     row.appendChild(col_email);
@@ -482,6 +520,10 @@ function closeAddResponseModal() {
   response_modal.style.display = "none";
 }
 
+
+function deleteEntry(){
+	window.alert("Entry Deleted!!")
+}
 
 
 
