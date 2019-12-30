@@ -245,17 +245,14 @@ for (var i = 0; i < len; ++i) {
 	   var trashIt = document.createElement('a');
 
 
-	    var title = document.createAttribute("title");
-	    title.value = obj.tripList[i].travellerId;
-
 	     var href = document.createAttribute("href");
 	        href.value = "#";
 
 	        var id = document.createAttribute("id");
-	                id.value = "myDelBtn";
+	                id.value = "delBtn";
 
 	    var onclick = document.createAttribute("onclick");
-	    onclick.value="deleteEntry()";
+	    onclick.value="deleteTrip()";
 	       
 
 	    var datatoggle = document.createAttribute("data-toggle");
@@ -521,8 +518,8 @@ function closeAddResponseModal() {
 }
 
 
-function deleteEntry(){
-	window.alert("Entry Deleted!!")
+function deleteTrip(){
+	window.alert("Trip Deleted!!")
 }
 
 
