@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bs/vendor/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id"
@@ -27,10 +28,11 @@
 </head>
 <body>
 
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo.png" alt=""></img>CO PAYANA</a>
+        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt=""></img>CO PAYANA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,9 +49,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/findTrip">Find Trip</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contactUs">Contact us</a>
-                </li>
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="/contactUs">Contact us</a>-->
+                <!--</li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="/logout" onclick="signOut();">Sign out</a>
                 </li>
@@ -109,7 +111,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="trip-date">Start Date</label>
                         <div class="input-group date form_date col-md-4" data-date="" data-date-format="dd MM yyyy" data-link-field="trip-date" data-link-format="yyyy-mm-dd">
-                            <input id="trip-date1" name="trip-date1" type="text" placeholder="Travel Date" class="form-control" maxlength="16" size="16" readonly>
+                            <input id="trip-date1" name="trip-date1" type="text" placeholder="" class="form-control" maxlength="16" size="16" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 
@@ -128,11 +130,31 @@
                     <!--</div>-->
 
                     <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="airways">Airways</label>
-                        <div class="col-md-4">
-                            <input id="airways" name="airways" type="text" placeholder="" class="form-control input-md" maxlength="15">
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-md-4 control-label" for="airways">Airways</label>-->
+                        <!--<div class="col-md-4">-->
+                            <!--<input id="airways" name="airways" type="text" placeholder="" class="form-control input-md" maxlength="15">-->
 
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="trip-with">Airways</label>
+                        <div class="col-md-4">
+                            <select id="airways" name="airways" class="form-control">
+                                <option value=""></option>
+                                <option value="American">American</option>
+                                <option value="Emirates">Emirates</option>
+                                <option value="Southwest">Southwest</option>
+                                <option value="Qatar">Qatar</option>
+                                <option value="British">British</option>
+                                <option value="Eithad">Eithad</option>
+                                <option value="United">United</option>
+                                <option value="Cathay">Cathay</option>
+                                <option value="Sprint">Sprint</option>
+                                <option value="Air India">Air India</option>
+                                <option value="Others">Others</option>
+                            </select>
                         </div>
                     </div>
 
@@ -176,8 +198,15 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="notes">Notes</label>
+                        <div class="col-md-4">
+                            <textarea id="notes" name="notes"  class="form-control input-md" rows="3" cols="50" maxlength="150"></textarea>
+                        </div>
+                    </div>
 					
-					<p id="disclaimer" class="disclaimer">DISCLAIMER:  <i>Please be aware that on clicking Add button, your email Id will be shared with co-travellers willing to contact you.</i></p>
+					<p id="disclaimer" class="disclaimer">DISCLAIMER:  <i>On clicking Add button, you agree to use your email-id for communication.</i></p>
 					
                     <!-- Button (Double) -->
                     <div class="form-group">
@@ -203,7 +232,11 @@
 
     <div class="row">
         <div class="col-lg-12 text-center">
-            <p class="lead bottomline"> Happy and Safe Travel!</p>
+
+            <p class="lead bottomline"> Happy and Safe Journey!</p>
+
+            <hr>
+            <div id="footer"> <a href="/privacy.html" target="_blank">Privacy</a> | <a href="/tnc.html" target="_blank">Terms</a> | <a href="/contact-us.html" target="_blank">Contact us</a> | @copyright 2019</div>
 
         </div>
     </div>
@@ -219,9 +252,9 @@
 
 <!--<script type="text/javascript" src="bs/vendor/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>-->
 <script type="text/javascript" src="bs/vendor/jquery/jquery-1.9.1.js" charset="UTF-8"></script>
-<script type="text/javascript" src="bs/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="bs/vendor/bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="bs/vendor/bootstrap/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<!--<script type="text/javascript" src="bs/vendor/bootstrap/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>-->
+<script type="text/javascript" src="bs/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 
 <script type="text/javascript">

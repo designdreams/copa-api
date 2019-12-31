@@ -1,11 +1,11 @@
 var HOST = 'http://localhost:8080/';
 // HOST= 'https://dd-project-c.appspot.com/';
- //var HOST= 'http://www.copayana.com/';
+ //var HOST= 'https://www.copayana.com/';
 
 
   function signOut() {
 
-  alert('Logging out');
+  alert('You are signing out from this website. If needed, Please sign out from google in your browser!');
 
     logOut();
     var auth2 = gapi.auth2.getAuthInstance();
@@ -44,7 +44,7 @@ xhr.addEventListener("readystatechange", function () {
         var obj = JSON.parse(response);
 
         if(obj.respCode == 'NO_TRIPS_FOUND'){
-                document.getElementById("trips").innerHTML = 'You do not have any active trips! Add now..';
+                document.getElementById("trips").innerHTML = '<span class="no-trip">You do not have any active trips! Add using the menu.</span>';
         }else{
             //populateTripsHtml(obj);
             populateTripsHtmlNew('READ', obj);
@@ -105,13 +105,14 @@ var hcol_date = document.createElement('th');
 var hcol_airways = document.createElement('th');
 var hcol_with = document.createElement('th');
 var hcol_email = document.createElement('th');
+var hcol_trash = document.createElement('th');
 
 hcol_from.appendChild(document.createTextNode("From"));
 hcol_to.appendChild(document.createTextNode("To"));
 hcol_date.appendChild(document.createTextNode("Date"));
 hcol_airways.appendChild(document.createTextNode("Airways"));
 hcol_with.appendChild(document.createTextNode("With"));
-
+hcol_trash.appendChild(document.createTextNode(""));
 if(action == 'FIND'){
 hcol_email.appendChild(document.createTextNode("Contact"));
 }
@@ -124,6 +125,7 @@ hrow.appendChild(hcol_to);
 hrow.appendChild(hcol_date);
 hrow.appendChild(hcol_airways);
 hrow.appendChild(hcol_with);
+hrow.appendChild(hcol_trash);
 
 if(action == 'FIND'){
 hrow.appendChild(hcol_email);
@@ -156,6 +158,7 @@ for (var i = 0; i < len; ++i) {
   var col_date = document.createElement('td');
   var col_airways = document.createElement('td');
   var col_travellingWith = document.createElement('td');
+  var col_trash = document.createElement('td');
 
   if(action == 'FIND'){
   var col_email = document.createElement('td');
@@ -166,6 +169,7 @@ for (var i = 0; i < len; ++i) {
   col_date.class = "coll";
   col_airways.class = "coll";
   col_travellingWith.class = "coll";
+  col_trash.class= "coll";
 
   if(action == 'FIND'){
   col_email.class = "coll";
@@ -213,7 +217,9 @@ for (var i = 0; i < len; ++i) {
 
     var onclick = document.createAttribute("onclick");
        // onclick.value = "openInfo(); return false;";
-       var contact_info = "Email Me :: "+obj.tripList[i].travellerId;
+       var contact_info = "<b>Email Me ::</b> "+obj.tripList[i].travellerId+"<br>"+
+       	"<b>Notes :: </b>"+obj.tripList[i].notes;
+      
          onclick.value = "modalblock('"+contact_info+"'); return false;"
 
     var datatoggle = document.createAttribute("data-toggle");
@@ -235,6 +241,36 @@ for (var i = 0; i < len; ++i) {
     detail.appendChild(document.createTextNode("Info"));
    col_email.appendChild(detail);
 
+   }else{
+	   var trashIt = document.createElement('a');
+
+
+	     var href = document.createAttribute("href");
+	        href.value = "#";
+
+	        var id = document.createAttribute("id");
+	                id.value = "delBtn";
+
+	    var onclick = document.createAttribute("onclick");
+	    onclick.value="deleteTrip()";
+	       
+
+	    var datatoggle = document.createAttribute("data-toggle");
+
+	        datatoggle.value = "popover";
+
+	    var datacontent = document.createAttribute("data-content");
+	        datacontent.value = title.value;
+
+
+	        trashIt.setAttributeNode(title);
+	        trashIt.setAttributeNode(onclick);
+	        trashIt.setAttributeNode(href);
+	        trashIt.setAttributeNode(id);
+	        trashIt.innerHTML="<i class='fa fa-trash-o'></i>";
+
+	    
+	        col_trash.appendChild(trashIt);
    }
 
     row.appendChild(col_from);
@@ -242,6 +278,7 @@ for (var i = 0; i < len; ++i) {
     row.appendChild(col_date);
     row.appendChild(col_airways);
     row.appendChild(col_travellingWith);
+    row.appendChild(col_trash);
 
     if(action == 'FIND'){
     row.appendChild(col_email);
@@ -339,7 +376,7 @@ var tripWith = document.getElementById("trip-with").value;
 var isTicketBooked = document.getElementById("trip-box-0").checked;
 var isFinalDestination = document.getElementById("trip-box-1").checked;
 var canTakePackageInd = document.getElementById("trip-box-2").checked;
-
+var notes = document.getElementById('notes').value;
 
 var data = JSON.stringify({
     "trip": {
@@ -353,7 +390,8 @@ var data = JSON.stringify({
         "isTicketBooked": isTicketBooked,
         "isDomestic": false,
         "canTakePackageInd": canTakePackageInd,
-        "isFinalDestination": isFinalDestination
+        "isFinalDestination": isFinalDestination,
+        "notes": notes
     }
 	});
 
@@ -404,12 +442,16 @@ if(obj && obj.respCode == "SUCCESS"){
 //listDiv.innerHTML = "Great! Your trip is added successfully!";
 openAddResponseModal("Great! Your trip is added successfully!");
 
+// redirect to home
+window.location.href = HOST+"home";
+
+
 }else if(obj && obj.respCode == "INVALID_SAME_DAY_DUPLICATE_TRIP"){
 
 //listDiv.innerHTML = ;
 openAddResponseModal("Trip already added!!");
 
-}else if(obj && obj.respCode == "DUPLICATE_TRIP"){
+}else if(obj && obj.respCode.includes("DUPLICATE_TRIP")){
 
  //listDiv.innerHTML = "Trip already added!!";
 openAddResponseModal("Trip already added!!");
@@ -475,6 +517,10 @@ function closeAddResponseModal() {
   response_modal.style.display = "none";
 }
 
+
+function deleteTrip(){
+	window.alert("Trip Deleted!!")
+}
 
 
 

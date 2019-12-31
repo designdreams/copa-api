@@ -11,6 +11,9 @@
 
     <title>COPAYANA</title>
 
+    <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
     <!-- Bootstrap core CSS -->
     <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,58 +37,79 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo.png" alt=""></img>CO PAYANA</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>
+        <span class="g-signin2 gsign-button" onclick="ClickLogin()" data-onsuccess="onSignIn"></span>
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"-->
+                <!--aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--<span class="navbar-toggler-icon"></span>-->
+        <!--</button>-->
+        <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
+            <!--<ul class="navbar-nav ml-auto">-->
 
-                <!--<li class="nav-item active">-->
-                    <!--<a class="nav-link" href="#">About Us-->
-                        <!--<span class="sr-only">(current)</span>-->
-                    <!--</a>-->
-                <!--</li>-->
+                <!--&lt;!&ndash;<li class="nav-item active">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="nav-link" href="#">About Us&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="sr-only">(current)</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
 
-                <li class="nav-item active">
-                    <div class="g-signin2 nav-link" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
-                </li>
+                <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="nav-link" href="#">FAQ</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
 
-            </ul>
-        </div>
+                <!--&lt;!&ndash;<li class="nav-item active">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="g-signin2 nav-link" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+
+            <!--</ul>-->
+        <!--</div>-->
     </div>
 </nav>
 
 <div id="banner-container">
     <img id="banner-img" src="/images/banner/copayana-bg1.png" alt="">
-    <h1 class="banner-message">We got you! Finding travel companion made easy!</h1>
+    <div class="banner-message">Finding travel companion made easy!</div>
 </div>
 
-<div id="home-content">
+<div id="land-content">
 
-    Looking for a travel companion? You are at the right place to find one. This is not a dating or finding partner application.
+    <h4>Looking for a travel companion? </h4>
+
+    <p> You are at the right place to find one. This is not a dating or finding partner application.
     This is legitimately for the people who seeks travel companions, ready to help each other, have healthy discussions, share humanity and more...
+    </p>
+
+        <div class="sub-head">
+        Login with your Google Account. It is secure and safe! Just let us know who you are!
+        </div>
+
+    <div id="help-content">
+        <ul>
+
+            <!--<img src="/images/icon/searht.jpg">-->
+            <li>  <img class="ic" src="/images/icon/fly1.png"> Add your upcoming Trips, and let someone know and reach you for companion </li>
+
+            <li>  <img class="ic" src="/images/icon/search-icon.png"> Find a companion for you or your loved ones who has travelling plan </li>
+
+        </ul>
+
+    </div>
+
+    For any queries, please send email to <span name="contact-us">contact.copayana@gmail.com</span>
+
 </div>
+
+<!--<div class="g-signin2 nav-link" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>-->
+
+<hr>
 
 <!-- Page Content -->
 <div class="container">
 
     <div class="row">
-        <!--<p>-->
-            <!--Looking for a travel companion?-->
-            <!--Travelling to new destination?-->
-            <!--Travelling with kids?-->
-            <!--Are you a senior, needs assistance?-->
-            <!--Travelling alone?-->
-            <!--Are you a helping human?-->
-             <!--<br>-->
-        <!--</p>-->
-
-
 
         <div class="col-lg-12 text-center">
 
+            <div id="footer"> <a href="/privacy.html" target="_blank">Privacy</a> | <a href="/tnc.html" target="_blank">Terms</a> | <a href="/contact-us.html" target="_blank">Contact us</a> | @copyright 2019</div>
 
             <div id="login-module">
                 <form id="login-auth" name="login-auth-form" action="/authcon" method="POST">
@@ -93,7 +117,7 @@
                 </form>
             </div>
 
-            <p class="lead bottomline"> Happy and Safe Journey!</p>
+            <!--<p class="lead bottomline"> Happy and Safe Journey!</p>-->
 
         </div>
     </div>
@@ -101,6 +125,9 @@
 
 
 </div>
+
+
+
 <div class="tap-cookie-banner" style=""><div><p>This website uses cookies to help improve your experience and support functionality. By continuing, you acknowledge and accept. <a href="/privacy.html">Privacy Policy</a><a href="#" class="button"></a></p></div></div>
 
 <!-- Bootstrap core JavaScript -->

@@ -269,7 +269,6 @@ public class TripService {
                 mapper.writer(new DefaultPrettyPrinter());
 
                 SearchTripResponse searchItineraryResponse = new SearchTripResponse();
-
                 searchItineraryResponse.setTripList(tripList);
 
                 searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
@@ -290,15 +289,4 @@ public class TripService {
     }
 
 
-}
-
-
-class MyComparator implements Comparator<LinkedTreeMap>{
-
-
-
-    @Override
-    public int compare(LinkedTreeMap o1, LinkedTreeMap o2) {
-        return 0;
-    }
 }

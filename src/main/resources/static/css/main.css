@@ -18,11 +18,13 @@ font-family: serif;
 .banner-message{
     /* color: #787d7d */
     margin:3%;
+    font-size: 3em;
+    position: absolute;
     /*font-family: initial;*/
     /* position: absolute; */
     top: 12%;
     left: 12%;
-    color: #5f5757;
+    color: #FFFFFF;
     font-family: initial;
     /* font-size: 30px; */
     /* transform: translate(-0%, -0%); */
@@ -31,7 +33,6 @@ font-family: serif;
     }
 
 #banner-container{
-
 }
 
 #banner-img{
@@ -152,7 +153,11 @@ tr td{
          } */
 
          .banner-message{
-         font-size: 2.5em;
+         font-size: 1.5em;
+         }
+
+         #copayana_logo{
+             width: 20%;
          }
      }
 
@@ -270,9 +275,13 @@ width:300px
     color: #fff;
     padding: 1px;
     z-index: 9999999999;
+    font-size: 80%;
 }
 
 
+.bg-dark {
+    background-color: #000000!important;
+}
 
 /* modal */
 
@@ -320,8 +329,16 @@ color: #839212;
 
 
 #home-content{
-    margin: 2%;
-    color: #4a4e0d;
+     padding: 2%;
+     background-color: #f5f4e0;
+     margin: 3%;
+     color: #585010;
+     font-family: serif;
+ }
+
+#land-content{
+    margin: 3%;
+    color: #585010;
     font-family: serif;
 }
 
@@ -330,4 +347,102 @@ color: #839212;
 	font-size:0.8em;
 	margin-left:15px;
 	
+}
+
+.gsign-button{
+    margin-left: 60%;
+    align-content: end;
+    position: absolute;
+}
+
+#help-content{
+    margin: 2%;
+}
+
+#help-content li{
+    padding: 1.5%;
+    font-size: 1.0em;
+    list-style-type: none;
+}
+
+#help-content ul{
+    color: ##ffffff;
+    background-color: #e1e2d4;;
+    style:none;
+    border-radius: 8px;
+}
+
+.sub-head{
+font-size: 1.2em;
+color:#939611;
+margin: 2%;
+}
+
+.btn-success {
+    color: #beca16;
+    background-color: #1b1f1c;
+    border-color: #212522;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #768082;
+}
+
+#footer a{
+color:#cac4a0 !important;
+}
+
+#footer {
+color:#cac4a0;›
+}
+
+
+.bg {
+  /* The image used */
+  background-image: url("../images/icon/copayana_bg.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.next{
+    background-color: black;
+    background-image: url("../images/icon/right-arrow.png");
+
+}
+
+.prev{
+    background-color: black;
+    background-image: url("../images/icon/left-arrow.png");
+}
+
+.control-label{
+    color: #80781a;
+    font-family: serif;
+}
+
+.checkbox{
+     color: #80781a;
+     font-family: serif;
+ }
+
+.no-trip{
+      font-size: 1.5em;
+      color: #d87f11;
+ }
+
+.contact-email{
+     color: #80781a;
+     font-family: serif;
+}
+
+.ic{
+    width: 5%;
+    padding-right: 1%;
 }
