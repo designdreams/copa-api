@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trip {
@@ -51,6 +52,16 @@ public class Trip {
     private boolean canTakePackageInd;
 
     private boolean isFinalDestination;
+
+    public Date getSortDate() {
+        return sortDate;
+    }
+
+    public void setSortDate(Date sortDate) {
+        this.sortDate = sortDate;
+    }
+
+    private Date sortDate;
 
     public String getTripId() {
         return tripId;
@@ -174,4 +185,6 @@ public class Trip {
                 ", isFinalDestination=" + isFinalDestination +
                 '}';
     }
+
+
 }

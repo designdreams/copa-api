@@ -8,6 +8,8 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.json.webtoken.JsonWebToken;
+import com.google.gson.internal.LinkedTreeMap;
+import org.apache.commons.collections.comparators.ComparableComparator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -105,6 +108,7 @@ public class TripService {
             @CookieValue(required=false, value = "app_token") String token) {
 
         List<Trip> tripList = null;
+        List<Trip> finaltripList = new ArrayList<Trip>();
         String emailId = null;
         ReadTripResponse readItineraryResponse = null;
         String readTripResponse = null;
@@ -155,6 +159,7 @@ public class TripService {
                 readItineraryResponse = new ReadTripResponse();
                 readItineraryResponse.setTripList(tripList);
 
+
                 responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, readTripResponse);
 
 
@@ -163,7 +168,35 @@ public class TripService {
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());
                 readItineraryResponse = new ReadTripResponse();
-                readItineraryResponse.setTripList(tripList);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+                Iterator it=tripList.iterator();
+                while (it.hasNext()){
+                    LinkedTreeMap ltm= (LinkedTreeMap) it.next();
+                    Trip t=new Trip();
+                    t.setTravellerId( (String)ltm.get("travellerId"));
+                    t.setSource((String)ltm.get("source"));
+                    t.setDestination((String)ltm.get("destination"));
+                    t.setTravelStartDate((String)ltm.get("travelStartDate"));
+                    t.setMode((String)ltm.get("mode"));
+                    t.setAirways((String)ltm.get("airways"));
+                    t.setTravellingWith((String)ltm.get("travellingWith"));
+                    t.setTicketBooked(ltm.get("isTicketBooked").equals("true"));
+                    t.setDomestic(ltm.get("isDomestic").equals("true"));
+                    t.setCanTakePackageInd(ltm.get("canTakePackageInd").equals("true"));
+                    t.setFinalDestination(ltm.get("isFinalDestination").equals("true"));
+                    t.setSortDate(format.parse(t.getTravelStartDate()));
+                    finaltripList.add(t);
+
+                }
+
+               finaltripList.sort(Comparator.comparing(Trip::getSortDate).reversed());
+
+                readItineraryResponse.setTripList(finaltripList);
+
+
+                //Collections.sort(readItineraryResponse.getTripList().,new MyComparator());
+               // readItineraryResponse.getTripList().stream().sorted(Comparator.comparing(Trip::getSource).thenComparing(Trip::getTravelStartDate)).collect(Collectors.toList());
 
                 readTripResponse = mapper.writeValueAsString(readItineraryResponse);
 
@@ -236,6 +269,7 @@ public class TripService {
                 mapper.writer(new DefaultPrettyPrinter());
 
                 SearchTripResponse searchItineraryResponse = new SearchTripResponse();
+
                 searchItineraryResponse.setTripList(tripList);
 
                 searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
@@ -256,4 +290,15 @@ public class TripService {
     }
 
 
+}
+
+
+class MyComparator implements Comparator<LinkedTreeMap>{
+
+
+
+    @Override
+    public int compare(LinkedTreeMap o1, LinkedTreeMap o2) {
+        return 0;
+    }
 }
