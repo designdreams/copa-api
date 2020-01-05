@@ -185,12 +185,12 @@ public class TripService {
                     t.setDomestic(ltm.get("isDomestic").equals("true"));
                     t.setCanTakePackageInd(ltm.get("canTakePackageInd").equals("true"));
                     t.setFinalDestination(ltm.get("isFinalDestination").equals("true"));
-                    t.setSortDate(format.parse(t.getTravelStartDate()));
+                    //t.setSortDate(t.getTravelStartDate()!=null && t.getTravelStartDate()!=""?format.parse(t.getTravelStartDate()):null);
                     finaltripList.add(t);
 
                 }
 
-               finaltripList.sort(Comparator.comparing(Trip::getSortDate).reversed());
+              // finaltripList.sort(Comparator.comparing(Trip::getSortDate).reversed());
 
                 readItineraryResponse.setTripList(finaltripList);
 
@@ -218,10 +218,66 @@ public class TripService {
     }
 
 
-    @RequestMapping("/deleteTrip")
-    public String deleteTrip() {
+    @RequestMapping(
+            value = "/deleteTrip",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteTrip(
+            @RequestBody DeleteTripRequest deleteTripRequest,
+            @RequestHeader Map<String, String> headers,
+            @CookieValue(required=false, value = "app_token") String token) {
 
-        return "success";
+        List<Trip> tripList = null;
+        String emailId = null;
+        String searchItineraryResponseStr = null;
+        ResponseEntity<String> responseEntity = null;
+        String source = null;
+        String destination = null;
+        String startDate = null;
+        String traceId = null;
+        String uuid = null;
+
+        try {
+
+            uuid = headers.get("x-app-trace-id");
+
+            if( null == token)
+                token = headers.get("x-app-auth-token");
+
+            if(StringUtils.isEmpty(uuid))
+                return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
+
+            if(null == token || null == Auth.validateToken(uuid,token ))
+                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
+
+
+            emailId = deleteTripRequest.getUserId();
+            source = deleteTripRequest.getSource().toUpperCase();
+            destination = deleteTripRequest.getDestination().toUpperCase();
+            startDate = deleteTripRequest.getTravelStartDate();
+
+            logger.info(" delete trip by user :: " + deleteTripRequest.toString());
+
+            // tripList = tripDAO.searchTripDetailsList(traceId, source, destination, startDate);
+
+
+            if (tripDAO.deleteTrip(traceId, emailId, source, destination, startDate)) {
+
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.writer(new DefaultPrettyPrinter());
+
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "SUCCESS", "Successfully deleted trip!");
+
+            } else {
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No trips found for the input");
+            }
+
+        } catch (Exception e) {
+            logger.error(e, e);
+            responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error", "Try again later");
+        }
+
+        return responseEntity;
     }
 
     @RequestMapping(value = "/findTrip", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

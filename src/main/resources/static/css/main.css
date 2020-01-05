@@ -446,3 +446,7 @@ color:#cac4a0;›
     width: 5%;
     padding-right: 1%;
 }
+
+#cpyrt ul, #cpyrt li {
+    margin: 0; padding: 0;
+}

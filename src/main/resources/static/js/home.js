@@ -105,18 +105,19 @@ var hcol_date = document.createElement('th');
 var hcol_airways = document.createElement('th');
 var hcol_with = document.createElement('th');
 var hcol_email = document.createElement('th');
-var hcol_trash = document.createElement('th');
+var hcol_action = document.createElement('th');
 
 hcol_from.appendChild(document.createTextNode("From"));
 hcol_to.appendChild(document.createTextNode("To"));
 hcol_date.appendChild(document.createTextNode("Date"));
 hcol_airways.appendChild(document.createTextNode("Airways"));
 hcol_with.appendChild(document.createTextNode("With"));
-hcol_trash.appendChild(document.createTextNode(""));
+
 if(action == 'FIND'){
 hcol_email.appendChild(document.createTextNode("Contact"));
 }
 else{
+hcol_action.appendChild(document.createTextNode("Action"));
 tripHead.appendChild(document.createTextNode("Your Planned Trips"));
 }
 
@@ -125,10 +126,11 @@ hrow.appendChild(hcol_to);
 hrow.appendChild(hcol_date);
 hrow.appendChild(hcol_airways);
 hrow.appendChild(hcol_with);
-hrow.appendChild(hcol_trash);
 
 if(action == 'FIND'){
 hrow.appendChild(hcol_email);
+}else{
+hrow.appendChild(hcol_action);
 }
 
 thead.appendChild(hrow);
@@ -158,7 +160,7 @@ for (var i = 0; i < len; ++i) {
   var col_date = document.createElement('td');
   var col_airways = document.createElement('td');
   var col_travellingWith = document.createElement('td');
-  var col_trash = document.createElement('td');
+  var col_delete = document.createElement('td');
 
   if(action == 'FIND'){
   var col_email = document.createElement('td');
@@ -169,7 +171,7 @@ for (var i = 0; i < len; ++i) {
   col_date.class = "coll";
   col_airways.class = "coll";
   col_travellingWith.class = "coll";
-  col_trash.class= "coll";
+  col_delete.class = "coll";
 
   if(action == 'FIND'){
   col_email.class = "coll";
@@ -182,7 +184,7 @@ for (var i = 0; i < len; ++i) {
   var date = "";
   if(obj.tripList[i].travelStartDate == null ||
   obj.tripList[i].travelStartDate == ""){
-  date = "Not Planned";
+  date = "Any";
   }else{
   date = obj.tripList[i].travelStartDate;
   }
@@ -199,6 +201,8 @@ for (var i = 0; i < len; ++i) {
 
   col_airways.appendChild(document.createTextNode(airways));
   col_travellingWith.appendChild(document.createTextNode(obj.tripList[i].travellingWith));
+    //col_delete.appendChild(document.createTextNode("delete"));
+
 
   if(action == 'FIND'){
   //col_email.appendChild(document.createTextNode(obj.tripList[i].travellerId));
@@ -217,9 +221,14 @@ for (var i = 0; i < len; ++i) {
 
     var onclick = document.createAttribute("onclick");
        // onclick.value = "openInfo(); return false;";
-       var contact_info = "<b>Email Me ::</b> "+obj.tripList[i].travellerId+"<br>"+
-       	"<b>Notes :: </b>"+obj.tripList[i].notes;
-      
+    var notes =  obj.tripList[i].notes;
+    var contact_info = "<h4> Traveller Details </h4><hr><br><b>Email::</b> "+obj.tripList[i].travellerId;
+
+    if(notes && notes.length > 0){
+    contact_info = contact_info + "<br><b>Notes :: </b>"+notes+"";
+    }
+
+
          onclick.value = "modalblock('"+contact_info+"'); return false;"
 
     var datatoggle = document.createAttribute("data-toggle");
@@ -242,35 +251,19 @@ for (var i = 0; i < len; ++i) {
    col_email.appendChild(detail);
 
    }else{
-	   var trashIt = document.createElement('a');
+
+       var delete_link = document.createElement('a');
+       var delete_href = document.createAttribute("href");
+       var delete_onclick = document.createAttribute("onclick");
+       delete_onclick.value = "deleteTrip('"+obj.tripList[i].travellerId+"','"+obj.tripList[i].source+"','"+obj.tripList[i].destination+"','"+obj.tripList[i].travelStartDate+"'); return false;"
 
 
-	     var href = document.createAttribute("href");
-	        href.value = "#";
+       delete_link.setAttributeNode(delete_href);
+       delete_link.setAttributeNode(delete_onclick);
 
-	        var id = document.createAttribute("id");
-	                id.value = "delBtn";
+       delete_link.appendChild(document.createTextNode("Delete"));
+       col_delete.appendChild(delete_link);
 
-	    var onclick = document.createAttribute("onclick");
-	    onclick.value="deleteTrip()";
-	       
-
-	    var datatoggle = document.createAttribute("data-toggle");
-
-	        datatoggle.value = "popover";
-
-	    var datacontent = document.createAttribute("data-content");
-	        datacontent.value = title.value;
-
-
-	        trashIt.setAttributeNode(title);
-	        trashIt.setAttributeNode(onclick);
-	        trashIt.setAttributeNode(href);
-	        trashIt.setAttributeNode(id);
-	        trashIt.innerHTML="<i class='fa fa-trash-o'></i>";
-
-	    
-	        col_trash.appendChild(trashIt);
    }
 
     row.appendChild(col_from);
@@ -278,11 +271,12 @@ for (var i = 0; i < len; ++i) {
     row.appendChild(col_date);
     row.appendChild(col_airways);
     row.appendChild(col_travellingWith);
-    row.appendChild(col_trash);
 
     if(action == 'FIND'){
     row.appendChild(col_email);
 
+    }else{
+        row.appendChild(col_delete);
     }
 tbody.appendChild(row);
 
@@ -518,10 +512,6 @@ function closeAddResponseModal() {
 }
 
 
-function deleteTrip(){
-	window.alert("Trip Deleted!!")
-}
-
 
 
 // When the user clicks anywhere outside of the modal, close it
@@ -536,4 +526,64 @@ window.onclick = function(event) {
     }
 
   }
+}
+
+
+function deleteTrip(email, src, dest, date){
+//alert(email+src+dest+date);
+
+var data = JSON.stringify({
+    "userId": email,
+	"source": src,
+	"destination": dest,
+	"travelStartDate" : date
+	});
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+
+
+  if (this.readyState === 4) {
+    console.log("response is success");
+    var response = this.responseText;
+
+
+//alert('got ');
+    if(response) {
+        var obj = JSON.parse(response);
+
+        if(obj.respCode == 'NO_TRIPS_FOUND'){
+            alert("Trip Not Found!");
+        }else if(obj.respCode == 'SUCCESS'){
+            alert("Trip Deleted Successfully!");
+            window.location.href = HOST+"home";
+
+       } else{
+            alert("Cannot Delete Trip!");
+        }
+    }else{
+    //alert(response);
+            alert("Cannot Delete Trip!");
+    }
+}
+});
+
+
+var res = confirm("Dp you want to delete the Trip?");
+
+if(res){
+xhr.open("POST", HOST+"deleteTrip");
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.setRequestHeader("x-app-trace-id", "app");
+xhr.setRequestHeader("Accept", "*/*");
+xhr.setRequestHeader("Cache-Control", "no-cache");
+xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+xhr.setRequestHeader("Content-Length", "31");
+xhr.setRequestHeader("Connection", "keep-alive");
+xhr.setRequestHeader("cache-control", "no-cache");
+xhr.send(data);
+}
+
 }

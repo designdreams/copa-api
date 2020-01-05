@@ -8,7 +8,9 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCursor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bson.BsonDocument;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -182,6 +184,71 @@ public class TripDAOImpl implements TripDAO {
 
     }
 
+
+    //@Override
+    public boolean deleteTrip(String traceId, String emailId, final String src, final String dest, String date){
+
+
+        List list = null;
+        String name = null;
+        List<Trip> tripList = null;
+        List<Trip> filteredTripList = null;
+
+        MongoCursor<Document> docCursor = null;
+
+        try {
+
+            list = getTripDetailsList(emailId);
+
+            if(list != null && list.size() > 0){
+                // dlte trip
+
+                Bson bson = new BsonDocument();
+
+                System.out.println("before ---- delete.......");
+
+
+                logger.info("{} : src:: {} dest:: {} date ::{}", traceId, src, dest,date);
+
+                Document query = new Document();
+
+                Document find = new Document();
+                find.put("emailId", emailId);
+
+                Document match = new Document();
+
+                match.put("source", src);
+                match.put("destination", dest);
+                match.put("travelStartDate", date);
+
+
+                Document pullDoc = new Document();
+                pullDoc.put("trips",match);
+
+                query.put("$pull",pullDoc);
+
+//                    if (null != date && !date.isEmpty()) {
+//                        match.put("trips.travelStartDate", date);
+//                    }
+
+                System.out.println("before delete.......");
+                logger.info(query.toJson());
+                logger.info(find.toJson());
+
+                mongoClient.getDatabase(database).getCollection(collection).findOneAndUpdate(find, query);
+
+                System.out.println("deleted.......");
+
+            }
+
+        } catch (Exception e) {
+
+            logger.error(e, e);
+
+        }
+
+        return true;
+    }
 
     @Override
     public List<Trip> searchTripDetailsList(String traceId, final String src, final String dest, String date) {
