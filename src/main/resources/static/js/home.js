@@ -259,11 +259,11 @@ for (var i = 0; i < len; ++i) {
 
 	        datatoggle.value = "popover";
 
-	    var datacontent = document.createAttribute("data-content");
-	        datacontent.value = title.value;
+	   // var datacontent = document.createAttribute("data-content");
+	     //   datacontent.value = title.value;
 
 
-	        trashIt.setAttributeNode(title);
+	       // trashIt.setAttributeNode(title);
 	        trashIt.setAttributeNode(onclick);
 	        trashIt.setAttributeNode(href);
 	        trashIt.setAttributeNode(id);

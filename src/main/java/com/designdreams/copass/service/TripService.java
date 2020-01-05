@@ -185,18 +185,18 @@ public class TripService {
                     t.setDomestic(ltm.get("isDomestic").equals("true"));
                     t.setCanTakePackageInd(ltm.get("canTakePackageInd").equals("true"));
                     t.setFinalDestination(ltm.get("isFinalDestination").equals("true"));
-                    t.setSortDate(format.parse(t.getTravelStartDate()));
+                    if(!StringUtils.isEmpty(t.getTravelStartDate())){
+                        t.setSortDate(format.parse(t.getTravelStartDate()));
+                        finaltripList.sort(Comparator.comparing(Trip::getSortDate).reversed());
+                    }
+
                     finaltripList.add(t);
 
                 }
 
-               finaltripList.sort(Comparator.comparing(Trip::getSortDate).reversed());
+
 
                 readItineraryResponse.setTripList(finaltripList);
-
-
-                //Collections.sort(readItineraryResponse.getTripList().,new MyComparator());
-               // readItineraryResponse.getTripList().stream().sorted(Comparator.comparing(Trip::getSource).thenComparing(Trip::getTravelStartDate)).collect(Collectors.toList());
 
                 readTripResponse = mapper.writeValueAsString(readItineraryResponse);
 
@@ -234,6 +234,7 @@ public class TripService {
         String emailId = null;
         String searchItineraryResponseStr = null;
         ResponseEntity<String> responseEntity = null;
+        List<Trip> finaltripList = new ArrayList<Trip>();
         String source = null;
         String destination = null;
         String startDate = null;
@@ -267,9 +268,25 @@ public class TripService {
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
                 SearchTripResponse searchItineraryResponse = new SearchTripResponse();
-                searchItineraryResponse.setTripList(tripList);
+
+                Iterator it=tripList.iterator();
+                while (it.hasNext()){
+                    Trip t= (Trip) it.next();
+
+                    if(!StringUtils.isEmpty(t.getTravelStartDate())){
+                       t.setSortDate(format.parse(t.getTravelStartDate()));
+                       finaltripList.sort(Comparator.comparing(Trip::getSortDate).reversed());
+                   }
+                    finaltripList.add(t);
+                }
+
+
+                searchItineraryResponse.setTripList(finaltripList);
+
+
 
                 searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
 
