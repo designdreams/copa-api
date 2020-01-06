@@ -141,7 +141,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="trip-with">Airways</label>
                         <div class="col-md-4">
-                            <select id="airways" name="airways" class="form-control">
+                            <select id="airways" name="airways" class="form-control" onchange="showAirwaysText();" >
                                 <option value=""></option>
                                 <option value="American">American</option>
                                 <option value="Emirates">Emirates</option>
@@ -155,6 +155,12 @@
                                 <option value="Air India">Air India</option>
                                 <option value="Others">Others</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <input id="other_airways" name="other_airways" type="text" placeholder="" class="form-control input-md" style="display:none;" maxlength="10" >
                         </div>
                     </div>
 

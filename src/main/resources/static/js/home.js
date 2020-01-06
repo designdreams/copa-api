@@ -256,12 +256,12 @@ for (var i = 0; i < len; ++i) {
        var delete_href = document.createAttribute("href");
        var delete_onclick = document.createAttribute("onclick");
        delete_onclick.value = "deleteTrip('"+obj.tripList[i].travellerId+"','"+obj.tripList[i].source+"','"+obj.tripList[i].destination+"','"+obj.tripList[i].travelStartDate+"'); return false;"
-
+       delete_link.innerHTML="<i class='fa fa-trash-o'></i>";
 
        delete_link.setAttributeNode(delete_href);
        delete_link.setAttributeNode(delete_onclick);
 
-       delete_link.appendChild(document.createTextNode("Delete"));
+       //delete_link.appendChild(document.createTextNode("Delete"));
        col_delete.appendChild(delete_link);
 
    }
@@ -371,6 +371,9 @@ var isTicketBooked = document.getElementById("trip-box-0").checked;
 var isFinalDestination = document.getElementById("trip-box-1").checked;
 var canTakePackageInd = document.getElementById("trip-box-2").checked;
 var notes = document.getElementById('notes').value;
+if(airways=="Others"){
+	airways=document.getElementById("other_airways").value;
+}
 
 var data = JSON.stringify({
     "trip": {
@@ -571,7 +574,7 @@ xhr.addEventListener("readystatechange", function () {
 });
 
 
-var res = confirm("Dp you want to delete the Trip?");
+var res = confirm("Do you want to delete the Trip?");
 
 if(res){
 xhr.open("POST", HOST+"deleteTrip");
@@ -586,4 +589,14 @@ xhr.setRequestHeader("cache-control", "no-cache");
 xhr.send(data);
 }
 
+}
+
+
+function showAirwaysText(){
+	if(document.getElementById("airways").value=="Others"){
+		document.getElementById("other_airways").style.display="block";
+	}
+	else {
+		document.getElementById("other_airways").style.display="none";
+	}
 }
