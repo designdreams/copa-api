@@ -159,8 +159,9 @@ public class TripService {
                 readItineraryResponse = new ReadTripResponse();
                 readItineraryResponse.setTripList(tripList);
 
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No Trips found for the user");
 
-                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, readTripResponse);
+                //responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, readTripResponse);
 
 
             } else {

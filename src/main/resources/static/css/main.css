@@ -13,6 +13,7 @@ html {
 .bottomline{
 color: #787d7d;
 font-family: serif;
+margin-top: 3%;
 }
 
 .banner-message{
@@ -69,13 +70,12 @@ margin: 3% 1%;
 }
 
 #trips{
-     margin: 3%;
+     margin: 2%;
 }
 
 #find-trips{
-    background-color: #f5f9f5;
-    color: #7d7721;
-    margin: 2%;
+
+    margin: 0.5%;
 }
 
 #trips h3{
@@ -331,8 +331,8 @@ color: #839212;
 #home-content{
      padding: 2%;
      background-color: #f5f4e0;
-     margin: 3%;
-     color: #585010;
+     margin-bottom: 3%;
+     color: #000000;
      font-family: serif;
  }
 
@@ -394,7 +394,7 @@ color:#cac4a0 !important;
 }
 
 #footer {
-color:#cac4a0;›
+color:#cac4a0;
 }
 
 
@@ -435,6 +435,7 @@ color:#cac4a0;›
 .no-trip{
       font-size: 1.5em;
       color: #d87f11;
+      font-family: serif;
  }
 
 .contact-email{
@@ -449,4 +450,19 @@ color:#cac4a0;›
 
 #cpyrt ul, #cpyrt li {
     margin: 0; padding: 0;
+}
+
+#find-trips thead tr th{
+padding : 1.5%;
+}
+
+.contact-us{
+color:#7b701b
+}
+
+.no-trips-in-find{
+background-color: #73726a;
+color: #ffffff;
+padding : 5%;
+font-family: serif;
 }

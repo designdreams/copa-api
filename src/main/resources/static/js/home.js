@@ -333,7 +333,7 @@ xhr.addEventListener("readystatechange", function () {
         var obj = JSON.parse(response);
 
         if(obj.respCode == 'NO_TRIPS_FOUND'){
-                document.getElementById("find-trips").innerHTML = 'You do not have any matching trips!';
+                document.getElementById("find-trips").innerHTML = '<div class="no-trips-in-find">You do not have any matching trips! Try again later or search for other locations!</div>';
         }else{
             //populateTripsHtml(obj);
             populateTripsHtmlNew('FIND', obj);

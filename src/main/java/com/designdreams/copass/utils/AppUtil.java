@@ -2,6 +2,7 @@ package com.designdreams.copass.utils;
 
 import com.google.gson.Gson;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 public class AppUtil {
@@ -26,4 +27,11 @@ public class AppUtil {
         return null!=reqId?(String)reqId:UUID.randomUUID().toString();
     }
 
+    public static String getIpFromRequest(HttpServletRequest request){
+        String ip = request.getHeader("X-FORWARDED-FOR");
+        if (ip == null) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
+    }
 }

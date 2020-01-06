@@ -2,6 +2,7 @@ package com.designdreams.copass.service;
 
 
 import com.designdreams.copass.bean.User;
+import com.designdreams.copass.utils.AppUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -27,7 +28,7 @@ import java.util.Collections;
 public class AuthController {
 
     private static final JacksonFactory jacksonFactory = new JacksonFactory();
-    private static final Logger logger = LogManager.getLogger(Auth.class);
+    private static final Logger logger = LogManager.getLogger(AuthController.class);
 
     @Autowired
     UserService us;
@@ -35,19 +36,18 @@ public class AuthController {
     @PostMapping("/authcon")
     public ModelAndView authenticated(HttpServletRequest request,
                                       HttpServletResponse response
-                                       ) {
+    ) {
 
         String status = "FAILED";
         ModelAndView mnv = null;
         JsonWebToken.Payload payload = null;
         String uuid = null;
-        String idTokenString =null;
+        String idTokenString = null;
         Cookie cook = null;
-        HttpHeaders headers = null;
 
         try {
 
-            logger.info(" Auth service " );
+            logger.info(" Auth service for system : {}", AppUtil.getIpFromRequest(request));
 
             //idTokenString = request.getHeader("x-app-auth-token");
             idTokenString = request.getParameter("app-token" +
@@ -76,7 +76,7 @@ public class AuthController {
 
                 boolean emailVerified = Boolean.valueOf(((GoogleIdToken.Payload) payload).getEmailVerified());
                 String name = (String) payload.get("name");
-                name = (name !=null)? name.toUpperCase():"";
+                name = (name != null) ? name.toUpperCase() : "";
 
                 String pictureUrl = (String) payload.get("picture");
                 String locale = (String) payload.get("locale");
@@ -94,25 +94,25 @@ public class AuthController {
                 mnv.addObject("pictureUrl", pictureUrl);
                 mnv.addObject("locale", locale);
 
-                logger.info("Auth success for {}", email);
+                logger.info("Auth success for {} from ip :", email, AppUtil.getIpFromRequest(request));
 
 
                 // check if use already present
-                 if(!us.ifUserPresent(uuid, email)){
-                     user = new User();
-                     user.setEmailId(email);
-                     user.setName(name);
-                     registrationStatus = us.registerUserFirstTime(uuid, user);
+                if (!us.ifUserPresent(uuid, email)) {
+                    user = new User();
+                    user.setEmailId(email);
+                    user.setName(name);
+                    registrationStatus = us.registerUserFirstTime(uuid, user);
 
-                     logger.info(" First time user {}, registered : {} ", email, registrationStatus);
-                 }else{
-                     logger.info(" Already registered user : {}",email);
-                 }
+                    logger.info(" First time user {}, registered : {} ", email, registrationStatus);
+                } else {
+                    logger.info(" Already registered user : {}", email);
+                }
 
-                cook = new Cookie("app_token",idTokenString);
+                cook = new Cookie("app_token", idTokenString);
                 //cook.setSecure(true);
                 cook.setHttpOnly(true);
-                cook.setMaxAge(60*15);
+                cook.setMaxAge(60 * 15);
 
                 response.addCookie(cook);
 
@@ -137,7 +137,7 @@ public class AuthController {
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletRequest request,
-                                      HttpServletResponse response
+                               HttpServletResponse response
     ) {
 
         ModelAndView mnv = null;
@@ -147,7 +147,7 @@ public class AuthController {
             Cookie cook = null;
             mnv = null;
             mnv = new ModelAndView("index");
-            cook = new Cookie("app_token",null);
+            cook = new Cookie("app_token", null);
             cook.setMaxAge(-1);
             response.addCookie(cook);
 
@@ -160,14 +160,14 @@ public class AuthController {
         return mnv;
     }
 
-        public static JsonWebToken.Payload validateToken(String uuid, String idTokenString) {
+    public static JsonWebToken.Payload validateToken(String uuid, String idTokenString) {
 
         String CLIENT_ID = "579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com";
         String CLIENT_ID_1 = "579504878975-dg9bab7a53fvhmpet6kuuho4j1e40p8o.apps.googleusercontent.com";
         String CLIENT_ID_2 = "579504878975-89b6fg2ctc46c0aqslrg5b37c234rj5h.apps.googleusercontent.com";
 
         try {
-            if(null == idTokenString)
+            if (null == idTokenString)
                 return null;
 
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(GoogleNetHttpTransport.newTrustedTransport(), jacksonFactory)

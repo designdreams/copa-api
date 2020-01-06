@@ -53,6 +53,7 @@ public class Trip {
 
     private boolean isFinalDestination;
 
+    @Size(max = 150, message = "Invalid notes, Limit to 150 characters")
     private String notes;
 
     public Date getSortDate() {
@@ -70,8 +71,9 @@ public class Trip {
 	}
 
 	public void setNotes(String notes) {
-		this.notes = notes;
+        this.notes = notes.replaceAll("[^a-zA-Z0-9 ]", "");;
 	}
+
 
 	public String getTripId() {
         return tripId;
