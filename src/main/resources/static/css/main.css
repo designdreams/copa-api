@@ -259,8 +259,15 @@ width:300px
 }
 
 .navbar-brand{
+    font-family: serif;
     color: #e6df7a !important;
-}
+    font-weight: bold;
+    }
+
+/*
+.container{
+margin-left: unset;
+} */
 
 .autocomplete-result:hover{
     background: #B9DCEB;
@@ -465,4 +472,20 @@ background-color: #73726a;
 color: #ffffff;
 padding : 5%;
 font-family: serif;
+}
+
+#faq-content h2{
+margin:3%
+}
+
+#faq-content{
+    margin: 2%;
+    margin-bottom: 5%;
+    color: #000000;
+    font-family: serif;
+
+}
+
+#faq-content h5{
+color:#7b701b
 }
