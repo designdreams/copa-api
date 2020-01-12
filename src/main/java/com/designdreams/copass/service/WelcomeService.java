@@ -81,6 +81,17 @@ public class WelcomeService {
 		return model;
 	}
 
+	@GetMapping("/findTripOpen")
+	public ModelAndView findTripOpen(HttpServletRequest request,
+								 HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("find-trip-open");
+		model.addObject("message","CUSTOMER");
+		logger.info("request for find trip open");
+
+		return model;
+	}
+
 	@GetMapping("/contactUs")
 	public ModelAndView contactUs(HttpServletRequest request,
 								  HttpServletResponse response) {

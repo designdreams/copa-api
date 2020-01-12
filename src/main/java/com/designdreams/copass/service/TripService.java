@@ -346,4 +346,69 @@ public class TripService {
     }
 
 
+    @RequestMapping(value = "/findTripOpen", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> findTripOpen(
+            @RequestBody SearchTripRequest searchItineraryRequest,
+            @RequestHeader Map<String, String> headers,
+            @CookieValue(required=false, value = "app_token") String token) {
+
+        List<Trip> tripList = null;
+        String emailId = null;
+        String searchOpenItineraryResponseStr = null;
+        ResponseEntity<String> responseEntity = null;
+        String source = null;
+        String destination = null;
+        String startDate = null;
+        String traceId = null;
+        String uuid = null;
+
+        try {
+
+            uuid = headers.get("x-app-trace-id");
+
+            if( null == token)
+                token = headers.get("x-app-auth-token");
+
+            if(StringUtils.isEmpty(uuid))
+                return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
+
+//            if(null == token || null == Auth.validateToken(uuid,token ))
+//                return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
+
+
+            emailId = searchItineraryRequest.getUserId();
+            source = searchItineraryRequest.getSource().toUpperCase();
+            destination = searchItineraryRequest.getDestination().toUpperCase();
+            startDate = searchItineraryRequest.getTravelStartDate();
+
+            logger.info(" searched by user :: " + emailId);
+
+            tripList = tripDAO.searchTripDetailsList(traceId, source, destination, startDate);
+
+            if (null != tripList && tripList.size() > 0) {
+
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.writer(new DefaultPrettyPrinter());
+
+                SearchOpenTripResponse searchOpenItineraryResponse = new SearchOpenTripResponse();
+                searchOpenItineraryResponse.setCount(tripList.size());
+
+                searchOpenItineraryResponseStr = mapper.writeValueAsString(searchOpenItineraryResponse);
+
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, searchOpenItineraryResponseStr);
+
+            } else {
+
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No trips found for the input");
+
+            }
+        } catch (Exception e) {
+            logger.error(e, e);
+            responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Error", "Try again later");
+        }
+
+        return responseEntity;
+    }
+
+
 }

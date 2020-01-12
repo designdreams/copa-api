@@ -304,60 +304,117 @@ alert("hello");
 
 function findTrip(){
 
-var source = document.getElementById("src").value.substring(0, 3);
-var destination = document.getElementById("dest").value.substring(0, 3);
-var date = document.getElementById("trip-date").value;
+ var source = document.getElementById("src").value.substring(0, 3);
+ var destination = document.getElementById("dest").value.substring(0, 3);
+ var date = document.getElementById("trip-date").value;
 
-var data = JSON.stringify({
-	"source": source,
-	"destination": destination,
-	"travelStartDate" : date
-	});
+ var data = JSON.stringify({
+ 	"source": source,
+ 	"destination": destination,
+ 	"travelStartDate" : date
+ 	});
 
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
+ var xhr = new XMLHttpRequest();
+ xhr.withCredentials = true;
 
-xhr.addEventListener("readystatechange", function () {
+ xhr.addEventListener("readystatechange", function () {
 
-  if (this.readyState > 0) {
-   document.getElementById("find-trips").innerHTML = 'Please wait! Pulling trips.....';
-    }
+   if (this.readyState > 0) {
+    document.getElementById("find-trips").innerHTML = 'Please wait! Pulling trips.....';
+     }
 
-  if (this.readyState === 4) {
-    console.log("response is success");
-    var response = this.responseText;
+   if (this.readyState === 4) {
+     console.log("response is success");
+     var response = this.responseText;
 
 
-//alert('got ');
-    if(response) {
-        var obj = JSON.parse(response);
+ //alert('got ');
+     if(response) {
+         var obj = JSON.parse(response);
 
-        if(obj.respCode == 'NO_TRIPS_FOUND'){
-                document.getElementById("find-trips").innerHTML = '<div class="no-trips-in-find">You do not have any matching trips! Try again later or search for other locations!</div>';
-        }else{
-            //populateTripsHtml(obj);
-            populateTripsHtmlNew('FIND', obj);
-        }
-    }else{
-    //alert(response);
-        document.getElementById("find-trips").innerHTML = 'SORRY! PLEASE TRY LATER!';
-    }
-}
-});
+         if(obj.respCode == 'NO_TRIPS_FOUND'){
+                 document.getElementById("find-trips").innerHTML = '<div class="no-trips-in-find">You do not have any matching trips! Try again later or search for other locations!</div>';
+         }else{
+             //populateTripsHtml(obj);
+             populateTripsHtmlNew('FIND', obj);
+         }
+     }else{
+     //alert(response);
+         document.getElementById("find-trips").innerHTML = 'SORRY! PLEASE TRY LATER!';
+     }
+ }
+ });
 
-xhr.open("POST", HOST+"findTrip");
-xhr.setRequestHeader("Content-Type", "application/json");
-xhr.setRequestHeader("x-app-trace-id", "app");
-xhr.setRequestHeader("Accept", "*/*");
-xhr.setRequestHeader("Cache-Control", "no-cache");
-xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-xhr.setRequestHeader("Content-Length", "31");
-xhr.setRequestHeader("Connection", "keep-alive");
-xhr.setRequestHeader("cache-control", "no-cache");
+ xhr.open("POST", HOST+"findTrip");
+ xhr.setRequestHeader("Content-Type", "application/json");
+ xhr.setRequestHeader("x-app-trace-id", "app");
+ xhr.setRequestHeader("Accept", "*/*");
+ xhr.setRequestHeader("Cache-Control", "no-cache");
+ xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+ xhr.setRequestHeader("Content-Length", "31");
+ xhr.setRequestHeader("Connection", "keep-alive");
+ xhr.setRequestHeader("cache-control", "no-cache");
 
-xhr.send(data);
+ xhr.send(data);
 
-}
+ }
+
+ function findTripOpen(){
+
+ var source = document.getElementById("src").value.substring(0, 3);
+ var destination = document.getElementById("dest").value.substring(0, 3);
+ var date = "";
+
+ var data = JSON.stringify({
+ 	"source": source,
+ 	"destination": destination,
+ 	"travelStartDate" : date
+ 	});
+
+ var xhr = new XMLHttpRequest();
+ xhr.withCredentials = true;
+
+ xhr.addEventListener("readystatechange", function () {
+
+
+   if (this.readyState === 4) {
+     console.log("response is success");
+     var response = this.responseText;
+
+
+ //alert('got ');
+     if(response) {
+         var obj = JSON.parse(response);
+
+         if(obj.respCode == 'NO_TRIPS_FOUND'){
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> No matching trips!  Please Add your Trip by signing in so other travellers can contact you.</div>';
+         }else{
+         var count = obj.count;
+             //populateTripsHtml(obj);
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">Awesome! You have <span class="count">'+ count +' </span> matching trips! Please sign in and connect with your companion.</div>';
+
+            // populateTripsHtmlNew('FIND', obj);
+         }
+     }else{
+     //alert(response);
+         document.getElementById("find-trips-open").innerHTML = 'We got some Work! Please Try later!';
+     }
+ }
+ });
+
+ xhr.open("POST", HOST+"findTripOpen");
+ xhr.setRequestHeader("Content-Type", "application/json");
+ xhr.setRequestHeader("x-app-trace-id", "app");
+ xhr.setRequestHeader("Accept", "*/*");
+ xhr.setRequestHeader("Cache-Control", "no-cache");
+ xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+ xhr.setRequestHeader("Content-Length", "31");
+ xhr.setRequestHeader("Connection", "keep-alive");
+ xhr.setRequestHeader("cache-control", "no-cache");
+
+ xhr.send(data);
+
+ }
 
 
 function addTrip(id){
@@ -599,4 +656,14 @@ function showAirwaysText(){
 	else {
 		document.getElementById("other_airways").style.display="none";
 	}
+}
+
+function resetAll(){
+document.getElementById("trip-date").value = "";
+document.getElementById("find-trips").innerHTML = "";
+}
+
+function resetOpenAll(){
+document.getElementById("find-trips-open").innerHTML = "";
+
 }

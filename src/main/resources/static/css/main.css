@@ -17,20 +17,13 @@ margin-top: 3%;
 }
 
 .banner-message{
-    /* color: #787d7d */
     margin:3%;
     font-size: 3em;
     position: absolute;
-    /*font-family: initial;*/
-    /* position: absolute; */
     top: 12%;
     left: 12%;
     color: #FFFFFF;
     font-family: initial;
-    /* font-size: 30px; */
-    /* transform: translate(-0%, -0%); */
-    /* top: 10%; */
-    /* margin-top: 5%; */
     }
 
 #banner-container{
@@ -144,6 +137,8 @@ tr td{
          font-size: 1.8em;
          margin:3%;
          }
+
+
      }
 
  @media all and (max-width: 500px) { /* screen size until 500px */
@@ -159,6 +154,10 @@ tr td{
          #copayana_logo{
              width: 20%;
          }
+
+                  .ic{
+                  width:10% !important;
+                  }
      }
 
 
@@ -212,6 +211,10 @@ tbody tr:nth-child(odd){
 
 }
 */
+
+.search-module{
+    margin:2%;
+}
 
 #legend-name{
     font-size: 200%;
@@ -339,7 +342,7 @@ color: #839212;
      padding: 2%;
      background-color: #f5f4e0;
      margin-bottom: 3%;
-     color: #000000;
+     color: #5a5109;
      font-family: serif;
  }
 
@@ -367,16 +370,19 @@ color: #839212;
 }
 
 #help-content li{
+    margin: 2%;
     padding: 1.5%;
     font-size: 1.0em;
     list-style-type: none;
 }
 
+
 #help-content ul{
-    color: ##ffffff;
-    background-color: #e1e2d4;;
-    style:none;
-    border-radius: 8px;
+    font-size: 1.2em;
+    color: #93960f;
+    background-color: #1d1818;
+    style: none;
+    border-radius: 5px;
 }
 
 .sub-head{
@@ -431,6 +437,11 @@ color:#cac4a0;
 
 .control-label{
     color: #80781a;
+    font-family: serif;
+}
+
+.control-label-open{
+    color: #96991a;
     font-family: serif;
 }
 
@@ -489,3 +500,19 @@ margin:3%
 #faq-content h5{
 color:#7b701b
 }
+
+.trips-in-find-open{
+    border-radius: 5px;
+        margin: 2%;
+        background-color: #7d784f;
+        color: #efeeea;
+        padding: 3%;
+        font-family: serif;
+        font-size: 1.3em;
+}
+
+.count{
+    font-size: 1.5em;
+    font-family: initial;
+    color: #fffdaa;
+    }

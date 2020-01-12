@@ -20,6 +20,8 @@
           content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
     <script src="js/app.js"></script>
+    <script src="js/home.js"></script>
+
     <link rel="stylesheet" href="css/main.css"/>
 
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
@@ -28,6 +30,7 @@
     <link rel="manifest" href="images/site.webmanifest">
 
     <link rel="shortcut icon" type="image/png" th:href="@{images/favicon.ico}"/>
+    <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
 
 
 <body>
@@ -43,7 +46,9 @@
 
 <div id="banner-container">
     <img id="banner-img" src="/images/banner/copayana-bg1.png" alt="">
-    <div class="banner-message">Finding travel companion made easy!</div>
+    <div class="banner-message">Finding travel companion made easy! </div>
+
+
 </div>
 
 <div id="land-content">
@@ -69,11 +74,52 @@
 
             <li><img class="ic" src="/images/icon/search-icon.png"> Find a companion for you or your loved ones who has
                 travel plan
+
+
+
             </li>
 
         </ul>
 
     </div>
+
+
+    <div id="search-bar" class="search-module">
+
+        <form class="form-horizontal" action="javascript:findTripOpen();">
+            <fieldset>
+
+                <div class="form-row">
+                    <label class="search control-label-open" for="src">From*</label>
+                    <div class="col-md-4">
+                        <input type="text" id="src" class="form-control input-md text-uppercase" placeholder="City or Airport" minlength="3" maxlength="30" autocomplete="off" required="">
+                    </div>
+                    <label class="search control-label-open" for="dest">To*</label>
+
+                    <div class="col-md-4">
+                        <input type="text" id="dest" class="form-control input-md text-uppercase" placeholder="City or Airport" minlength="3" maxlength="30" autocomplete="off" required="">
+                    </div>
+                    <!--<div class="col-md-4">-->
+                    <!--<button id="button1id" name="button1id" class="btn btn-success" >FIND</button>-->
+                    <!--<button id="reset-button" name="reset-button" class="btn btn-info" onclick="reset();resetAll()">Reset</button>-->
+                    <!--</div>-->
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="button1id"></label>
+                    <div>
+                        <button id="button1id" name="button1id" class="btn btn-success" >FIND</button>
+                        <button id="reset-button" name="reset-button" class="btn btn-info" onclick="reset();resetOpenAll()">Reset</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="find-trips-open" class="trip-list"></div>
+
 
     For any queries, please send email to <a href="#"><span class="contact-us">contact.copayana@gmail.com</span></a>
 
@@ -85,7 +131,7 @@
 <!-- Page Content -->
 <div class="container">
 
-    <div class="row">
+    <div id="bottom-bar" class="row">
 
         <div class="col-lg-12 text-center">
 
@@ -103,6 +149,8 @@
     </div>
 
 
+
+
 </div>
 
 
@@ -116,5 +164,15 @@
 <script src="bs/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
+
+<script type="text/javascript">
+
+    AirportInput("src");
+    AirportInput("dest");
+
+</script>
+
+
 
 </html>
