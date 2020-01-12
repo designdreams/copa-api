@@ -5,7 +5,7 @@ var HOST = 'http://localhost:8080/';
 
   function signOut() {
 
-  alert('You are signing out from this website. If needed, Please sign out from google in your browser!');
+  alert('You are signing out from this website. If you wish, sign out from your google account in your browser!');
 
     logOut();
     var auth2 = gapi.auth2.getAuthInstance();
@@ -61,9 +61,9 @@ xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("x-app-trace-id", "app");
 xhr.setRequestHeader("Accept", "*/*");
 xhr.setRequestHeader("Cache-Control", "no-cache");
-xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-xhr.setRequestHeader("Content-Length", "31");
-xhr.setRequestHeader("Connection", "keep-alive");
+//xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+//xhr.setRequestHeader("Content-Length", "31");
+//xhr.setRequestHeader("Connection", "keep-alive");
 xhr.setRequestHeader("cache-control", "no-cache");
 
 xhr.send(data);
@@ -333,7 +333,7 @@ function findTrip(){
          var obj = JSON.parse(response);
 
          if(obj.respCode == 'NO_TRIPS_FOUND'){
-                 document.getElementById("find-trips").innerHTML = '<div class="no-trips-in-find">You do not have any matching trips! Try again later or search for other locations!</div>';
+                 document.getElementById("find-trips").innerHTML = '<div class="no-trips-in-find">You do not have any matching trips! Try again later or search for other locations! You can also Add your Trip, so other travellers can contact you.</div>';
          }else{
              //populateTripsHtml(obj);
              populateTripsHtmlNew('FIND', obj);
@@ -387,7 +387,7 @@ function findTrip(){
          var obj = JSON.parse(response);
 
          if(obj.respCode == 'NO_TRIPS_FOUND'){
-                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> No matching trips!  Please Add your Trip by signing in so other travellers can contact you.</div>';
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> No matching trips!  Please Add your Trip by signing in, so other travellers can contact you.</div>';
          }else{
          var count = obj.count;
              //populateTripsHtml(obj);
@@ -407,9 +407,9 @@ function findTrip(){
  xhr.setRequestHeader("x-app-trace-id", "app");
  xhr.setRequestHeader("Accept", "*/*");
  xhr.setRequestHeader("Cache-Control", "no-cache");
- xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
- xhr.setRequestHeader("Content-Length", "31");
- xhr.setRequestHeader("Connection", "keep-alive");
+// xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+// xhr.setRequestHeader("Content-Length", "31");
+// xhr.setRequestHeader("Connection", "keep-alive");
  xhr.setRequestHeader("cache-control", "no-cache");
 
  xhr.send(data);
@@ -478,9 +478,9 @@ xhrr.setRequestHeader("Content-Type", "application/json");
 xhrr.setRequestHeader("x-app-trace-id", "app");
 xhrr.setRequestHeader("Accept", "*/*");
 xhrr.setRequestHeader("Cache-Control", "no-cache");
-xhrr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-xhrr.setRequestHeader("Content-Length", "31");
-xhrr.setRequestHeader("Connection", "keep-alive");
+//xhrr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+//xhrr.setRequestHeader("Content-Length", "31");
+//xhrr.setRequestHeader("Connection", "keep-alive");
 xhrr.setRequestHeader("cache-control", "no-cache");
 
 xhrr.send(data);
@@ -639,9 +639,9 @@ xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("x-app-trace-id", "app");
 xhr.setRequestHeader("Accept", "*/*");
 xhr.setRequestHeader("Cache-Control", "no-cache");
-xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-xhr.setRequestHeader("Content-Length", "31");
-xhr.setRequestHeader("Connection", "keep-alive");
+//xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+//xhr.setRequestHeader("Content-Length", "31");
+//xhr.setRequestHeader("Connection", "keep-alive");
 xhr.setRequestHeader("cache-control", "no-cache");
 xhr.send(data);
 }

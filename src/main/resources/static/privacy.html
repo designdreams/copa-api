@@ -14,14 +14,28 @@
     <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/main.css"/>
+    <script src="js/app.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
 </head>
 <body>
 
+<!--&lt;!&ndash; Navigation &ndash;&gt;-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">-->
+    <!--<div class="container">-->
+        <!--<a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>-->
+    <!--</div>-->
+<!--</nav>-->
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>
+        <a class="navbar-brand" href="#"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png"
+                                              alt="">CO PAYANA</a>
+        <!--<span class="g-signin2 gsign-button" onclick="ClickLogin()" data-onsuccess="onSignIn"></span>-->
     </div>
 </nav>
 
@@ -100,11 +114,17 @@
 
         <div class="col-lg-12 text-center">
             <img id="copayana_center" src="/images/logo/copayana_logo_gold_in_white.png" alt="">
+
         </div>
 
         </div>
 </div>
 
+<!--<div id="login-module">-->
+    <!--<form id="login-auth" name="login-auth-form" action="/authcon" method="POST">-->
+        <!--<input id="x-app-token-param" name="app-token" type="hidden" value="">-->
+    <!--</form>-->
+<!--</div>-->
 
 </body>
 

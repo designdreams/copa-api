@@ -13,22 +13,35 @@
     <!-- Bootstrap core CSS -->
     <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css"/>
+    <script src="js/app.js"></script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
 </head>
 <body>
 
+<!--&lt;!&ndash; Navigation &ndash;&gt;-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">-->
+    <!--<div class="container">-->
+        <!--<a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">COPAYANA</a>-->
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"-->
+                <!--aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--<span class="navbar-toggler-icon"></span>-->
+        <!--</button>-->
+
+    <!--</div>-->
+<!--</nav>-->
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">COPAYANA</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
+        <a class="navbar-brand" href="#"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png"
+                                              alt="">CO PAYANA</a>
+        <!--<span class="g-signin2 gsign-button" onclick="ClickLogin()" data-onsuccess="onSignIn"></span>-->
     </div>
 </nav>
 
@@ -72,6 +85,12 @@
                     </li>
 
                     <li class="qa">
+                        <h5>Why it is showing "Signed in" in Google sign in button, even I have not signed in to the website?</h5>
+                        <p>This is because, you have signed in to your google account in your browser already. This does not mean you are signed into the website. You need to
+                            click on the "Sign in" button to sign into the website. If you sign out from your google account from your browser, you will not see this.</p>
+                    </li>
+
+                    <li class="qa">
                         <h5>How long my trips will be listed?</h5>
                         <p>Your trips will be listed as long as you do not delete or if it is one month older, whichever comes first</p>
                     </li>
@@ -96,14 +115,16 @@
 
         <div class="col-lg-12 text-center">
             <img id="copayana_center" src="/images/logo/copayana_logo_gold_in_white.png" alt="">
-            <hr>
-            <div id="footer"><a href="/faqs.html" target="_blank">FAQs</a> | <a href="/privacy.html" target="_blank">Privacy</a> | <a href="/tnc.html" target="_blank">Terms</a>
-                | <a href="/contact-us.html" target="_blank">Contact us</a> | © 2020 Copayana. All rights reserved
-            </div>
         </div>
     </div>
 
 </div>
+
+<!--<div id="login-module">-->
+    <!--<form id="login-auth" name="login-auth-form" action="/authcon" method="POST">-->
+        <!--<input id="x-app-token-param" name="app-token" type="hidden" value="">-->
+    <!--</form>-->
+<!--</div>-->
 
 <!-- Bootstrap core JavaScript -->
 <script src="bs/vendor/jquery/jquery.slim.min.js"></script>

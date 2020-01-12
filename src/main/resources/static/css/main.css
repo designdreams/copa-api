@@ -6,6 +6,10 @@ html {
   background-size: cover;
 }
 
+body{
+font-family: serif;
+}
+
 #copayana_logo{
     width: 12%;
 }
@@ -58,6 +62,7 @@ margin-left: 40%;
 
 
 h5.wish-name {
+font-family: serif;
 color: #9a9456;
 margin: 3% 1%;
 }
@@ -370,25 +375,22 @@ color: #839212;
 }
 
 #help-content li{
-    margin: 2%;
-    padding: 1.5%;
     font-size: 1.0em;
     list-style-type: none;
 }
 
 
 #help-content ul{
-    font-size: 1.2em;
-    color: #93960f;
-    background-color: #1d1818;
+    padding: 2%;
+    color: #58500f;
+    background-color: #dadada;
     style: none;
     border-radius: 5px;
 }
 
 .sub-head{
-font-size: 1.2em;
 color:#939611;
-margin: 2%;
+margin-bottom: 3%;
 }
 
 .btn-success {
@@ -515,4 +517,13 @@ color:#7b701b
     font-size: 1.5em;
     font-family: initial;
     color: #fffdaa;
+    }
+
+#quick-find-btn{
+    margin-left: 5%;
+}
+
+#quick-find{
+font-size: 1.6rem;
+    color: #58500f;
     }

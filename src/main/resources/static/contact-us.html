@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css"/>
+    <script src="js/app.js"></script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id"
@@ -22,39 +23,51 @@
     <!--<script src="js/home.js"></script>-->
     <!--<script th:src="@{js/home.js}"></script>-->
 
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
 </head>
 <body>
 
+<!--&lt;!&ndash; Navigation &ndash;&gt;-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">-->
+    <!--<div class="container">-->
+        <!--<a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>-->
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"-->
+                <!--aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--<span class="navbar-toggler-icon"></span>-->
+        <!--</button>-->
+        <!--&lt;!&ndash;<div class="collapse navbar-collapse" id="navbarResponsive">&ndash;&gt;-->
+            <!--&lt;!&ndash;<ul class="navbar-nav ml-auto">&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a class="nav-link" href="/home">Home&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="sr-only">(current)</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a class="nav-link" href="/addTrip">Add Trip</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a class="nav-link" href="/findTrip">Find Trip</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="nav-item active">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="nav-link" href="/contactUs">Contact us</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="nav-link" href="/logout" onclick="signOut();">Sign out</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+<!--</nav>-->
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
-            <!--<ul class="navbar-nav ml-auto">-->
-                <!--<li class="nav-item">-->
-                <!--<a class="nav-link" href="/home">Home-->
-                <!--<span class="sr-only">(current)</span>-->
-                <!--</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                <!--<a class="nav-link" href="/addTrip">Add Trip</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                <!--<a class="nav-link" href="/findTrip">Find Trip</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item active">-->
-                    <!--<a class="nav-link" href="/contactUs">Contact us</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                    <!--<a class="nav-link" href="/logout" onclick="signOut();">Sign out</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
+        <a class="navbar-brand" href="#"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png"
+                                              alt="">CO PAYANA</a>
+        <!--<span class="g-signin2 gsign-button" onclick="ClickLogin()" data-onsuccess="onSignIn"></span>-->
     </div>
 </nav>
 
@@ -79,17 +92,16 @@
                 <img id="copayana_center" src="/images/logo/copayana_logo_gold_in_white.png" alt="">
 
             </div>
-            <hr>
-
-            <div id="footer"><a href="/faqs.html" target="_blank">FAQs</a> | <a href="/privacy.html" target="_blank">Privacy</a> | <a href="/tnc.html" target="_blank">Terms</a>
-                | <a href="/contact-us.html" target="_blank">Contact us</a> | © 2020 Copayana. All rights reserved
-            </div>
 
         </div>
     </div>
     </div>
 
-
+<!--<div id="login-module">-->
+    <!--<form id="login-auth" name="login-auth-form" action="/authcon" method="POST">-->
+        <!--<input id="x-app-token-param" name="app-token" type="hidden" value="">-->
+    <!--</form>-->
+<!--</div>-->
 
 <!-- Bootstrap core JavaScript -->
 <script src="bs/vendor/jquery/jquery.slim.min.js"></script>
