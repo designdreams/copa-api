@@ -6,7 +6,10 @@ html {
   background-size: cover;
 }
 
+
+
 body{
+background: url(/images/banner/wmt.png) no-repeat center center fixed;
 font-family: serif;
 }
 
@@ -382,8 +385,10 @@ color: #839212;
 
 #help-content ul{
     padding: 2%;
-    color: #58500f;
-    background-color: #dadada;
+   // color: #58500f;
+   // background-color: #dadada;
+    color: #423c07;
+    background-color: #e6e6dd;
     style: none;
     border-radius: 5px;
 }
@@ -453,9 +458,10 @@ color:#cac4a0;
  }
 
 .no-trip{
-      font-size: 1.5em;
-      color: #d87f11;
       font-family: serif;
+      padding: 3%;
+      background-color: #616554;
+      color: #eae8e6;
  }
 
 .contact-email{
@@ -527,3 +533,7 @@ color:#7b701b
 font-size: 1.6rem;
     color: #58500f;
     }
+
+#open-page, #error-page{
+background:unset;
+}
