@@ -17,8 +17,9 @@ public class WelcomeService {
 	private static final Logger logger = LogManager.getLogger(WelcomeService.class);
 
 	@GetMapping("/")
-	public String welcome(Model model) {
-		return "index";
+	public ModelAndView welcome(Model model) {
+		ModelAndView index = new ModelAndView("index");
+		return index;
 	}
 
 	@GetMapping("/home")

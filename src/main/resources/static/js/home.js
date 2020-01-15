@@ -3,6 +3,15 @@ var HOST = 'http://localhost:8080/';
  //var HOST= 'https://www.copayana.com/';
 
 
+/* important */
+var hosturl = window.location.href;
+
+
+if(!hosturl.includes("https") && hosturl.includes("copayana")){
+window.location.href='https://www.copayana.com';
+}
+
+
   function signOut() {
 
   alert('You are signing out from this website. If you wish, sign out from your google account in your browser!');
@@ -387,11 +396,11 @@ function findTrip(){
          var obj = JSON.parse(response);
 
          if(obj.respCode == 'NO_TRIPS_FOUND'){
-                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> No matching trips!  Please Add your Trip by signing in, so other travellers can contact you.</div>';
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">  No matching trips!  Please Add your Trip by signing in, so other travellers can contact you.</div>';
          }else{
          var count = obj.count;
              //populateTripsHtml(obj);
-                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">Awesome! You have <span class="count">'+ count +' </span> matching trips! Please sign in and connect with your companion.</div>';
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> Awesome! You have <span class="count">'+ count +' </span> matching trips! Please sign in and connect with your companion.</div>';
 
             // populateTripsHtmlNew('FIND', obj);
          }

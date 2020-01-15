@@ -537,3 +537,7 @@ font-size: 1.6rem;
 #open-page, #error-page{
 background:unset;
 }
+
+.msg-icon{
+width:20%;
+}
