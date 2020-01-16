@@ -1,6 +1,7 @@
 package com.designdreams.copass;
 
 import com.designdreams.copass.mysql.DBConfiguration;
+import com.designdreams.copass.utils.AES;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
@@ -26,14 +27,15 @@ public class CopassApp {
                     DBConfiguration.class);
             AppStaticFactory.setContext(applicationContext);
 
-            logger.info(" Read Traveller context " + AppStaticFactory.getContext());
+            logger.info(" Read context " + AppStaticFactory.getContext());
 
         } catch (Exception e) {
             logger.error(e, e);
             e.printStackTrace();
         }
 
-        logger.info(" COPASS API started......!!!!! " + Arrays.asList(applicationContext.getBeanDefinitionNames()));
+
+        logger.info(" COPAYANA  started......!!!!! " + Arrays.asList(applicationContext.getBeanDefinitionNames()));
 
     }
 

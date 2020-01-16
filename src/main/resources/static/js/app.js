@@ -1,8 +1,3 @@
-//var APP_URL= 'http://localhost:8080/authcon';
-//var APP_URL= 'https://dd-project-c.appspot.com/authcon';
-//var APP_URL= 'https://www.copayana.com/authcon';
-
-
 var id_token = '';
 var email = '';
 var id = '';
@@ -21,8 +16,6 @@ if (clicked) {
   id_token = googleUser.getAuthResponse().id_token;
   document.getElementById("x-app-token-param").value = id_token;
 
-  //alert(" Google sign in success ");
-
     email = profile.getEmail();
     id = profile.getId();
    postForm(id_token);
@@ -30,31 +23,25 @@ if (clicked) {
 }
 }
 
-
 function postForm(token){
-//alert('token'+document.getElementById("x-app-token-param").value);
 document.getElementById("login-auth").submit();
 }
 
-function postAuth(){
-    var data = JSON.stringify({
-      "user": {
-        "emailId": email,
-         "id": id
-      }
-    });
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST',APP_URL);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("cache-control", "no-cache");
-    xhr.setRequestHeader("x-app-auth-token", id_token);
-
-    xhr.onload = function() {
-      console.log('Signed in as: ' + xhr.responseText);
-    };
-    xhr.send(data);
-}
+//function postAuth(){
+//    var data = JSON.stringify({
+//      "user": {
+//        "emailId": email,
+//         "id": id
+//      }
+//    });
+//
+//    var xhr = new XMLHttpRequest();
+//    xhr.open('POST',APP_URL);
+//    xhr.setRequestHeader("Content-Type", "application/json");
+//    xhr.setRequestHeader("cache-control", "no-cache");
+//    xhr.setRequestHeader("x-app-auth-token", id_token);
+//    xhr.send(data);
+//}
 
   function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -63,7 +50,5 @@ function postAuth(){
     });
   }
 
-
-// home.js
 
 

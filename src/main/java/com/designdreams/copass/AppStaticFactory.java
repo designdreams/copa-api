@@ -14,5 +14,4 @@ public class AppStaticFactory {
         AppStaticFactory.context = context;
     }
 
-
 }

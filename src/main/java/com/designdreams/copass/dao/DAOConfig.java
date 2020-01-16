@@ -1,7 +1,5 @@
 package com.designdreams.copass.dao;
 
-import com.designdreams.copass.CopassApp;
-import com.designdreams.copass.bean.CoPayanaConstants;
 import com.designdreams.copass.utils.AES;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -18,7 +16,10 @@ public class DAOConfig {
 
     @Value("${MONGO_CON_URI}")
     private String connectionUri;
-    
+
+
+    @Value("${AES_TOKEN}")
+    private String token;
 
     @Bean
     public MongoClient getMongoClient() {
@@ -26,7 +27,7 @@ public class DAOConfig {
         MongoClient mongoClient =null;
 
             try {
-                MongoClientURI uri = new MongoClientURI(AES.decrypt(connectionUri, CoPayanaConstants.CO_PAYANA__ENCRYPTION_KEY));
+                MongoClientURI uri = new MongoClientURI(AES.decrypt(connectionUri, token));
                 mongoClient = new MongoClient(uri);
             } catch (Exception e) {
                 logger.error(e, e);

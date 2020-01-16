@@ -115,7 +115,6 @@ tr.aroww{
 color: #13426b;
   padding: 2%;
    background-color: #c3cfda;
-   font-family: "DejaVu Sans", sans-serif;
 }
 
 
@@ -123,7 +122,6 @@ tr.roww{
     color: #677134;
   padding: 2%;
    background-color:#FFFFFF;
-   font-family: "DejaVu Sans", sans-serif;
 }
 
 
@@ -516,7 +514,6 @@ color:#7b701b
         color: #efeeea;
         padding: 3%;
         font-family: serif;
-        font-size: 1.3em;
 }
 
 .count{

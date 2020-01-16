@@ -33,6 +33,9 @@ public class AuthController {
     @Autowired
     UserService us;
 
+    @Autowired
+    AuthValidator authValidator;
+
     @PostMapping("/authcon")
     public ModelAndView authenticated(HttpServletRequest request,
                                       HttpServletResponse response
@@ -47,17 +50,15 @@ public class AuthController {
 
         try {
 
-            logger.info(" Auth service for system : {}", AppUtil.getIpFromRequest(request));
+
+            logger.info(" Auth service for system : {} {}", authValidator.getClientIdOne(),AppUtil.getIpFromRequest(request));
 
             //idTokenString = request.getHeader("x-app-auth-token");
-            idTokenString = request.getParameter("app-token" +
-                    "");
+            idTokenString = request.getParameter("app-token" + "");
 
             uuid = request.getHeader("x-app-trace-id");
 
             logger.info(" idTokenString : {}", idTokenString);
-
-            //logger.info("token " + idTokenString);
 
             if (null == idTokenString)
                 throw new RuntimeException("EMPTY_TOKEN_STRING");
@@ -68,7 +69,7 @@ public class AuthController {
 
                 // Print user identifier
                 String userId = payload.getSubject();
-                logger.info("User ID: " + userId);
+                logger.debug("User ID: " + userId);
 
                 // Get profile information from payload
                 String email = ((GoogleIdToken.Payload) payload).getEmail();
@@ -85,7 +86,7 @@ public class AuthController {
                 User user;
                 boolean registrationStatus = false;
 
-                logger.info("payload :" + payload.getJwtId());
+                logger.debug("payload :" + payload.getJwtId());
                 // Use or store profile information
 
                 mnv = new ModelAndView("home");
@@ -117,8 +118,7 @@ public class AuthController {
                 response.addCookie(cook);
 
             } else {
-                logger.info("Invalid ID token ");
-
+                logger.error("Invalid ID token ");
                 mnv = new ModelAndView("error");
 
             }

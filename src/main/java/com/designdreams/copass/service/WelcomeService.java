@@ -50,7 +50,6 @@ public class WelcomeService {
 
 		if(null == token || token.isEmpty()){
 
-
 			ModelAndView err_model = new ModelAndView("error");
 			return err_model;
 

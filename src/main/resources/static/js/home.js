@@ -1,5 +1,4 @@
 var HOST = 'http://localhost:8080/';
-// HOST= 'https://dd-project-c.appspot.com/';
  //var HOST= 'https://www.copayana.com/';
 
 
@@ -48,18 +47,15 @@ xhr.addEventListener("readystatechange", function () {
     var response = this.responseText;
 
 
-//alert('got ');
     if(response) {
         var obj = JSON.parse(response);
 
         if(obj.respCode == 'NO_TRIPS_FOUND'){
                 document.getElementById("trips").innerHTML = '<div class="no-trip">You do not have any active trips! Add using the menu</div>';
         }else{
-            //populateTripsHtml(obj);
             populateTripsHtmlNew('READ', obj);
         }
     }else{
-    //alert(response);
         document.getElementById("trips").innerHTML = 'SORRY! PLEASE TRY LATER!';
     }
 }
@@ -70,9 +66,6 @@ xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("x-app-trace-id", "app");
 xhr.setRequestHeader("Accept", "*/*");
 xhr.setRequestHeader("Cache-Control", "no-cache");
-//xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-//xhr.setRequestHeader("Content-Length", "31");
-//xhr.setRequestHeader("Connection", "keep-alive");
 xhr.setRequestHeader("cache-control", "no-cache");
 
 xhr.send(data);
@@ -81,11 +74,7 @@ xhr.send(data);
 
 
 
-
-
 function populateTripsHtmlNew(action, obj){
-
-
 
 if(action == 'FIND'){
 var listDiv = document.getElementById("find-trips");
@@ -162,8 +151,6 @@ for (var i = 0; i < len; ++i) {
         row.className = "aroww";
     }
 
-    //row.padding="2%";
-
   var col_from = document.createElement('td');
   var col_to = document.createElement('td');
   var col_date = document.createElement('td');
@@ -184,7 +171,6 @@ for (var i = 0; i < len; ++i) {
 
   if(action == 'FIND'){
   col_email.class = "coll";
-//<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
     }
 
   col_from.appendChild(document.createTextNode(obj.tripList[i].source));
@@ -252,12 +238,8 @@ for (var i = 0; i < len; ++i) {
     detail.setAttributeNode(onclick);
     detail.setAttributeNode(href);
     detail.setAttributeNode(id);
-
-    //detail.setAttributeNode(datatoggle);
-   // detail.setAttributeNode(datacontent);
-
     detail.appendChild(document.createTextNode("Info"));
-   col_email.appendChild(detail);
+    col_email.appendChild(detail);
 
    }else{
 
@@ -269,8 +251,6 @@ for (var i = 0; i < len; ++i) {
 
        delete_link.setAttributeNode(delete_href);
        delete_link.setAttributeNode(delete_onclick);
-
-       //delete_link.appendChild(document.createTextNode("Delete"));
        col_delete.appendChild(delete_link);
 
    }
@@ -292,23 +272,8 @@ tbody.appendChild(row);
 }
 
 table.appendChild(tbody);
-//tableDiv.appendChild(table);
-
 listDiv.appendChild(tripHead);
 listDiv.appendChild(table);
-}
-
-//
-//<div class="table-responsive"><table class="table"><thead>
-//<tr><th>#</th><th>From</th><th>To</th><th>Date</th><th>Airways</th><th>Email</th></tr>
-//</thead><tbody>
-//    <tr><td>1</td><td>Anna</td><td>Pitt</td> <td>35</td><td>New York</td><td>USA</td></tr>
-//</tbody></table></div>
-
-
-function openInfo(){
-alert("hello");
-//alert(this)
 }
 
 function findTrip(){
@@ -336,8 +301,6 @@ function findTrip(){
      console.log("response is success");
      var response = this.responseText;
 
-
- //alert('got ');
      if(response) {
          var obj = JSON.parse(response);
 
@@ -348,7 +311,6 @@ function findTrip(){
              populateTripsHtmlNew('FIND', obj);
          }
      }else{
-     //alert(response);
          document.getElementById("find-trips").innerHTML = 'SORRY! PLEASE TRY LATER!';
      }
  }
@@ -390,8 +352,6 @@ function findTrip(){
      console.log("response is success");
      var response = this.responseText;
 
-
- //alert('got ');
      if(response) {
          var obj = JSON.parse(response);
 
@@ -399,13 +359,9 @@ function findTrip(){
                  document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">  No matching trips!  Please Add your Trip by signing in, so other travellers can contact you.</div>';
          }else{
          var count = obj.count;
-             //populateTripsHtml(obj);
                  document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> Awesome! You have <span class="count">'+ count +' </span> matching trips! Please sign in and connect with your companion.</div>';
-
-            // populateTripsHtmlNew('FIND', obj);
          }
      }else{
-     //alert(response);
          document.getElementById("find-trips-open").innerHTML = 'We got some Work! Please Try later!';
      }
  }
@@ -416,11 +372,7 @@ function findTrip(){
  xhr.setRequestHeader("x-app-trace-id", "app");
  xhr.setRequestHeader("Accept", "*/*");
  xhr.setRequestHeader("Cache-Control", "no-cache");
-// xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-// xhr.setRequestHeader("Content-Length", "31");
-// xhr.setRequestHeader("Connection", "keep-alive");
  xhr.setRequestHeader("cache-control", "no-cache");
-
  xhr.send(data);
 
  }
@@ -463,10 +415,6 @@ xhrr.withCredentials = true;
 
 xhrr.addEventListener("readystatechange", function () {
 
-//  if (this.readyState > 0) {
-//   document.getElementById("add-trip-result").innerHTML = 'Please wait! Pulling trips.....';
-//    }
-
   if (this.readyState === 4) {
 
     console.log("success response");
@@ -474,7 +422,6 @@ xhrr.addEventListener("readystatechange", function () {
 
     if(response) {
         var obj = JSON.parse(response);
-//           document.getElementById("add-trip-result").innerHTML = '';
            populateResult(obj);
     }else{
         document.getElementById("trips").innerHTML = 'SORRY! PLEASE TRY LATER!';
@@ -487,40 +434,24 @@ xhrr.setRequestHeader("Content-Type", "application/json");
 xhrr.setRequestHeader("x-app-trace-id", "app");
 xhrr.setRequestHeader("Accept", "*/*");
 xhrr.setRequestHeader("Cache-Control", "no-cache");
-//xhrr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-//xhrr.setRequestHeader("Content-Length", "31");
-//xhrr.setRequestHeader("Connection", "keep-alive");
 xhrr.setRequestHeader("cache-control", "no-cache");
-
 xhrr.send(data);
 
 }
 
 function populateResult(obj){
 
-//var listDiv = document.getElementById("add-trip-result");
-
 if(obj && obj.respCode == "SUCCESS"){
-
-//listDiv.innerHTML = "Great! Your trip is added successfully!";
 openAddResponseModal("Great! Your trip is added successfully!");
-
-// redirect to home
 window.location.href = HOST+"home";
-
-
 }else if(obj && obj.respCode == "INVALID_SAME_DAY_DUPLICATE_TRIP"){
 
-//listDiv.innerHTML = ;
 openAddResponseModal("Trip already added!!");
 
 }else if(obj && obj.respCode.includes("DUPLICATE_TRIP")){
-
- //listDiv.innerHTML = "Trip already added!!";
 openAddResponseModal("Trip already added!!");
 
  }else{
-//listDiv.innerHTML = "Could not add Trip. Please Try Again!";
 openAddResponseModal("Could not add Trip. Please Try Again!");
 
 }
@@ -538,7 +469,6 @@ var span = document.getElementsByClassName("close")[0];
 
 function modalblock(email){
 modal = document.getElementById("myModal");
-//span = document.getElementsByClassName("close")[0];
 span = document.getElementById("modal-close");
 document.getElementById("contact-info").innerHTML = email;
   modal.style.display = "block";
@@ -550,40 +480,20 @@ function closemodal(){
   modal.style.display = "none";
 }
 
-// When the user clicks anywhere outside of the modal, close it
-//window.onclick = function(event) {
-//  if (event.target == modal || event.target == response_modal) {
-//    modal.style.display = "none";
-//  }
-//}
-
-/* add trip result  modal */
-
-// Get the modal
 var response_modal ="";
 
-// Get the button that opens the modal
-//var btn = document.getElementById("response-modal-btn");
-
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
 function openAddResponseModal(addResponse) {
   response_modal = document.getElementById("myModal");
   document.getElementById("add-response-info").innerHTML = addResponse;
   response_modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
 function closeAddResponseModal() {
   response_modal.style.display = "none";
 }
 
-
-
-
-// When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal || event.target == response_modal) {
   if(response_modal.style){
@@ -599,8 +509,6 @@ window.onclick = function(event) {
 
 
 function deleteTrip(email, src, dest, date){
-//alert(email+src+dest+date);
-
 var data = JSON.stringify({
     "userId": email,
 	"source": src,
@@ -618,8 +526,6 @@ xhr.addEventListener("readystatechange", function () {
     console.log("response is success");
     var response = this.responseText;
 
-
-//alert('got ');
     if(response) {
         var obj = JSON.parse(response);
 
@@ -630,11 +536,10 @@ xhr.addEventListener("readystatechange", function () {
             window.location.href = HOST+"home";
 
        } else{
-            alert("Cannot Delete Trip!");
+            alert("Sorry! Cannot Delete Trip, Try Later!");
         }
     }else{
-    //alert(response);
-            alert("Cannot Delete Trip!");
+            alert("Sorry! Cannot Delete Trip, Try Later!");
     }
 }
 });
@@ -648,15 +553,11 @@ xhr.setRequestHeader("Content-Type", "application/json");
 xhr.setRequestHeader("x-app-trace-id", "app");
 xhr.setRequestHeader("Accept", "*/*");
 xhr.setRequestHeader("Cache-Control", "no-cache");
-//xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
-//xhr.setRequestHeader("Content-Length", "31");
-//xhr.setRequestHeader("Connection", "keep-alive");
 xhr.setRequestHeader("cache-control", "no-cache");
 xhr.send(data);
 }
 
 }
-
 
 function showAirwaysText(){
 	if(document.getElementById("airways").value=="Others"){
