@@ -356,10 +356,10 @@ function findTrip(){
          var obj = JSON.parse(response);
 
          if(obj.respCode == 'NO_TRIPS_FOUND'){
-                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">  No matching trips!  Please Add your Trip by signing in, so other travellers can contact you.</div>';
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">  No matching trips currently! Add your Trip by signing in, let other travellers find you.</div>';
          }else{
          var count = obj.count;
-                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> Awesome! You have <span class="count">'+ count +' </span> matching trips! Please sign in and connect with your companion.</div>';
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> Awesome! There are <span class="count">'+ count +' </span> travellers on this route! Please sign in and connect to get more details.</div>';
          }
      }else{
          document.getElementById("find-trips-open").innerHTML = 'We got some Work! Please Try later!';
