@@ -304,7 +304,7 @@ public class TripDAOImpl implements TripDAO {
                     .filter(trip -> isExactTripMatch(trip, src, dest))
                     .collect(Collectors.toList());
 
-            logger.info("All TRIPS " + filteredTripList);
+            logger.debug("All TRIPS " + filteredTripList);
 
         } catch (Exception e) {
 

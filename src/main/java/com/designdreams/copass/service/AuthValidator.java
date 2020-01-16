@@ -1,5 +1,6 @@
 package com.designdreams.copass.service;
 
+import com.designdreams.copass.utils.AES;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -25,6 +26,9 @@ public class AuthValidator {
 
     @Value("${CLIENT_ID_3}")
     private String clientIdThree;
+
+    @Value("${AES_TOKEN}")
+    private String token;
 
     private Logger logger = LogManager.getLogger(Auth.class);
 
@@ -58,9 +62,9 @@ public class AuthValidator {
 
         //System.out.println("================>>"+clientIdOne);
         // Encrypt these
-        String CLIENT_ID = clientIdOne;
-        String CLIENT_ID_1 = clientIdTwo;
-        String CLIENT_ID_2 = clientIdThree;
+        String CLIENT_ID = AES.decrypt(clientIdOne,token);
+        String CLIENT_ID_1 = AES.decrypt(clientIdTwo,token);
+        String CLIENT_ID_2 = AES.decrypt(clientIdThree,token);
 
         try {
             if(null == idTokenString)

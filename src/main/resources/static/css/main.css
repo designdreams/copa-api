@@ -220,6 +220,13 @@ tbody tr:nth-child(odd){
 
 .search-module{
     margin:2%;
+    /*background-color: #133f54; */
+    background-color: #e6e6dd;
+    border-radius: 5px;
+}
+
+#search-bar fieldset{
+padding:3%;
 }
 
 #legend-name{
@@ -531,10 +538,19 @@ font-size: 1.6rem;
     color: #58500f;
     }
 
+#features{
+font-size: 1.6rem;
+    color: #58500f;
+}
+
 #open-page, #error-page{
 background:unset;
 }
 
 .msg-icon{
 width:20%;
+}
+
+#sign-lnk{
+color:#ab5408;
 }

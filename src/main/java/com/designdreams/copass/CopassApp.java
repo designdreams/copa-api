@@ -21,6 +21,7 @@ public class CopassApp {
 
         try {
 
+
             SpringApplication.run(CopassApp.class, args);
 
             applicationContext = new AnnotationConfigApplicationContext(
@@ -33,7 +34,6 @@ public class CopassApp {
             logger.error(e, e);
             e.printStackTrace();
         }
-
 
         logger.info(" COPAYANA  started......!!!!! " + Arrays.asList(applicationContext.getBeanDefinitionNames()));
 
