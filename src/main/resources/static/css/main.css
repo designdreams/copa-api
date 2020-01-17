@@ -25,7 +25,8 @@ margin-top: 3%;
 
 .banner-message{
     margin:3%;
-    font-size: 3em;
+      font-weight: 900;
+      font-size: 3.5em;
     position: absolute;
     top: 12%;
     left: 12%;
@@ -140,10 +141,10 @@ tr td{
  @media all and (max-width: 1000px) { /* screen size until 1000px */
 
          .banner-message{
-         font-size: 1.8em;
+         font-weight: 900;
+         font-size: 2.5em;
          margin:3%;
          }
-
 
      }
 
@@ -155,15 +156,16 @@ tr td{
 
          .banner-message{
          font-size: 1.5em;
+         font-weight: 900;
          }
 
          #copayana_logo{
              width: 20%;
          }
 
-                  .ic{
-                  width:10% !important;
-                  }
+          .ic{
+          width:10% !important;
+          }
      }
 
 
@@ -219,6 +221,12 @@ tbody tr:nth-child(odd){
 */
 
 .search-module{
+    margin:2%;
+    /*background-color: #133f54; */
+    border-radius: 5px;
+}
+
+.search-module-out{
     margin:2%;
     /*background-color: #133f54; */
     background-color: #e6e6dd;
