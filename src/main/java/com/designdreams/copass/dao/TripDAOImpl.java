@@ -160,7 +160,7 @@ public class TripDAOImpl implements TripDAO {
 
 
         try {
-            System.out.println("emailId:: " + emailId);
+            //System.out.println("emailId:: " + emailId);
 
             Document bson = new Document();
             bson.put("emailId", emailId);
@@ -205,8 +205,6 @@ public class TripDAOImpl implements TripDAO {
 
                 Bson bson = new BsonDocument();
 
-                System.out.println("before ---- delete.......");
-
 
                 logger.info("{} : src:: {} dest:: {} date ::{}", traceId, src, dest,date);
 
@@ -231,13 +229,12 @@ public class TripDAOImpl implements TripDAO {
 //                        match.put("trips.travelStartDate", date);
 //                    }
 
-                System.out.println("before delete.......");
                 logger.info(query.toJson());
                 logger.info(find.toJson());
 
                 mongoClient.getDatabase(database).getCollection(collection).findOneAndUpdate(find, query);
 
-                System.out.println("deleted.......");
+                logger.info("deleted.......");
 
             }
 

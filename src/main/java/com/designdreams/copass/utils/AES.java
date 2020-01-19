@@ -1,5 +1,8 @@
 package com.designdreams.copass.utils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,7 +16,9 @@ public class AES {
  
     private static SecretKeySpec secretKey;
     private static byte[] key;
- 
+    private static final Logger logger = LogManager.getLogger(AES.class);
+
+
     public static void setKey(String myKey) 
     {
         MessageDigest sha = null;
@@ -25,10 +30,10 @@ public class AES {
             secretKey = new SecretKeySpec(key, "AES");
         } 
         catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            logger.error(e,e);
         } 
         catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            logger.error(e,e);
         }
     }
  
@@ -43,7 +48,7 @@ public class AES {
         } 
         catch (Exception e) 
         {
-            System.out.println("Error while encrypting: " + e.toString());
+           logger.info("Error while encrypting: " + e.toString());
         }
         return null;
     }
@@ -59,7 +64,7 @@ public class AES {
         } 
         catch (Exception e) 
         {
-            System.out.println("Error while decrypting: " + e.toString());
+            logger.info("Error while decrypting: " + e.toString());
         }
         return null;
     }

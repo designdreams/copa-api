@@ -217,7 +217,9 @@ for (var i = 0; i < len; ++i) {
     var onclick = document.createAttribute("onclick");
        // onclick.value = "openInfo(); return false;";
     var notes =  obj.tripList[i].notes;
-    var contact_info = "<h4> Traveller Details </h4><hr><br><b>Email::</b> "+obj.tripList[i].travellerId;
+    var contact_info = '<h4> Traveller Details </h4><hr><div class="info-note"> You can copy and send email to the traveller.</div><br><b>Email::</b> '+obj.tripList[i].travellerId;
+
+    //https://mail.google.com/mail/?view=cm&fs=1&to=email@domain.com
 
     if(notes && notes.length > 0){
     contact_info = contact_info + "<br><b>Notes :: </b>"+notes+"";
