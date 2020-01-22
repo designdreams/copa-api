@@ -85,9 +85,13 @@ var listDiv = document.getElementById("trips");
 document.getElementById("trips").innerHTML = "";
 }
 
+var noteTxt = document.createElement("div");
+noteTxt.id = "add-trips-in-find";
+noteTxt.appendChild(document.createTextNode("Still you can add your trip in Add Trip page to get more options!"));
 
 var tripHead = document.createElement("h3");
 tripHead.class = "trip-head";
+tripHead.appendChild(document.createTextNode("Matching Trips Found"));
 
 var table = document.createElement('table');
 table.class = "trip-table";
@@ -274,8 +278,15 @@ tbody.appendChild(row);
 }
 
 table.appendChild(tbody);
+if(action == 'FIND'){
 listDiv.appendChild(tripHead);
+}
 listDiv.appendChild(table);
+
+if(action == 'FIND'){
+listDiv.appendChild(noteTxt);
+}
+
 }
 
 function findTrip(){
@@ -358,10 +369,10 @@ function findTrip(){
          var obj = JSON.parse(response);
 
          if(obj.respCode == 'NO_TRIPS_FOUND'){
-                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">  No matching trips currently! Add your Trip by signing in, let other travellers find you.</div>';
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open">  No matching trips currently! Add your Trip by <a id="sign-lnk" href="#sign">signing in</a>, let other travellers find you.</div>';
          }else{
          var count = obj.count;
-                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> Awesome! There are <span class="count">'+ count +' </span> travellers on this route! Please sign in and connect to get more details.</div>';
+                 document.getElementById("find-trips-open").innerHTML = '<div class="trips-in-find-open"> Awesome! There are <span class="count">'+ count +' </span> travellers on this route! Please <a id="sign-lnk" href="#sign">sign-in</a> and connect to get more details.</div>';
          }
      }else{
          document.getElementById("find-trips-open").innerHTML = 'We got some Work! Please Try later!';

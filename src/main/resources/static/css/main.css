@@ -166,6 +166,10 @@ tr td{
           .ic{
           width:10% !important;
           }
+
+          tr td {
+              padding: 1%;
+          }
      }
 
 
@@ -221,7 +225,7 @@ tbody tr:nth-child(odd){
 */
 
 .search-module{
-    margin:2%;
+    /*margin:2%;*/
     /*background-color: #133f54; */
     border-radius: 5px;
 }
@@ -233,7 +237,7 @@ tbody tr:nth-child(odd){
     border-radius: 5px;
 }
 
-#search-bar fieldset{
+.open{
 padding:3%;
 }
 
@@ -366,6 +370,16 @@ color: #839212;
      color: #5a5109;
      font-family: serif;
  }
+
+
+.trip-type{
+    margin-top: 3%;
+    color: #ffffff;
+    background-color: #717169;
+     border-radius:5px;
+     padding:3%
+}
+
 
 #land-content{
     margin: 3%;
@@ -560,5 +574,15 @@ width:20%;
 }
 
 #sign-lnk{
-color:#ab5408;
+color:#000000;
+}
+
+#trips-in-find-open #sign-lnk{
+ color:#fb7908;
+}
+
+#add-trips-in-find{
+    color: #8c8d8e;
+    margin-top: 2%;
+    padding: 2%;
 }
