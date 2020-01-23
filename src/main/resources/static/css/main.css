@@ -72,7 +72,7 @@ margin: 3% 1%;
 }
 
 #trips{
-     margin: 2%;
+     margin-top: 2%;
 }
 
 #find-trips{
@@ -109,7 +109,7 @@ margin: 3% 1%;
 }
 
 #trips thead tr th{
-   padding: 2%;
+   padding: 1%;
  }
 
 tr.aroww{
@@ -365,7 +365,7 @@ color: #839212;
 
 #home-content{
      padding: 2%;
-     background-color: #f5f4e0;
+     background-color: #ffffff94;
      margin-bottom: 3%;
      color: #5a5109;
      font-family: serif;
@@ -373,7 +373,7 @@ color: #839212;
 
 
 .trip-type{
-    margin-top: 3%;
+   /* margin-top: 3%; */
     color: #ffffff;
     background-color: #717169;
      border-radius:5px;
