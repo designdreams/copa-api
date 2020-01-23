@@ -51,7 +51,7 @@ xhr.addEventListener("readystatechange", function () {
         var obj = JSON.parse(response);
 
         if(obj.respCode == 'NO_TRIPS_FOUND'){
-                document.getElementById("trips").innerHTML = '<div class="no-trip">You do not have any active trips! Add using the menu</div>';
+                document.getElementById("trips").innerHTML = '<div class="no-trip">You do not have any active trips! Add using Add Trip link in the menu</div>';
         }else{
             populateTripsHtmlNew('READ', obj);
         }
