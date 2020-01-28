@@ -586,3 +586,7 @@ color:#000000;
     margin-top: 2%;
     padding: 2%;
 }
+
+#fb-icon, #twtr-icon{
+width:5%;
+}
