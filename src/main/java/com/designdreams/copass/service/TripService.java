@@ -18,14 +18,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
 public class TripService {
 
     private static final Logger logger = LogManager.getLogger(TripService.class);
+
+    private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     TripDAOImpl tripDAO;
@@ -190,13 +194,27 @@ public class TripService {
 
                 }
 
-              // finaltripList.sort(Comparator.comparing(Trip::getSortDate).reversed());
+
+                logger.debug("read Not sorted list "+finaltripList);
+
+                Collections.sort(finaltripList, new Comparator<Trip>() {
+                    public int compare(Trip o1, Trip o2) {
+                        if (o1.getTravelStartDate() == null || o2.getTravelStartDate() == null)
+                            return 0;
+                        return o1.getTravelStartDate().compareTo(o2.getTravelStartDate());
+                    }
+                });
+
+//  No need to filter old trips here fir user refernce. Add logic in UI to show it in red or grayed out for user.
+
+//                List<Trip>  filteredFinaltripList= finaltripList.stream()
+//                        .filter(trip -> (trip.getTravelStartDate()!=null && trip.getTravelStartDate().isEmpty()) ||
+//                                trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0 )
+//                        .collect(Collectors.toList());
 
                 readItineraryResponse.setTripList(finaltripList);
 
-
-                //Collections.sort(readItineraryResponse.getTripList().,new MyComparator());
-               // readItineraryResponse.getTripList().stream().sorted(Comparator.comparing(Trip::getSource).thenComparing(Trip::getTravelStartDate)).collect(Collectors.toList());
+                logger.debug("read sorted list "+finaltripList);
 
                 readTripResponse = mapper.writeValueAsString(readItineraryResponse);
 
@@ -322,7 +340,25 @@ public class TripService {
                 mapper.writer(new DefaultPrettyPrinter());
 
                 SearchTripResponse searchItineraryResponse = new SearchTripResponse();
-                searchItineraryResponse.setTripList(tripList);
+
+                logger.debug("find Not sorted list "+tripList);
+                Collections.sort(tripList, new Comparator<Trip>() {
+                    public int compare(Trip o1, Trip o2) {
+                        if (o1.getTravelStartDate() == null || o2.getTravelStartDate() == null)
+                            return 0;
+                        return o1.getTravelStartDate().compareTo(o2.getTravelStartDate());
+                    }
+                });
+
+                List<Trip>  filteredFindFinaltripList= tripList.stream()
+                        .filter(trip -> (trip.getTravelStartDate()!=null && trip.getTravelStartDate().isEmpty()) ||
+                                trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0 )
+                        .collect(Collectors.toList());
+                searchItineraryResponse.setTripList(filteredFindFinaltripList);
+
+                logger.debug("find sorted list "+filteredFindFinaltripList);
+
+                searchItineraryResponse.setTripList(filteredFindFinaltripList);
 
                 searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
 
@@ -377,13 +413,26 @@ public class TripService {
 
             tripList = tripDAO.searchTripDetailsList(traceId, source, destination, startDate);
 
+            Collections.sort(tripList, new Comparator<Trip>() {
+                public int compare(Trip o1, Trip o2) {
+                    if (o1.getTravelStartDate() == null || o2.getTravelStartDate() == null)
+                        return 0;
+                    return o1.getTravelStartDate().compareTo(o2.getTravelStartDate());
+                }
+            });
+
+            List<Trip>  filteredFindOpenFinaltripList= tripList.stream()
+                    .filter(trip -> (trip.getTravelStartDate()!=null && trip.getTravelStartDate().isEmpty()) ||
+                            trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0 )
+                    .collect(Collectors.toList());
+
             if (null != tripList && tripList.size() > 0) {
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());
 
                 SearchOpenTripResponse searchOpenItineraryResponse = new SearchOpenTripResponse();
-                searchOpenItineraryResponse.setCount(tripList.size());
+                searchOpenItineraryResponse.setCount(filteredFindOpenFinaltripList.size());
 
                 searchOpenItineraryResponseStr = mapper.writeValueAsString(searchOpenItineraryResponse);
 
