@@ -590,3 +590,15 @@ color:#000000;
 #fb-icon, #twtr-icon{
 width:5%;
 }
+
+.banner-note{
+    background-color: #464545;
+    color: #f4f5f1;
+    margin: 2%;
+    padding: 2%;
+}
+
+#alert-img{
+    width: 5%;
+    padding-right: 1%;
+}
