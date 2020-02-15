@@ -15,6 +15,7 @@
     <!-- Bootstrap core CSS -->
     <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id"
           content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
@@ -32,6 +33,9 @@
     <link rel="shortcut icon" type="image/png" th:href="@{images/favicon.ico}"/>
     <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 
 <body>
@@ -46,8 +50,45 @@
 </nav>
 
 <div id="banner-container">
-    <img id="banner-img" src="/images/banner/copayana-bg1-small.png" alt="">
-    <div class="banner-message ml3">Finding travel companion made easy! </div>
+    <!--<img id="banner-img" src="/images/banner/copayana-bg1-small.png" alt="">
+    <div class="banner-message ml3">Finding travel companion made easy! </div>-->
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleSlidesOnly" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleSlidesOnly" data-slide-to="1"></li>
+            <li data-target="#carouselExampleSlidesOnly" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="/images/flight_wing.png" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>Travelling together is always fun</h1>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/flight_seat.png" alt="Second slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>I fly , You fly , Let's fly together</h1>
+                </div>
+
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/images/flight_bird.png" alt="Third slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>Flying Alone is Boring, Helping others is Caring</h1>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleSlidesOnly" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleSlidesOnly" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
 
 
 </div>
