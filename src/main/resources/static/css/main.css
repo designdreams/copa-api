@@ -146,6 +146,11 @@ tr td{
          margin:3%;
          }
 
+         .carousel-caption h1{
+             font-size: 2em !important;
+             font-weight: bolder;
+         }
+
      }
 
  @media all and (max-width: 500px) { /* screen size until 500px */
@@ -170,6 +175,11 @@ tr td{
           tr td {
               padding: 1%;
           }
+
+                   .carousel-caption h1{
+                       font-size: 1em !important;
+                       font-weight: bolder;
+                   }
      }
 
 
@@ -601,4 +611,19 @@ width:5%;
 #alert-img{
     width: 5%;
     padding-right: 1%;
+}
+
+.black-text{
+    color: #797979;
+}
+
+.carousel-caption {
+    top: 65%;
+    bottom: auto;
+}
+
+
+.carousel-caption h1{
+    font-size: 3em;
+    font-weight: bolder;
 }

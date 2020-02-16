@@ -227,9 +227,22 @@ for (var i = 0; i < len; ++i) {
 
     //https://mail.google.com/mail/?view=cm&fs=1&to=email@domain.com
 
+    var canTakePackageInd =  obj.tripList[i].canTakePackageInd;
+    var isTicketBooked = obj.tripList[i].isTicketBooked;
+    var isFinalDestination = obj.tripList[i].isFinalDestination;
+
     if(notes && notes.length > 0){
     contact_info = contact_info + "<br><b>Notes :: </b>"+notes+"";
     }
+
+
+   if(canTakePackageInd && canTakePackageInd==true){
+    contact_info = contact_info + '<br><br><span class="black-text">* This traveller can help with urgent small packages like medicine or documents etc.</span>';
+    }
+
+       if(isTicketBooked && isTicketBooked==true){
+        contact_info = contact_info + '<br><br><span class="black-text">* This traveller has booked tickets already</span>';
+        }
 
 
          onclick.value = "modalblock('"+contact_info+"'); return false;"

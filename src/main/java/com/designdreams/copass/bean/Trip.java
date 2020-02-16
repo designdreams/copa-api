@@ -47,9 +47,9 @@ public class Trip {
 
     private boolean isTicketBooked;
 
-    private boolean isDomestic;
-
     private boolean canTakePackageInd;
+
+    private boolean isDomestic;
 
     private boolean isFinalDestination;
 
@@ -139,20 +139,12 @@ public class Trip {
         this.travellingWith = travellingWith;
     }
 
-    public boolean isTicketBooked() {
+    public boolean getIsTicketBooked() {
         return isTicketBooked;
     }
 
-    public void setTicketBooked(boolean ticketBooked) {
+    public void setIsTicketBooked(boolean ticketBooked) {
         isTicketBooked = ticketBooked;
-    }
-
-    public boolean isDomestic() {
-        return isDomestic;
-    }
-
-    public void setDomestic(boolean domestic) {
-        isDomestic = domestic;
     }
 
     public String getAirways() {
@@ -171,14 +163,21 @@ public class Trip {
         this.canTakePackageInd = canTakePackageInd;
     }
 
-    public boolean isFinalDestination() {
+    public boolean getIsDomestic() {
+        return isDomestic;
+    }
+
+    public void setIsDomestic(boolean domestic) {
+        isDomestic = domestic;
+    }
+
+    public boolean getIsFinalDestination() {
         return isFinalDestination;
     }
 
-    public void setFinalDestination(boolean finalDestination) {
+    public void setIsFinalDestination(boolean finalDestination) {
         isFinalDestination = finalDestination;
     }
-
 
     @Override
     public String toString() {

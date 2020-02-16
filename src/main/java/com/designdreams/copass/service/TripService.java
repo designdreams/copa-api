@@ -185,10 +185,10 @@ public class TripService {
                     t.setMode((String)ltm.get("mode"));
                     t.setAirways((String)ltm.get("airways"));
                     t.setTravellingWith((String)ltm.get("travellingWith"));
-                    t.setTicketBooked(ltm.get("isTicketBooked").equals("true"));
-                    t.setDomestic(ltm.get("isDomestic").equals("true"));
+                    t.setIsTicketBooked(ltm.get("isTicketBooked").equals("true"));
+                    t.setIsDomestic(ltm.get("isDomestic").equals("true"));
                     t.setCanTakePackageInd(ltm.get("canTakePackageInd").equals("true"));
-                    t.setFinalDestination(ltm.get("isFinalDestination").equals("true"));
+                    t.setIsFinalDestination(ltm.get("isFinalDestination").equals("true"));
                     //t.setSortDate(t.getTravelStartDate()!=null && t.getTravelStartDate()!=""?format.parse(t.getTravelStartDate()):null);
                     finaltripList.add(t);
 
