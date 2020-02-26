@@ -43,7 +43,7 @@ public class TripService {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createTrip(@RequestBody CreateTripRequest createTripRequest,
                                              @RequestHeader Map<String, String> headers,
-                                             @CookieValue(required=false, value = "app_token") String token) {
+                                             @CookieValue(required = false, value = "app_token") String token) {
 
         String travellerId;
         ResponseEntity<String> responseEntity = null;
@@ -58,17 +58,17 @@ public class TripService {
 
             uuid = headers.get("x-app-trace-id");
 
-            if( null == token)
+            if (null == token)
                 token = headers.get("x-app-auth-token");
 
 
-            if(StringUtils.isEmpty(uuid))
+            if (StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
             if (null != (respMsg = ResponseUtil.validate(createTripRequest)))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", respMsg);
 
-            if(null == token || null == authValidator.validateToken(uuid,token ))
+            if (null == token || null == authValidator.validateToken(uuid, token))
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
             Trip trip = createTripRequest.getTrip();
@@ -110,7 +110,7 @@ public class TripService {
     public ResponseEntity<String> readTrip(
             @RequestBody ReadTripRequest readItineraryRequest,
             @RequestHeader Map<String, String> headers,
-            @CookieValue(required=false, value = "app_token") String token) {
+            @CookieValue(required = false, value = "app_token") String token) {
 
         List<Trip> tripList = null;
         List<Trip> finaltripList = new ArrayList<Trip>();
@@ -125,17 +125,17 @@ public class TripService {
 
         try {
 
-            logger.info("token {}",token);
+            logger.info("token {}", token);
 
             uuid = headers.get("x-app-trace-id");
 
-            if( null == token)
-            token = headers.get("x-app-auth-token");
+            if (null == token)
+                token = headers.get("x-app-auth-token");
 
-            if(StringUtils.isEmpty(uuid))
+            if (StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
-            if(null == token || null == (payload = authValidator.validateToken(uuid,token )))
+            if (null == token || null == (payload = authValidator.validateToken(uuid, token)))
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
             // authorize user based n email id. he should not see others trips by emailID
@@ -144,12 +144,12 @@ public class TripService {
 
             payload = authValidator.validateToken(uuid, token);
 
-            if(null!=payload)
+            if (null != payload)
                 emailFromToken = ((GoogleIdToken.Payload) payload).getEmail();
             else
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 //             TODO - uncomment for prod
-            if(!emailId.equalsIgnoreCase(emailFromToken)){
+            if (!emailId.equalsIgnoreCase(emailFromToken)) {
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "user with this email account is not authorized");
             }
 
@@ -174,17 +174,17 @@ public class TripService {
                 readItineraryResponse = new ReadTripResponse();
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-                Iterator it=tripList.iterator();
-                while (it.hasNext()){
-                    LinkedTreeMap ltm= (LinkedTreeMap) it.next();
-                    Trip t=new Trip();
-                    t.setTravellerId( (String)ltm.get("travellerId"));
-                    t.setSource((String)ltm.get("source"));
-                    t.setDestination((String)ltm.get("destination"));
-                    t.setTravelStartDate((String)ltm.get("travelStartDate"));
-                    t.setMode((String)ltm.get("mode"));
-                    t.setAirways((String)ltm.get("airways"));
-                    t.setTravellingWith((String)ltm.get("travellingWith"));
+                Iterator it = tripList.iterator();
+                while (it.hasNext()) {
+                    LinkedTreeMap ltm = (LinkedTreeMap) it.next();
+                    Trip t = new Trip();
+                    t.setTravellerId((String) ltm.get("travellerId"));
+                    t.setSource((String) ltm.get("source"));
+                    t.setDestination((String) ltm.get("destination"));
+                    t.setTravelStartDate((String) ltm.get("travelStartDate"));
+                    t.setMode((String) ltm.get("mode"));
+                    t.setAirways((String) ltm.get("airways"));
+                    t.setTravellingWith((String) ltm.get("travellingWith"));
                     t.setIsTicketBooked(ltm.get("isTicketBooked").equals("true"));
                     t.setIsDomestic(ltm.get("isDomestic").equals("true"));
                     t.setCanTakePackageInd(ltm.get("canTakePackageInd").equals("true"));
@@ -195,7 +195,7 @@ public class TripService {
                 }
 
 
-                logger.debug("read Not sorted list "+finaltripList);
+                logger.debug("read Not sorted list " + finaltripList);
 
                 Collections.sort(finaltripList, new Comparator<Trip>() {
                     public int compare(Trip o1, Trip o2) {
@@ -212,17 +212,23 @@ public class TripService {
 //                                trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0 )
 //                        .collect(Collectors.toList());
 
-                readItineraryResponse.setTripList(finaltripList);
+                if (finaltripList.size() == 0) {
 
-                logger.debug("read sorted list "+finaltripList);
+                    responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No Trips found for the user");
 
-                readTripResponse = mapper.writeValueAsString(readItineraryResponse);
+                } else {
 
-                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, readTripResponse);
+                    readItineraryResponse.setTripList(finaltripList);
 
+                    logger.debug("read sorted list " + finaltripList);
+
+                    readTripResponse = mapper.writeValueAsString(readItineraryResponse);
+
+                    responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, readTripResponse);
+                }
             }
         } catch (Exception e) {
-            logger.error( e, e);
+            logger.error(e, e);
             responseEntity = ResponseUtil.getResponse(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR", "Try again later");
         }
 
@@ -243,7 +249,7 @@ public class TripService {
     public ResponseEntity<String> deleteTrip(
             @RequestBody DeleteTripRequest deleteTripRequest,
             @RequestHeader Map<String, String> headers,
-            @CookieValue(required=false, value = "app_token") String token) {
+            @CookieValue(required = false, value = "app_token") String token) {
 
         List<Trip> tripList = null;
         String emailId = null;
@@ -259,13 +265,13 @@ public class TripService {
 
             uuid = headers.get("x-app-trace-id");
 
-            if( null == token)
+            if (null == token)
                 token = headers.get("x-app-auth-token");
 
-            if(StringUtils.isEmpty(uuid))
+            if (StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
-            if(null == token || null == authValidator.validateToken(uuid,token ))
+            if (null == token || null == authValidator.validateToken(uuid, token))
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
 
@@ -284,7 +290,7 @@ public class TripService {
                 responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "SUCCESS", "Successfully deleted trip!");
 
             } else {
-                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No trips found for the input");
+                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No active trips found for the input");
             }
 
         } catch (Exception e) {
@@ -299,7 +305,7 @@ public class TripService {
     public ResponseEntity<String> findTrip(
             @RequestBody SearchTripRequest searchItineraryRequest,
             @RequestHeader Map<String, String> headers,
-            @CookieValue(required=false, value = "app_token") String token) {
+            @CookieValue(required = false, value = "app_token") String token) {
 
         List<Trip> tripList = null;
         String emailId = null;
@@ -315,13 +321,13 @@ public class TripService {
 
             uuid = headers.get("x-app-trace-id");
 
-            if( null == token)
+            if (null == token)
                 token = headers.get("x-app-auth-token");
 
-            if(StringUtils.isEmpty(uuid))
+            if (StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
-            if(null == token || null == authValidator.validateToken(uuid,token ))
+            if (null == token || null == authValidator.validateToken(uuid, token))
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
 
@@ -341,7 +347,7 @@ public class TripService {
 
                 SearchTripResponse searchItineraryResponse = new SearchTripResponse();
 
-                logger.debug("find Not sorted list "+tripList);
+                logger.debug("find Not sorted list " + tripList);
                 Collections.sort(tripList, new Comparator<Trip>() {
                     public int compare(Trip o1, Trip o2) {
                         if (o1.getTravelStartDate() == null || o2.getTravelStartDate() == null)
@@ -350,20 +356,24 @@ public class TripService {
                     }
                 });
 
-                List<Trip>  filteredFindFinaltripList= tripList.stream()
-                        .filter(trip -> (trip.getTravelStartDate()!=null && trip.getTravelStartDate().isEmpty()) ||
-                                trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0 )
+                List<Trip> filteredFindFinaltripList = tripList.stream()
+                        .filter(trip -> (trip.getTravelStartDate() != null && trip.getTravelStartDate().isEmpty()) ||
+                                trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0)
                         .collect(Collectors.toList());
                 searchItineraryResponse.setTripList(filteredFindFinaltripList);
 
-                logger.debug("find sorted list "+filteredFindFinaltripList);
+                logger.debug("find sorted list " + filteredFindFinaltripList);
 
-                searchItineraryResponse.setTripList(filteredFindFinaltripList);
+                if (null != filteredFindFinaltripList && filteredFindFinaltripList.size() > 0) {
 
-                searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
+                    searchItineraryResponse.setTripList(filteredFindFinaltripList);
 
-                responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, searchItineraryResponseStr);
+                    searchItineraryResponseStr = mapper.writeValueAsString(searchItineraryResponse);
 
+                    responseEntity = ResponseUtil.getResponse(HttpStatus.OK, null, searchItineraryResponseStr);
+                } else {
+                    responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No active trips found for the input");
+                }
             } else {
 
                 responseEntity = ResponseUtil.getResponse(HttpStatus.OK, "NO_TRIPS_FOUND", "No trips found for the input");
@@ -382,7 +392,7 @@ public class TripService {
     public ResponseEntity<String> findTripOpen(
             @RequestBody SearchTripRequest searchItineraryRequest,
             @RequestHeader Map<String, String> headers,
-            @CookieValue(required=false, value = "app_token") String token) {
+            @CookieValue(required = false, value = "app_token") String token) {
 
         List<Trip> tripList = null;
         String emailId = null;
@@ -398,10 +408,10 @@ public class TripService {
 
             uuid = headers.get("x-app-trace-id");
 
-            if( null == token)
+            if (null == token)
                 token = headers.get("x-app-auth-token");
 
-            if(StringUtils.isEmpty(uuid))
+            if (StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
             emailId = searchItineraryRequest.getUserId();
@@ -421,12 +431,12 @@ public class TripService {
                 }
             });
 
-            List<Trip>  filteredFindOpenFinaltripList= tripList.stream()
-                    .filter(trip -> (trip.getTravelStartDate()!=null && trip.getTravelStartDate().isEmpty()) ||
-                            trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0 )
+            List<Trip> filteredFindOpenFinaltripList = tripList.stream()
+                    .filter(trip -> (trip.getTravelStartDate() != null && trip.getTravelStartDate().isEmpty()) ||
+                            trip.getTravelStartDate().compareTo(sdf.format(new Date())) > 0)
                     .collect(Collectors.toList());
 
-            if (null != tripList && tripList.size() > 0) {
+            if (null != filteredFindOpenFinaltripList && filteredFindOpenFinaltripList.size() > 0) {
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writer(new DefaultPrettyPrinter());

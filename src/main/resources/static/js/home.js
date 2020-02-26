@@ -349,9 +349,9 @@ function findTrip(){
  xhr.setRequestHeader("x-app-trace-id", "app");
  xhr.setRequestHeader("Accept", "*/*");
  xhr.setRequestHeader("Cache-Control", "no-cache");
- xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
- xhr.setRequestHeader("Content-Length", "31");
- xhr.setRequestHeader("Connection", "keep-alive");
+// xhr.setRequestHeader("Accept-Encoding", "gzip, deflate");
+// xhr.setRequestHeader("Content-Length", "31");
+// xhr.setRequestHeader("Connection", "keep-alive");
  xhr.setRequestHeader("cache-control", "no-cache");
 
  xhr.send(data);

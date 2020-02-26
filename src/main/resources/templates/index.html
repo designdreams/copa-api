@@ -31,13 +31,25 @@
     <link rel="manifest" href="images/site.webmanifest">
 
     <link rel="shortcut icon" type="image/png" th:href="@{images/favicon.ico}"/>
-    <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>-->
+    <script src="js/index.browser.min.js"></script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
 
+    <script data-ad-client="ca-pub-8974807416911897" async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
+</head>
 <body>
 
 <!-- Navigation -->
@@ -63,20 +75,22 @@
             <div class="carousel-item active">
                 <img class="d-block w-100" src="/images/flight_wing.png" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h1>Travelling together is always fun</h1>
+                    <h1>Finding travel companion made easy!</h1>
                 </div>
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100" src="/images/flight_seat.png" alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h1>I fly , You fly , Let's fly together</h1>
+                    <h1>Little help makes a big difference</h1>
+
                 </div>
 
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100" src="/images/flight_bird.png" alt="Third slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h1>Flying Alone is Boring, Helping others is Caring</h1>
+                    <!--<h1>We rise above by lifting others</h1>-->
+                    <h1>Travelling together is always fun</h1>
                 </div>
             </div>
         </div>
@@ -105,7 +119,7 @@
     <!--<div id="quick-find">Quick Find</div>-->
     <!--<hr>-->
 
-    <p>  Search for travellers on your route.</p>
+    <p> Search for travellers on your route.</p>
 
     <div id="search-bar" class="search-module-out">
 
@@ -115,12 +129,16 @@
                 <div class="form-row">
                     <label class="search control-label-open" for="src">From*</label>
                     <div class="col-md-4">
-                        <input type="text" id="src" class="form-control input-md text-uppercase" onfocus="this.value='';resetOpenAll()" placeholder="City or Airport" minlength="3" maxlength="30" autocomplete="off" required="">
+                        <input type="text" id="src" class="form-control input-md text-uppercase"
+                               onfocus="this.value='';resetOpenAll()" placeholder="City or Airport" minlength="3"
+                               maxlength="30" autocomplete="off" required="">
                     </div>
                     <label class="search control-label-open" for="dest">To*</label>
 
                     <div class="col-md-4">
-                        <input type="text" id="dest" class="form-control input-md text-uppercase" onfocus="this.value='';resetOpenAll()" placeholder="City or Airport" minlength="3" maxlength="30" autocomplete="off" required="">
+                        <input type="text" id="dest" class="form-control input-md text-uppercase"
+                               onfocus="this.value='';resetOpenAll()" placeholder="City or Airport" minlength="3"
+                               maxlength="30" autocomplete="off" required="">
                     </div>
                     <!--<div class="col-md-4">-->
                     <!--<button id="button1id" name="button1id" class="btn btn-success" >FIND</button>-->
@@ -132,8 +150,10 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="button1id"></label>
                     <div id="quick-find-btn">
-                        <button id="button1id" name="button1id" class="btn btn-success" >FIND</button>
-                        <button id="reset-button" name="reset-button" class="btn btn-info" onclick="reset();resetOpenAll()">Reset</button>
+                        <button id="button1id" name="button1id" class="btn btn-success">FIND</button>
+                        <button id="reset-button" name="reset-button" class="btn btn-info"
+                                onclick="reset();resetOpenAll()">Reset
+                        </button>
                     </div>
                 </div>
 
@@ -143,22 +163,38 @@
 
     <div id="find-trips-open" class="trip-list"></div>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- rect-ad-1 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-8974807416911897"
+         data-ad-slot="1786928387"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+
+    </script>
+
     <div id="features">Features</div>
     <hr>
 
     <div class="sub-head">
-        Login with your Google account using <a id="sign-lnk" href="#sign">sign in</a> button on top to get started and find companion. Good luck!
+        Login with your Google account using <a id="sign-lnk" href="#sign">sign in</a> button on top to get started and
+        find companion. Good luck!
     </div>
 
     <div id="help-content">
         <ul>
 
             <!--<img src="/images/icon/searht.jpg">-->
-            <li><img class="ic" src="/images/icon/fly1.png"> You can add your upcoming trips, let others find and reach you if they travel same route.
+            <li><img class="ic" src="/images/icon/fly1.png"> You can add your upcoming trips, let others find and reach
+                you if they travel same route.
                 <hr>
             </li>
 
-            <li><img class="ic" src="/images/icon/search-icon.png"> You can find a companion for you or your loved ones from
+            <li><img class="ic" src="/images/icon/search-icon.png"> You can find a companion for you or your loved ones
+                from
                 hundreds of travellers.
 
             </li>
@@ -168,9 +204,25 @@
     </div>
 
 
-    <div  class="banner-note" id="message"><img id="alert-img" src="/images/icon/alert.png"/>Please be aware of <b>Corona virus</b> and plan your travel transits accordingly. We feel sad for infected people
-        and wish them speedy recovery. We recommend all travellers to take preventive measures like wearing face masks, using sanitizers frequently and following
-        healthy hygiene. For more info check <a href="https://www.who.int/health-topics/coronavirus">WHO</a> </div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- react-ad-2 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-8974807416911897"
+         data-ad-slot="1620580880"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+
+    </script>
+
+
+    <div class="banner-note" id="message"><img id="alert-img" src="/images/icon/alert.png"/>Please be aware of <b>Corona
+        virus</b> and plan your travel transits accordingly. We feel sad for infected people
+        and wish them speedy recovery. We recommend all travellers to take preventive measures like wearing face masks,
+        using sanitizers frequently and following
+        healthy hygiene. For more info check <a href="https://www.who.int/health-topics/coronavirus">WHO</a></div>
 
     For any queries, please send email to <a href="#"><span class="contact-us">contact.copayana@gmail.com</span></a>
 
@@ -187,7 +239,7 @@
         <div class="col-lg-12 text-center">
 
             <div id="footer"><a href="/faqs.html">FAQs</a> | <a href="/privacy.html">Privacy</a> | <a href="/tnc.html">Terms</a>
-                | <a href="/contact-us.html" >Contact us</a> | © 2020 Copayana. All rights reserved
+                | <a href="/contact-us.html">Contact us</a> | © 2020 Copayana. All rights reserved
             </div>
 
             <div id="login-module">
@@ -198,8 +250,6 @@
 
         </div>
     </div>
-
-
 
 
 </div>
@@ -222,8 +272,8 @@
     AirportInput("src");
     AirportInput("dest");
 
-</script>
 
+</script>
 
 
 </html>
