@@ -72,7 +72,7 @@ public class SendEmail {
 
             System.out.println("sending...");
 
-           // Transport.send(message);
+            Transport.send(message);
 
             System.out.println("After Sending ....");
 
