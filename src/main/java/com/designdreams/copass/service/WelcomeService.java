@@ -1,5 +1,7 @@
 package com.designdreams.copass.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -12,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class WelcomeService {
 
+	private static final Logger logger = LogManager.getLogger(WelcomeService.class);
+
 	@GetMapping("/")
-	public String welcome(Model model) {
-		return "index";
+	public ModelAndView welcome(Model model) {
+		ModelAndView index = new ModelAndView("index");
+		return index;
 	}
 
 	@GetMapping("/home")
@@ -22,7 +27,7 @@ public class WelcomeService {
 							 HttpServletResponse response,
 							 @CookieValue(required=false, value = "app_token") String token) {
 
-		if(null == token){
+		if(null == token || token.isEmpty()){
 
 			ModelAndView err_model = new ModelAndView("error");
 			return err_model;
@@ -31,6 +36,8 @@ public class WelcomeService {
 
 		ModelAndView model = new ModelAndView("home");
 		//model.addObject("message","CUSTOMER");
+
+		logger.info("request for home");
 
 		return model;
 	}
@@ -41,7 +48,7 @@ public class WelcomeService {
 								@CookieValue(required=false, value = "app_token") String token) {
 
 
-		if(null == token){
+		if(null == token || token.isEmpty()){
 
 			ModelAndView err_model = new ModelAndView("error");
 			return err_model;
@@ -50,6 +57,7 @@ public class WelcomeService {
 
 		ModelAndView model = new ModelAndView("add-trip");
 		model.addObject("message","CUSTOMER");
+		logger.info("request for add trip");
 
 		return model;
 	}
@@ -59,7 +67,7 @@ public class WelcomeService {
 								 HttpServletResponse response,
 								 @CookieValue(required=false, value = "app_token") String token) {
 
-		if(null == token){
+		if(null == token || token.isEmpty()){
 
 			ModelAndView err_model = new ModelAndView("error");
 			return err_model;
@@ -68,6 +76,18 @@ public class WelcomeService {
 
 		ModelAndView model = new ModelAndView("find-trip");
 		model.addObject("message","CUSTOMER");
+		logger.info("request for find trip |{}| -",token);
+
+		return model;
+	}
+
+	@GetMapping("/findTripOpen")
+	public ModelAndView findTripOpen(HttpServletRequest request,
+								 HttpServletResponse response) {
+
+		ModelAndView model = new ModelAndView("find-trip-open");
+		model.addObject("message","CUSTOMER");
+		logger.info("request for find trip open");
 
 		return model;
 	}
@@ -78,6 +98,8 @@ public class WelcomeService {
 
 		ModelAndView model = new ModelAndView("contact-us");
 		model.addObject("message","CUSTOMER");
+
+		logger.info("request for contact us");
 
 		return model;
 	}

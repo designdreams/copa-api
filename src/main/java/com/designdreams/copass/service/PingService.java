@@ -10,7 +10,7 @@ public class PingService {
 
     @RequestMapping("/ping")
     public String ping() {
-        return "success";
+        return "Welcome To Copayana";
     }
 
 }

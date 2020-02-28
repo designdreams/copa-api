@@ -21,15 +21,28 @@
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <!--<script src="js/home.js"></script>-->
     <script th:src="@{js/home.js}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/airport-autocomplete-js@latest/dist/index.browser.min.js"></script>-->
+    <script src="js/index.browser.min.js"></script>
+
 
 </head>
 <body>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span id="modal-close" class="close" onclick="closemodal()">&times;</span>
+            <p id="contact-info"></p>
+        </div>
+
+    </div>
+
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo.png" alt=""></img>CO PAYANA</a>
+        <a class="navbar-brand" href="#"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,9 +59,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/findTrip">Find Trip</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contactUs">Contact us</a>
-                </li>
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="/contactUs">Contact us</a>-->
+                <!--</li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="/logout" onclick="signOut();">Sign out</a>
                 </li>
@@ -67,7 +80,7 @@
 
             <div id="search-bar" class="search-module">
 
-                <div id="add-trip-result"></div>
+                <!--<div id="add-trip-result"></div>-->
 
                 <form class="form-horizontal" action="javascript:findTrip();">
                     <fieldset>
@@ -76,17 +89,33 @@
                         <legend id="legend-name">Find Your Companion</legend>
 
 
+                        <div id="home-content">
+                            <div class="trip-type">
+                            Find your companion here by providing source and destination! If you see a matching trip, click on Info to get more details.
+                        </div>
+                            <br>
+                            <p> For better chances of getting companions, search by starting location, final destination or transits too.
+                                For example, if you are looking for someone travelling from New York to Australia via London, search trips like
+                            <ul>
+                                <li>New York to Australia [End to End Trip]</li>
+                                <li>New York to London [Transit Trip]</li>
+                                <li>London to Australia [Transit Trip]</li>
+                            </ul></p>
+                        </div>
+
+
+
                         <div class="form-group">
-                            <label class="search col-md-4 control-label" for="src">From*</label>
+                            <label class="col-md-4 control-label" for="src">From*</label>
                             <div class="col-md-4">
-                                <input type="text" id="src" class="form-control input-md text-uppercase" minlength="3" maxlength="3" required="">
+                                <input type="text" id="src" class="form-control input-md text-uppercase" placeholder="City or Airport" minlength="3" maxlength="30" autocomplete="off" required="">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="search col-md-4 control-label" for="dest">To*</label>
+                            <label class="col-md-4 control-label" for="dest">To*</label>
                             <div class="col-md-4">
-                                <input type="text" id="dest" class="form-control input-md text-uppercase" minlength="3" maxlength="3" required="">
+                                <input type="text" id="dest" class="form-control input-md text-uppercase" placeholder="City or Airport" minlength="3" maxlength="30" autocomplete="off" required="">
                             </div>
                         </div>
 
@@ -98,9 +127,9 @@
                         <!--</div>-->
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="trip-date">Date(Optional)</label>
+                            <label class="col-md-4 control-label" for="trip-date">Travel Date (optional)</label>
                             <div class="input-group date form_date col-md-4" data-date="" data-date-format="dd MM yyyy" data-link-field="trip-date" data-link-format="yyyy-mm-dd">
-                                <input id="trip-date1" name="trip-date1" type="text" placeholder="Travel Date" class="form-control" maxlength="16" size="16" readonly>
+                                <input id="trip-date1" name="trip-date1" type="text" placeholder="" class="form-control" maxlength="16" size="16" readonly>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
@@ -127,13 +156,23 @@
                 </form>
             </div>
 
-    <div class="row">
+    <hr>
+
+    <div id="bottom-bar"  class="row">
     <div class="col-lg-12 text-center">
-            <div id="find-trips" class="trip-list"></div>
-</div>
+
+        <div id="find-trips" class="trip-list"></div>
+        <p class="lead bottomline"> Happy and Safe Journey!</p>
+
+        <hr>
+
+        <div id="footer"><a href="/faqs.html">FAQs</a> | <a href="/privacy.html">Privacy</a> | <a href="/tnc.html">Terms</a>
+            | <a href="/contact-us.html" >Contact us</a> | © 2020 Copayana. All rights reserved
+        </div>
+
+    </div>
 </div>
 
-    <p class="lead bottomline"> Happy and Safe Journey!</p>
 
 </div>
 
@@ -168,12 +207,12 @@ date.setDate(date.getDate()-7);
 		forceParse: 0
     });
 
+  $('[data-toggle="popover"]').popover();
+
     });
 
 
-function resetAll(){
-document.getElementById("trip-date").value = "";
-}
+
 </script>
 
 <script th:inline="javascript">

@@ -23,12 +23,12 @@
 
 
 </head>
-<body>
+<body id="error-page">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/"><img id="copayana_logo" src="/images/logo/copayana_logo.png" alt=""></img>CO PAYANA</a>
+        <a class="navbar-brand" href="#"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png" alt="">CO PAYANA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,20 +49,24 @@
     <!--<h3 class="wish-name">Hello, [[${message}]]</h3>-->
     <div id="error-content">
 
-        <h2> NOT AUTHORIZED !</h2>
+        <h3> Session expired! or Something went wrong!</h3>
 
-        <h3>OR your session expired. Please login again</h3>
-
-        <h4> For any assistance and queries, Contact us:
-            contact.copayana@gmail.com </h4><br>
+       <p> <h4> For any assistance and queries, contact us:
+            <span class="contact-email">contact.copayana@gmail.com</span>
+        </h4> </p> <br>
 
     </div>
 
-    <div class="row">
+    <div id="bottom-bar"  class="row">
         <div class="col-lg-12 text-center">
 
             <img id="copayana_center" src="/images/logo/copayana_logo_gold_in_white.png" alt="">
 
+            <hr>
+
+            <div id="footer"><a href="/faqs.html">FAQs</a> | <a href="/privacy.html">Privacy</a> | <a href="/tnc.html">Terms</a>
+                | <a href="/contact-us.html" >Contact us</a> | © 2020 Copayana. All rights reserved
+            </div>
         </div>
     </div>
 </div>

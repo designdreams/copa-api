@@ -30,6 +30,9 @@ public class UserService {
     @Autowired
     UserDAOImpl userDAOImpl;
 
+    @Autowired
+    AuthValidator authValidator;
+
     @PostMapping(value = "/user/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,7 +53,7 @@ public class UserService {
             if(StringUtils.isEmpty(uuid))
                 return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
-            if(null == token || null == (payload = Auth.validateToken(uuid,token )))
+            if(null == token || null == (payload = authValidator.validateToken(uuid,token )))
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
             logger.info(createUserRequest.toString());
@@ -134,7 +137,7 @@ public class UserService {
             return ResponseUtil.getResponse(HttpStatus.BAD_REQUEST, "BAD_REQUEST", "Missing header[x-app-trace-id]");
 
 
-        if(null == token || null == (payload = Auth.validateToken(uuid,token )))
+        if(null == token || null == (payload = authValidator.validateToken(uuid,token )))
             return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
         emailFromToken = ((GoogleIdToken.Payload) payload).getEmail();

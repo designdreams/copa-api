@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trip {
@@ -46,13 +47,35 @@ public class Trip {
 
     private boolean isTicketBooked;
 
-    private boolean isDomestic;
-
     private boolean canTakePackageInd;
+
+    private boolean isDomestic;
 
     private boolean isFinalDestination;
 
-    public String getTripId() {
+    @Size(max = 150, message = "Invalid notes, Limit to 150 characters")
+    private String notes;
+
+    public Date getSortDate() {
+        return sortDate;
+    }
+
+    public void setSortDate(Date sortDate) {
+        this.sortDate = sortDate;
+    }
+
+    private Date sortDate;
+
+    public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+        this.notes = notes.replaceAll("[^a-zA-Z0-9 ]", "");;
+	}
+
+
+	public String getTripId() {
         return tripId;
     }
 
@@ -116,20 +139,12 @@ public class Trip {
         this.travellingWith = travellingWith;
     }
 
-    public boolean isTicketBooked() {
+    public boolean getIsTicketBooked() {
         return isTicketBooked;
     }
 
-    public void setTicketBooked(boolean ticketBooked) {
+    public void setIsTicketBooked(boolean ticketBooked) {
         isTicketBooked = ticketBooked;
-    }
-
-    public boolean isDomestic() {
-        return isDomestic;
-    }
-
-    public void setDomestic(boolean domestic) {
-        isDomestic = domestic;
     }
 
     public String getAirways() {
@@ -148,14 +163,21 @@ public class Trip {
         this.canTakePackageInd = canTakePackageInd;
     }
 
-    public boolean isFinalDestination() {
+    public boolean getIsDomestic() {
+        return isDomestic;
+    }
+
+    public void setIsDomestic(boolean domestic) {
+        isDomestic = domestic;
+    }
+
+    public boolean getIsFinalDestination() {
         return isFinalDestination;
     }
 
-    public void setFinalDestination(boolean finalDestination) {
+    public void setIsFinalDestination(boolean finalDestination) {
         isFinalDestination = finalDestination;
     }
-
 
     @Override
     public String toString() {
@@ -172,6 +194,7 @@ public class Trip {
                 ", isDomestic=" + isDomestic +
                 ", canTakePackageInd=" + canTakePackageInd +
                 ", isFinalDestination=" + isFinalDestination +
+                ", notes=" + notes +
                 '}';
     }
 }

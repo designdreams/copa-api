@@ -6,6 +6,13 @@ html {
   background-size: cover;
 }
 
+
+
+body{
+background: url(/images/banner/wmt.png) no-repeat center center fixed;
+font-family: serif;
+}
+
 #copayana_logo{
     width: 12%;
 }
@@ -13,25 +20,21 @@ html {
 .bottomline{
 color: #787d7d;
 font-family: serif;
+margin-top: 3%;
 }
 
 .banner-message{
-    /* color: #787d7d */
     margin:3%;
-    /*font-family: initial;*/
-    /* position: absolute; */
+      font-weight: 900;
+      font-size: 3.5em;
+    position: absolute;
     top: 12%;
     left: 12%;
-    color: #5f5757;
+    color: #FFFFFF;
     font-family: initial;
-    /* font-size: 30px; */
-    /* transform: translate(-0%, -0%); */
-    /* top: 10%; */
-    /* margin-top: 5%; */
     }
 
 #banner-container{
-
 }
 
 #banner-img{
@@ -62,18 +65,21 @@ margin-left: 40%;
 }
 
 
-h3.wish-name {
-color: #7f8184;
+h5.wish-name {
+font-family: serif;
+color: #9a9456;
 margin: 3% 1%;
 }
 
 #trips{
-     margin: 3%;
+     margin-top: 2%;
 }
 
 #find-trips{
-     margin: 2%;
+
+    margin: 0.5%;
 }
+
 #trips h3{
     font-size: 200%;
     color: #9a9556;
@@ -103,20 +109,20 @@ margin: 3% 1%;
 }
 
 #trips thead tr th{
-   padding: 2%;
+   padding: 1%;
  }
 
 tr.aroww{
+color: #13426b;
   padding: 2%;
    background-color: #c3cfda;
-   font-family: "DejaVu Sans", sans-serif;
 }
 
 
 tr.roww{
+    color: #677134;
   padding: 2%;
    background-color:#FFFFFF;
-   font-family: "DejaVu Sans", sans-serif;
 }
 
 
@@ -135,9 +141,16 @@ tr td{
  @media all and (max-width: 1000px) { /* screen size until 1000px */
 
          .banner-message{
-         font-size: 1.5em;
+         font-weight: 900;
+         font-size: 2.5em;
          margin:3%;
          }
+
+         .carousel-caption h1{
+             font-size: 2em !important;
+             font-weight: bolder;
+         }
+
      }
 
  @media all and (max-width: 500px) { /* screen size until 500px */
@@ -147,8 +160,26 @@ tr td{
          } */
 
          .banner-message{
-         font-size: 1.2em;
+         font-size: 1.5em;
+         font-weight: 900;
          }
+
+         #copayana_logo{
+             width: 20%;
+         }
+
+          .ic{
+          width:10% !important;
+          }
+
+          tr td {
+              padding: 1%;
+          }
+
+                   .carousel-caption h1{
+                       font-size: 1em !important;
+                       font-weight: bolder;
+                   }
      }
 
 
@@ -203,6 +234,23 @@ tbody tr:nth-child(odd){
 }
 */
 
+.search-module{
+    /*margin:2%;*/
+    /*background-color: #133f54; */
+    border-radius: 5px;
+}
+
+.search-module-out{
+    margin:2%;
+    /*background-color: #133f54; */
+    background-color: #e6e6dd;
+    border-radius: 5px;
+}
+
+.open{
+padding:3%;
+}
+
 #legend-name{
     font-size: 200%;
     color: #9a9556;
@@ -231,7 +279,7 @@ padding-left:3%
 }
 
 #error-content{
-margin: 10%
+margin: 3%
 
 }
 
@@ -249,10 +297,333 @@ width:300px
 }
 
 .navbar-brand{
+    font-family: serif;
     color: #e6df7a !important;
-}
+    font-weight: bold;
+    }
+
+/*
+.container{
+margin-left: unset;
+} */
 
 .autocomplete-result:hover{
     background: #B9DCEB;
 
+}
+
+.tap-cookie-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #abab95;
+    color: #fff;
+    padding: 1px;
+    z-index: 9999999999;
+    font-size: 80%;
+}
+
+
+.bg-dark {
+    background-color: #000000!important;
+}
+
+/* modal */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+color: #839212;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+    margin-left: 90%;
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* modal end */
+
+
+#home-content{
+     padding: 2%;
+     background-color: #ffffff94;
+     margin-bottom: 3%;
+     color: #5a5109;
+     font-family: serif;
+ }
+
+
+.trip-type{
+   /* margin-top: 3%; */
+    color: #ffffff;
+    background-color: #717169;
+     border-radius:5px;
+     padding:3%
+}
+
+
+#land-content{
+    margin: 3%;
+    color: #585010;
+    font-family: serif;
+}
+
+#disclaimer{
+	color:#afb2b4;
+	font-size:0.8em;
+	margin-left:15px;
+	
+}
+
+.gsign-button{
+    margin-left: 60%;
+    align-content: end;
+    position: absolute;
+}
+
+#help-content{
+    margin: 2%;
+}
+
+#help-content li{
+    font-size: 1.0em;
+    list-style-type: none;
+}
+
+
+#help-content ul{
+    padding: 2%;
+   // color: #58500f;
+   // background-color: #dadada;
+    color: #423c07;
+    background-color: #e6e6dd;
+    style: none;
+    border-radius: 5px;
+}
+
+.sub-head{
+color:#939611;
+margin-bottom: 3%;
+}
+
+.btn-success {
+    color: #beca16;
+    background-color: #1b1f1c;
+    border-color: #212522;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #768082;
+}
+
+#footer a{
+color:#cac4a0 !important;
+}
+
+#footer {
+color:#cac4a0;
+}
+
+
+.bg {
+  /* The image used */
+  background-image: url("../images/icon/copayana_bg.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.next{
+    background-color: black;
+    background-image: url("../images/icon/right-arrow.png");
+
+}
+
+.prev{
+    background-color: black;
+    background-image: url("../images/icon/left-arrow.png");
+}
+
+.control-label{
+    color: #80781a;
+    font-family: serif;
+}
+
+.control-label-open{
+    color: #96991a;
+    font-family: serif;
+}
+
+.checkbox{
+     color: #80781a;
+     font-family: serif;
+ }
+
+.no-trip{
+      font-family: serif;
+      padding: 3%;
+      background-color: #616554;
+      color: #eae8e6;
+ }
+
+.contact-email{
+     color: #80781a;
+     font-family: serif;
+}
+
+.ic{
+    width: 5%;
+    padding-right: 1%;
+}
+
+#cpyrt ul, #cpyrt li {
+    margin: 0; padding: 0;
+}
+
+#find-trips thead tr th{
+padding : 1.5%;
+}
+
+.contact-us{
+color:#7b701b
+}
+
+.no-trips-in-find{
+background-color: #73726a;
+color: #ffffff;
+padding : 5%;
+font-family: serif;
+}
+
+#faq-content h2{
+margin:3%
+}
+
+#faq-content{
+    margin: 2%;
+    margin-bottom: 5%;
+    color: #000000;
+    font-family: serif;
+
+}
+
+#faq-content h5{
+color:#7b701b
+}
+
+.trips-in-find-open{
+    border-radius: 5px;
+        margin: 2%;
+        background-color: #7d784f;
+        color: #efeeea;
+        padding: 1.5%;
+        font-family: serif;
+}
+
+.count{
+    font-size: 1.5em;
+    font-family: initial;
+    color: #fffdaa;
+    }
+
+#quick-find-btn{
+    margin-left: 5%;
+}
+
+#quick-find{
+font-size: 1.6rem;
+    color: #58500f;
+    }
+
+#features{
+font-size: 1.6rem;
+    color: #58500f;
+}
+
+#open-page, #error-page{
+background:unset;
+}
+
+.msg-icon{
+width:20%;
+}
+
+#sign-lnk{
+color:#000000;
+}
+
+#trips-in-find-open #sign-lnk{
+ color:#fb7908;
+}
+
+#add-trips-in-find{
+    color: #8c8d8e;
+    margin-top: 2%;
+    padding: 2%;
+}
+
+#fb-icon, #twtr-icon{
+width:5%;
+}
+
+.banner-note{
+    background-color: #464545;
+    color: #f4f5f1;
+    margin: 2%;
+    padding: 2%;
+}
+
+#alert-img{
+    width: 5%;
+    padding-right: 1%;
+}
+
+.black-text{
+    color: #797979;
+}
+
+.carousel-caption {
+    top: 65%;
+    bottom: auto;
+}
+
+
+.carousel-caption h1{
+    font-size: 3em;
+    font-weight: bolder;
 }

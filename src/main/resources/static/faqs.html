@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Find your travel companion">
+    <meta name="author" content="travel, companion">
+
+    <title>COPAYANA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bs/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="js/app.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+          content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
+
+</head>
+<body id="open-page">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><img id="copayana_logo" src="/images/logo/copayana_logo_black_small.png"
+                                              alt="">CO PAYANA</a>
+        <!--<span class="g-signin2 gsign-button" onclick="ClickLogin()" data-onsuccess="onSignIn"></span>-->
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <!--<h3 class="wish-name">Hello, [[${message}]]</h3>-->
+            <div id="faq-content">
+
+                <h2> Frequently Asked Questions </h2>
+
+                <div>
+
+                    <ul id="faq-list">
+
+                    <li class="qa">
+                        <h5>How can I get Travel Companion?</h5>
+                        <p>Go to Find Trip in the menu and enter Travelling from and travelling to airport location codes and click search button.
+                        You will see any matching trips listed. Click on Info link to know contact details. If you dont see any trips for
+                        your search, Add your travel plan so that someone can find and will reach you.</p>
+                    </li>
+
+                    <li class="qa">
+                        <h5>How can I add my travel plan?</h5>
+                        <p>Go to Add Trip in the menu and add the necessary details. Click Add button and you will see popup message if your trip is saved
+                        successfully. If your trip is already added or duplicate, add tentative date for your trip.</p>
+                    </li>
+
+                    <li class="qa">
+                        <h5>How can I delete my saved trip?</h5>
+                        <p>Once you login, you will see all your trips on home page. Click on the Trash icon to delete the specific trip</p>
+                    </li>
+
+                    <li class="qa">
+                        <h5>Is it safe to login with Google?</h5>
+                        <p>Yes, it is. This website uses Google OAuth sign in to let other travellers know who you are. On clicking Google sign in
+                        button, you are being redirected to Googles website to enter you email and password. On successful authentication with google,
+                        we get basic details about you including your name, emailId from google. For more details on data please check <a href="/privacy.html">privacy</a> </p>
+                    </li>
+
+                    <li class="qa">
+                        <h5>Why it is showing "Signed in" in Google sign in button, even I have not signed in to the website?</h5>
+                        <p>This is because, you have signed in to your google account in your browser already. This does not mean you are signed into the website. You need to
+                            click on the "Sign in" button to sign into the website. If you sign out from your google account from your browser, you will not see this.</p>
+                    </li>
+
+                    <li class="qa">
+                        <h5>How long my trips will be listed?</h5>
+                        <p>Your trips will be listed as long as you do not delete or if it is one month older, whichever comes first</p>
+                    </li>
+
+                    <li class="qa">
+                        <h5>How can I communicate if I find a matching trip companion?</h5>
+                        <p>Go to Find Trip in the menu and enter Travelling from and travelling to airport location codes and click search button.
+                            You will see any matching trips listed. Click on Info link to know contact details.You can choose the contact method preferred by the traveller</p>
+                    </li>
+
+                        <li class="qa">
+                            <h5>I need help with other issues. How do I report or contact?</h5>
+                            <p>We understand you! Please contact us here. <a class="contact-us" href="/contact-us.html">Contact Copayana Team</a> </p>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-12 text-center">
+            <img id="copayana_center" src="/images/logo/copayana_logo_gold_in_white.png" alt="">
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="bs/vendor/jquery/jquery.slim.min.js"></script>
+<script src="bs/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+
+</html>
