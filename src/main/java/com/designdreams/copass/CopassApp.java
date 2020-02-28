@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Arrays;
 
@@ -26,9 +27,10 @@ public class CopassApp {
 
             applicationContext = new AnnotationConfigApplicationContext(
                     DBConfiguration.class);
-            AppStaticFactory.setContext(applicationContext);
+            AppStaticFactory.setContext(applicationContext);;
 
             logger.info(" Read context " + AppStaticFactory.getContext());
+            logger.info("en == > "+AES.encrypt("alerts@123","A11is#We11"));
 
         } catch (Exception e) {
             logger.error(e, e);

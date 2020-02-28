@@ -1,5 +1,6 @@
 package com.designdreams.copass.service;
 
+import com.designdreams.copass.bean.Alert;
 import com.designdreams.copass.bean.Trip;
 import com.designdreams.copass.dao.TripDAOImpl;
 import com.designdreams.copass.utils.AppUtil;
@@ -10,15 +11,15 @@ import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class EmailScheduler {
 
     private static final Logger logger = LogManager.getLogger(EmailScheduler.class);
@@ -32,58 +33,38 @@ public class EmailScheduler {
     @Autowired
     String collection;
 
-
-    public List<Trip> getAllEmail(){
-
-    List<Trip> tripList = null;
-    List<Document> trips = null;
-
-    try{
+    @Autowired
+    SendEmail sendEmail;
 
 
-    Document bson = new Document();
-    bson.put("travelStartDate", BasicDBObjectBuilder.start("$gte", LocalDate.now()));
+    private List<Alert> getAlertsList() {
 
-    Document doc = mongoClient.getDatabase(database).getCollection(collection).find(bson).first();
+        List<Alert> alertList;
 
-    if (null != doc)
-        trips = doc.containsKey("trips") ? doc.getList("trips", Document.class) : null;
+        // get all alerts from alerts collection payanam-alerts
 
-    if (trips != null) {
-        tripList = TripDAOImpl.toList(AppUtil.getGson().toJson(trips), Trip.class);
+        // for each alerts check if there is any valid travel record match with src and destination.
+
+        // if present, add to list.
+
+        return new ArrayList<>();
+
     }
-    }catch (Exception e){
-        logger.error(e,e);
-        tripList = null;
+
+
+   // @Scheduled(cron = "0 0/15 * * * *")
+    public void pushEmails() {
+
+        logger.info("SENDING EMAIL EVERY 15 mins");
+
+        List<Alert> alertList;
+
+        alertList = getAlertsList();
+
+        alertList.forEach(alert -> sendEmail.email(alert.getEmailId(), alert.getSrc(), alert.getDest()));
+
+
     }
-    logger.info(" tripList:" + tripList);
-    return tripList;
-}
-
-
-public Map filterTravelerDetails(){
-
-    List<Trip> tripList = getAllEmail();
-
-     Map<String, List<String>> collect= tripList.stream().collect(Collectors.groupingBy(Trip::getDestination,Collectors.mapping(Trip::getTravellerId,Collectors.toList())));
-
-    logger.info(collect);
-
-    return collect;
-
-}
-//0 0/1 * 1/1 * ? * --every min
-    //"0 0 0 1/1 * ? *" -every day
-@Scheduled(cron="0 0/1 * 1/1 * ? *")
-public void callEmail(){
-
-
-    Map<String, List<String>> emailRecipient = filterTravelerDetails();
-
-        emailRecipient.forEach((k,v) -> v.forEach(t -> new SendEmail().email(t,k)));
-
-
-}
 
 
 }
