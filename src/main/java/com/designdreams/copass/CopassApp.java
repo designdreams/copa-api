@@ -30,7 +30,6 @@ public class CopassApp {
             AppStaticFactory.setContext(applicationContext);;
 
             logger.info(" Read context " + AppStaticFactory.getContext());
-            logger.info("en == > "+AES.encrypt("alerts@123","A11is#We11"));
 
         } catch (Exception e) {
             logger.error(e, e);
