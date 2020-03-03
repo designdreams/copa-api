@@ -147,6 +147,11 @@ len = obj.tripList.length;
 
 for (var i = 0; i < len; ++i) {
 
+    var canTakePackageInd =  obj.tripList[i].canTakePackageInd;
+    var isTicketBooked = obj.tripList[i].isTicketBooked;
+    var isFinalDestination = obj.tripList[i].isFinalDestination;
+    var activateAlert =  obj.tripList[i].activateAlert;
+
   var row = document.createElement('tr');
 
     if(i%2 == 0){
@@ -164,6 +169,10 @@ for (var i = 0; i < len; ++i) {
 
   if(action == 'FIND'){
   var col_email = document.createElement('td');
+    }else{
+       if(activateAlert){
+        row.className = row.className + ' alert';
+       }
     }
 
   col_from.class = "coll";
@@ -227,9 +236,6 @@ for (var i = 0; i < len; ++i) {
 
     //https://mail.google.com/mail/?view=cm&fs=1&to=email@domain.com
 
-    var canTakePackageInd =  obj.tripList[i].canTakePackageInd;
-    var isTicketBooked = obj.tripList[i].isTicketBooked;
-    var isFinalDestination = obj.tripList[i].isFinalDestination;
 
     if(notes && notes.length > 0){
     contact_info = contact_info + "<br><b>Notes :: </b>"+notes+"";
@@ -416,6 +422,8 @@ var tripWith = document.getElementById("trip-with").value;
 var isTicketBooked = document.getElementById("trip-box-0").checked;
 var isFinalDestination = document.getElementById("trip-box-1").checked;
 var canTakePackageInd = document.getElementById("trip-box-2").checked;
+var activateAlert = document.getElementById("trip-box-3").checked;
+
 var notes = document.getElementById('notes').value;
 if(airways=="Others"){
 	airways=document.getElementById("other_airways").value;
@@ -434,6 +442,7 @@ var data = JSON.stringify({
         "isDomestic": false,
         "canTakePackageInd": canTakePackageInd,
         "isFinalDestination": isFinalDestination,
+        "activateAlert": activateAlert,
         "notes": notes
     }
 	});
