@@ -4,16 +4,20 @@ import com.designdreams.copass.utils.AES;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 @Component
 public class SendEmail {
+
+    public static final String ahref = "https://www.copayana.com/";
 
     @Value("${USER_TOKEN}")
     private String from;
@@ -154,9 +158,60 @@ public class SendEmail {
 
             Multipart multipart = new MimeMultipart();
 
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+
+            /**
+             *
+             * <!DOCTYPE html>
+             * <html>
+             *
+             *    <body >
+             *        <div>
+             *        <div>
+             *            <table border ="1" width = "50%" height = "50%" align = "centre" >
+             *            <tr><td>Success! its Time to Connect</td></tr>
+             *            </table>
+             *        </div>
+             *        <div>
+             *            Hi xxxx,
+             *            <p><strong>Congratulations! </strong>We found similar travelers to your destination</p>
+             *             <a href = "https://www.google.co.in/"><button color="blue">Take Action Now</button></a>
+             *
+             *            <p>Thanks for being valued Customer!!</p>
+             *        </div>
+             *        </div>
+             *    </body>
+             *
+             * </html>
+             */
+
+
+            mimeBodyPart.setText(
+                    "<!DOCTYPE html>" +
+                    "<html>" +
+                    "<body> <div>" +
+                    "<div> <table border =\"1\" width = \"50%\" height = \"50%\" align = \"centre\" >" +
+                    "<tr><td>Success! its Time to Connect</td></tr>" +
+                    "</table>" +
+                    "<div>" +
+                    "Hi "+  to + " ,"+
+                    "<p><strong>Congratulations! </strong>We found similar travelers to your destination</p>" +
+                    "<a href = \"" +ahref+ ">"+
+                    "<button><font color =\"blue\">Take Action Now</font></button></a>"+
+                    "<p>Happy Travelling</p>"+
+                    "<p>Do not reply to this email</p>"+
+                    "</div>"+
+                    "</div>"+
+                    "</body>" +
+                    "</html>"
+
+            );
+
+            multipart.addBodyPart(mimeBodyPart);
+
             message.setSubject(defaultSubjectMessage + "" + dest + " !");
 
-            message.setText("A message to your inbox");
+            message.setContent(multipart);
 
             logger.info("sending...");
 
