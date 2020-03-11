@@ -190,17 +190,15 @@ public class SendEmail {
                     "<!DOCTYPE html>" +
                     "<html>" +
                     "<body> <div>" +
-                    "<div> <table border =\"1\" width = \"50%\" height = \"50%\" align = \"centre\" >" +
-                    "<tr><td>Success! its Time to Connect</td></tr>" +
-                    "</table>" +
-                    "<div>" +
-                    "Hi "+  to + " ,"+
+                    "<table border =\"1\" width = \"100%\"  >" +
+                    "<tr><td width =\"50\" height =\"50\" bgcolor =\"green\">Success! its Time to Connect</td></tr>" +
+                    "<tr><td height = 50> Hi "+  to + " ,"+
                     "<p><strong>Congratulations! </strong>We found similar travelers to your destination</p>" +
                     "<a href = \"" +ahref+ ">"+
                     "<button><font color =\"blue\">Take Action Now</font></button></a>"+
                     "<p>Happy Travelling</p>"+
-                    "<p>Do not reply to this email</p>"+
-                    "</div>"+
+                    "<p>Do not reply to this email</p> </tr></td>"+
+                   "</table>"+
                     "</div>"+
                     "</body>" +
                     "</html>"
