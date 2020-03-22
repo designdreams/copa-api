@@ -198,12 +198,11 @@ public class SendEmail {
                     "<button><font color =\"blue\">Take Action Now</font></button></a>"+
                     "<p>Happy Travelling</p>"+
                     "<p>Do not reply to this email</p> </tr></td>"+
-                   "</table>"+
+                    "</table>"+
                     "</div>"+
                     "</body>" +
                     "</html>"
-
-            );
+                  ,  "utf-8", "html");
 
             multipart.addBodyPart(mimeBodyPart);
 
