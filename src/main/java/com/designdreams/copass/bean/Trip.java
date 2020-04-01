@@ -53,6 +53,8 @@ public class Trip {
 
     private boolean isFinalDestination;
 
+    private boolean activateAlert;
+
     @Size(max = 150, message = "Invalid notes, Limit to 150 characters")
     private String notes;
 
@@ -168,7 +170,7 @@ public class Trip {
     }
 
     public void setIsDomestic(boolean domestic) {
-        isDomestic = domestic;
+        this.isDomestic = domestic;
     }
 
     public boolean getIsFinalDestination() {
@@ -176,7 +178,15 @@ public class Trip {
     }
 
     public void setIsFinalDestination(boolean finalDestination) {
-        isFinalDestination = finalDestination;
+        this.isFinalDestination = finalDestination;
+    }
+
+    public boolean getActivateAlert() {
+        return activateAlert;
+    }
+
+    public void setActivateAlert(boolean activateAlert) {
+        this.activateAlert = activateAlert;
     }
 
     @Override
@@ -194,6 +204,7 @@ public class Trip {
                 ", isDomestic=" + isDomestic +
                 ", canTakePackageInd=" + canTakePackageInd +
                 ", isFinalDestination=" + isFinalDestination +
+                ", activateAlert=" + activateAlert +
                 ", notes=" + notes +
                 '}';
     }

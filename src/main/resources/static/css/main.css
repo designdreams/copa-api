@@ -398,9 +398,10 @@ color: #839212;
 }
 
 #disclaimer{
-	color:#afb2b4;
-	font-size:0.8em;
-	margin-left:15px;
+    margin-top: 10px;
+    color: #76797b;
+    font-size: 0.8em;
+    margin-left: 15px;
 	
 }
 
@@ -626,4 +627,9 @@ width:5%;
 .carousel-caption h1{
     font-size: 3em;
     font-weight: bolder;
+}
+
+.alert{
+border-width: medium;
+border-color: #f1ef08;
 }
