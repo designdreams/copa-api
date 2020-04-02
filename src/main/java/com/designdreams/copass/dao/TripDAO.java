@@ -1,5 +1,6 @@
 package com.designdreams.copass.dao;
 
+import com.designdreams.copass.bean.Alert;
 import com.designdreams.copass.bean.Trip;
 
 import java.util.List;
@@ -13,5 +14,7 @@ public interface TripDAO {
      List<Trip> getTripDetailsList(String emailId);
 
      List<Trip> searchTripDetailsList(String traceId, String src, String dest, String date);
+
+     List<Alert> getAlertsList();
 
 }

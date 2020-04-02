@@ -2,6 +2,7 @@ package com.designdreams.copass.service;
 
 import com.designdreams.copass.bean.Alert;
 import com.designdreams.copass.bean.Trip;
+import com.designdreams.copass.dao.TripDAO;
 import com.designdreams.copass.dao.TripDAOImpl;
 import com.designdreams.copass.utils.AppUtil;
 import com.mongodb.BasicDBObjectBuilder;
@@ -36,6 +37,9 @@ public class EmailScheduler {
     @Autowired
     SendEmail sendEmail;
 
+    @Autowired
+    TripDAOImpl tripDAO;
+
 
     private List<Alert> getAlertsList() {
 
@@ -46,22 +50,21 @@ public class EmailScheduler {
         // for each alerts check if there is any valid travel record match with src and destination.
 
         // if present, add to list.
+        return tripDAO.getAlertsList();
+        //return new ArrayList<>();
 
-        return new ArrayList<>();
-
-    }
+}
 
 
-   // @Scheduled(cron = "0 0/15 * * * *")
+   @Scheduled(cron = "0 0/1 * * * *")
     public void pushEmails() {
 
         logger.info("SENDING EMAIL EVERY 15 mins");
 
-        List<Alert> alertList;
+        List<Alert> alertList = getAlertsList();
 
-        alertList = getAlertsList();
+        alertList.forEach(alert -> sendEmail.email(alert.getEmailId(), alert.getSrc(), alert.getDest(),alert.getMatchCount()));
 
-        alertList.forEach(alert -> sendEmail.email(alert.getEmailId(), alert.getSrc(), alert.getDest()));
 
 
     }

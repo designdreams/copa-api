@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.util.Arrays;
 
 @SpringBootApplication
+@EnableScheduling
 public class CopassApp {
 
     private static final Logger logger = LogManager.getLogger(CopassApp.class);

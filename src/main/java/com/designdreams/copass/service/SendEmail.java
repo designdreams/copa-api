@@ -3,11 +3,18 @@ package com.designdreams.copass.service;
 import com.designdreams.copass.utils.AES;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import java.io.IOException;
+
+import org.thymeleaf.TemplateEngine;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
@@ -44,6 +51,10 @@ public class SendEmail {
 
     @Value("${AES_TOKEN}")
     private String token;
+
+    @Autowired
+    private TemplateEngine templateEngine;
+
 
     public String getFrom() {
         return from;
@@ -127,12 +138,15 @@ public class SendEmail {
 
     private static final Logger logger = LogManager.getLogger(SendEmail.class);
 
-    public void email (String to,String src,  String dest){
+    public void email (String to,String src,  String dest, int tripMatchCount){
 
         try{
 
             String decrypted_email_access_token = AES.decrypt(getAccessToken(),token);
+            String ahref = "https://www.copayana.com";
+            //String email_template = String.format("<!DOCTYPE html><html><body><div><table border=1 width =100%><tr><td width=50 height=50 bgcolor=green>Success! Its Time to Connect</td></tr><tr><td height =50> Dear Customer,<p><strong>Congratulations! </strong>We found %d similar travelers to your destination</p><a href = %s><button><font color=blue>Visit Copayana</font></button></a><p>Happy Travelling!!</p><p>Do not reply to this email</p></td></tr></table></div></body></html>",tripMatchCount,ahref);
 
+            String email_template=new EmailContentBuilder(templateEngine).build(src,dest,tripMatchCount);
             Properties properties = new Properties();
             properties.put(hostKey, host);
             properties.put(portKey, portValue);
@@ -154,9 +168,17 @@ public class SendEmail {
 
             Multipart multipart = new MimeMultipart();
 
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+
+            mimeBodyPart.setText(
+                    email_template
+                    ,  "utf-8", "html");
+
+            multipart.addBodyPart(mimeBodyPart);
+
             message.setSubject(defaultSubjectMessage + "" + dest + " !");
 
-            message.setText("A message to your inbox");
+            message.setContent(multipart);
 
             logger.info("sending...");
 
@@ -168,5 +190,8 @@ public class SendEmail {
             logger.error("SEND EMAIL ERROR ",e);
         }
     }
+
+
+
 }
 

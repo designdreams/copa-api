@@ -14,6 +14,16 @@ public class Alert {
 
     private String pushAPI;
 
+    public int getMatchCount() {
+        return matchCount;
+    }
+
+    public void setMatchCount(int matchCount) {
+        this.matchCount = matchCount;
+    }
+
+    private int matchCount;
+
     public String getSrc() {
         return src;
     }
@@ -60,6 +70,17 @@ public class Alert {
 
     public void setPushAPI(String pushAPI) {
         this.pushAPI = pushAPI;
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "emailId='" + emailId + '\'' +
+                ", source='" + src + '\'' +
+                ", destination='" + dest + '\'' +
+                ", matchCount='" + matchCount + '\'' +
+
+                '}';
     }
 
 }
