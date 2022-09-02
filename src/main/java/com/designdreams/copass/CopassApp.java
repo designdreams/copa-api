@@ -1,6 +1,7 @@
 package com.designdreams.copass;
 
 import com.designdreams.copass.mysql.DBConfiguration;
+import com.designdreams.copass.service.InlineImageEmailTester;
 import com.designdreams.copass.utils.AES;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +24,6 @@ public class CopassApp {
 
         try {
 
-
             SpringApplication.run(CopassApp.class, args);
 
             applicationContext = new AnnotationConfigApplicationContext(
@@ -31,7 +31,7 @@ public class CopassApp {
             AppStaticFactory.setContext(applicationContext);;
 
             logger.info(" Read context " + AppStaticFactory.getContext());
-
+           // InlineImageEmailTester.sendAlert("",null,null, null, "krishh.maestro@gmail.com");
         } catch (Exception e) {
             logger.error(e, e);
             e.printStackTrace();

@@ -108,6 +108,8 @@ var hcol_airways = document.createElement('th');
 var hcol_with = document.createElement('th');
 var hcol_email = document.createElement('th');
 var hcol_action = document.createElement('th');
+var hcol_alert = document.createElement('th');
+
 
 hcol_from.appendChild(document.createTextNode("From"));
 hcol_to.appendChild(document.createTextNode("To"));
@@ -123,6 +125,8 @@ hcol_action.appendChild(document.createTextNode("Action"));
 tripHead.appendChild(document.createTextNode("Your Planned Trips"));
 }
 
+hcol_alert.appendChild(document.createTextNode("Alerts"))
+
 hrow.appendChild(hcol_from);
 hrow.appendChild(hcol_to);
 hrow.appendChild(hcol_date);
@@ -133,7 +137,11 @@ if(action == 'FIND'){
 hrow.appendChild(hcol_email);
 }else{
 hrow.appendChild(hcol_action);
+hrow.appendChild(hcol_alert);
+
 }
+
+
 
 thead.appendChild(hrow);
 table.appendChild(thead);
@@ -166,6 +174,9 @@ for (var i = 0; i < len; ++i) {
   var col_email = document.createElement('td');
     }
 
+  var col_alert = document.createElement('td');
+
+
   col_from.class = "coll";
   col_to.class = "coll";
   col_date.class = "coll";
@@ -176,6 +187,8 @@ for (var i = 0; i < len; ++i) {
   if(action == 'FIND'){
   col_email.class = "coll";
     }
+
+   col_alert.class = "coll";
 
   col_from.appendChild(document.createTextNode(obj.tripList[i].source));
   col_to.appendChild(document.createTextNode(obj.tripList[i].destination));
@@ -274,7 +287,40 @@ for (var i = 0; i < len; ++i) {
        delete_link.setAttributeNode(delete_onclick);
        col_delete.appendChild(delete_link);
 
+
+      var alert_switch = "N";
+        if(obj.tripList[i].alertIndicator){
+            alert_switch = obj.tripList[i].alertIndicator;
+        }
+
+
+            if(alert_switch){
+              var alert_link = document.createElement('a');
+              var alert_href = document.createAttribute("href");
+              var alert_id = document.createAttribute("id");
+              alert_id.value="alert_link_"+i;
+              var alert_onclick = document.createAttribute("onclick");
+              alert_onclick.value = "toggle_switch(this);return false"
+
+              //alert_link.innerHTML=alert_switch+" <i class='fa fa-check-circle'></i>";
+
+              alert_link.innerHTML='<div id="onoffswitch_'+i+'" class="onoffswitch"><input id="myonoffswitch_'+i+'" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"  onClick="toggle_switch(this.id);return false" tabindex="0"><label class="onoffswitch-label" for="myonoffswitch"><span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span></label></div>';
+
+              //alert_link.setAttributeNode(alert_href);
+              alert_link.setAttributeNode(alert_id);
+              alert_link.setAttributeNode(alert_onclick);
+              col_alert.appendChild(alert_link);
+              }else{
+
+              var no_alert_link = document.createElement('span');
+              no_alert_link.innerHTML = "old trip";
+                            col_alert.appendChild(no_alert_link);
+
+              }
+
    }
+
+
 
     row.appendChild(col_from);
     row.appendChild(col_to);
@@ -287,6 +333,7 @@ for (var i = 0; i < len; ++i) {
 
     }else{
         row.appendChild(col_delete);
+        row.appendChild(col_alert);
     }
 tbody.appendChild(row);
 
@@ -304,11 +351,52 @@ listDiv.appendChild(noteTxt);
 
 }
 
+//https://proto.io/freebies/onoff/
+
+function toggle_switch(switch_link_obj){
+
+ //alert(switch_link_obj.id);
+
+ switch_div_obj = document.getElementById(switch_link_obj.id).firstElementChild;
+ // alert(switch_div_obj.id);
+
+ switch_input_obj = document.getElementById(switch_div_obj.id).firstElementChild;
+     // alert(switch_input_obj.id);
+
+
+    if (switch_input_obj.checked==false) {
+        var notify_enable = confirm("Do you want to enable notification to your email?");
+        if(notify_enable){
+        document.getElementById(switch_input_obj.id).checked=true;
+               // alert('enable');
+
+        }
+    }
+    else {
+        var notify_disable = confirm("Do you want to disable notification to your email?");
+        if(notify_disable){
+        switch_input_obj.checked=false;
+        //alert('diss');
+        }
+    }
+}
+
+function callAlertApi(tripId,enableAlertInd,travellerId){
+
+ var data = JSON.stringify({
+ 	"tripId": tripId,
+ 	"enableAlertInd": enableAlertInd,
+ 	"travellerId" : travellerId
+ 	});
+}
+
+
 function findTrip(){
 
  var source = document.getElementById("src").value.substring(0, 3);
  var destination = document.getElementById("dest").value.substring(0, 3);
- var date = document.getElementById("trip-date").value;
+ //var date = document.getElementById("trip-date").value;
+ var date = "";
 
  var data = JSON.stringify({
  	"source": source,

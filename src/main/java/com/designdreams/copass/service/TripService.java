@@ -72,6 +72,7 @@ public class TripService {
                 return ResponseUtil.getResponse(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Login failed");
 
             Trip trip = createTripRequest.getTrip();
+            trip.setTripId(UUID.randomUUID().toString().replaceAll("-",""));
             trip.setSource(trip.getSource().toUpperCase());
             trip.setDestination(trip.getDestination().toUpperCase());
 
@@ -189,7 +190,7 @@ public class TripService {
                     t.setIsDomestic(ltm.get("isDomestic").equals(Boolean.TRUE));
                     t.setCanTakePackageInd(ltm.get("canTakePackageInd").equals(Boolean.TRUE));
                     t.setIsFinalDestination(ltm.get("isFinalDestination").equals(Boolean.TRUE));
-                    t.setActivateAlert(ltm.get("activateAlert").equals(Boolean.TRUE));
+                    t.setActivateAlert(ltm.get("activateAlert")!=null?ltm.get("activateAlert").equals(Boolean.TRUE):Boolean.FALSE);
 
                     //t.setSortDate(t.getTravelStartDate()!=null && t.getTravelStartDate()!=""?format.parse(t.getTravelStartDate()):null);
                     finaltripList.add(t);

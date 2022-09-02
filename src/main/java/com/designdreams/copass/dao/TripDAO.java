@@ -15,6 +15,4 @@ public interface TripDAO {
 
      List<Trip> searchTripDetailsList(String traceId, String src, String dest, String date);
 
-     List<Alert> getAlertsList();
-
 }

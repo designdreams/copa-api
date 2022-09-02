@@ -2,6 +2,7 @@ package com.designdreams.copass.service;
 
 import com.designdreams.copass.bean.Alert;
 import com.designdreams.copass.bean.Trip;
+import com.designdreams.copass.dao.AlertDAO;
 import com.designdreams.copass.dao.TripDAO;
 import com.designdreams.copass.dao.TripDAOImpl;
 import com.designdreams.copass.utils.AppUtil;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -34,40 +36,44 @@ public class EmailScheduler {
     @Autowired
     String collection;
 
-    @Autowired
-    SendEmail sendEmail;
+   // @Autowired
+   // SendEmail sendEmail;
 
     @Autowired
-    TripDAOImpl tripDAO;
+    AlertDAO alertDAO;
 
-
+    //@Scheduled(cron = "0/15 * * * * *")
     private List<Alert> getAlertsList() {
 
         List<Alert> alertList;
+
+        System.out.println("=============================");
+
+        logger.info("SENDING EMAIL EVERY 15 mins");
 
         // get all alerts from alerts collection payanam-alerts
 
         // for each alerts check if there is any valid travel record match with src and destination.
 
         // if present, add to list.
-        return tripDAO.getAlertsList();
+        return alertDAO.getAlertsList(alertDAO.getAllTripList());
         //return new ArrayList<>();
 
 }
 
 
-   @Scheduled(cron = "0 0/1 * * * *")
-    public void pushEmails() {
-
-        logger.info("SENDING EMAIL EVERY 15 mins");
-
-        List<Alert> alertList = getAlertsList();
-
-        alertList.forEach(alert -> sendEmail.email(alert.getEmailId(), alert.getSrc(), alert.getDest(),alert.getMatchCount()));
-
-
-
-    }
+   //@Scheduled(cron = "0 0/1 * * * *")
+//    public void pushEmails() {
+//
+//        logger.info("SENDING EMAIL EVERY 15 mins");
+//
+//        List<Alert> alertList = getAlertsList();
+//
+//        alertList.forEach(alert -> sendEmail.email(alert.getEmailId(), alert.getSrc(), alert.getDest(),alert.getMatchCount()));
+//
+//
+//
+//    }
 
 
 }

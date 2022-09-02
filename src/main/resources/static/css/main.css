@@ -382,6 +382,15 @@ color: #839212;
  }
 
 
+.tip-content{
+     padding: 2%;
+     background-color: #ffffff94;
+     margin-bottom: 3%;
+     color: #5a5109;
+     font-family: serif;
+ }
+
+
 .trip-type{
    /* margin-top: 3%; */
     color: #ffffff;
