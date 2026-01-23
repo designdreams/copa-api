@@ -55,6 +55,8 @@ public class Trip {
 
     private boolean activateAlert;
 
+    private String tripCreationDate;
+
     @Size(max = 150, message = "Invalid notes, Limit to 150 characters")
     private String notes;
 
@@ -69,15 +71,15 @@ public class Trip {
     private Date sortDate;
 
     public String getNotes() {
-		return notes;
-	}
+        return notes;
+    }
 
-	public void setNotes(String notes) {
+    public void setNotes(String notes) {
         this.notes = notes.replaceAll("[^a-zA-Z0-9 ]", "");;
-	}
+    }
 
 
-	public String getTripId() {
+    public String getTripId() {
         return tripId;
     }
 
@@ -189,10 +191,20 @@ public class Trip {
         this.activateAlert = activateAlert;
     }
 
+    public String getTripCreationDate() {
+        return tripCreationDate;
+    }
+
+    public void setTripCreationDate(String tripCreationDate) {
+        System.out.println("tripCreationDate:: "+tripCreationDate);
+        this.tripCreationDate = tripCreationDate;
+    }
+
     @Override
     public String toString() {
         return "Trip{" +
                 "tripId='" + tripId + '\'' +
+                ", travellerId='" + travellerId + '\'' +
                 ", source='" + source + '\'' +
                 ", destination='" + destination + '\'' +
                 ", travelStartDate='" + travelStartDate + '\'' +
@@ -201,11 +213,13 @@ public class Trip {
                 ", airways='" + airways + '\'' +
                 ", travellingWith='" + travellingWith + '\'' +
                 ", isTicketBooked=" + isTicketBooked +
-                ", isDomestic=" + isDomestic +
                 ", canTakePackageInd=" + canTakePackageInd +
+                ", isDomestic=" + isDomestic +
                 ", isFinalDestination=" + isFinalDestination +
                 ", activateAlert=" + activateAlert +
-                ", notes=" + notes +
+                ", tripCreationDate=" + tripCreationDate +
+                ", notes='" + notes + '\'' +
+                ", sortDate=" + sortDate +
                 '}';
     }
 }

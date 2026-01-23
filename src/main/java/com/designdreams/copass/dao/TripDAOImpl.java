@@ -1,10 +1,12 @@
 package com.designdreams.copass.dao;
 
+import com.designdreams.copass.bean.Alert;
 import com.designdreams.copass.bean.Trip;
 import com.designdreams.copass.utils.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +50,7 @@ public class TripDAOImpl implements TripDAO {
             List<Trip> tripList = new ArrayList<>();
             tripList.add(trip);
 
-            logger.info(tripList);
+            logger.info("tripList :: "+tripList);
             Document match = new Document();
             match.put("emailId", emailId);
 
@@ -68,9 +71,10 @@ public class TripDAOImpl implements TripDAO {
                     for (Document t : trips) {
 
                         if (t.get("source").toString().equalsIgnoreCase(trip.getSource()) &&
-                                t.get("destination").toString().equalsIgnoreCase(trip.getDestination())
-                                && t.get("travelStartDate").toString().equalsIgnoreCase(trip.getTravelStartDate()))
-                            sameDayTripCount++;
+                                t.get("destination").toString().equalsIgnoreCase(trip.getDestination()) &&
+                                (null!=t.get("travelStartDate") && t.get("travelStartDate").toString().equalsIgnoreCase(trip.getTravelStartDate())))
+
+                                     sameDayTripCount++;
                     }
 
                     if (sameDayTripCount > 0) {
@@ -99,7 +103,7 @@ public class TripDAOImpl implements TripDAO {
             Document update = new Document();
             update.put("$push", new Document("trips", tripDoc));
 
-            logger.info(tripDoc.toJson());
+            logger.info("tripDoc ==> "+tripDoc.toJson());
             mongoClient.getDatabase(database).getCollection(collection).updateOne(match, update);
 
             status = "SUCCESS";
@@ -120,25 +124,25 @@ public class TripDAOImpl implements TripDAO {
 
         try {
 
-            Document bson = new Document();
-            bson.put("emailId", emailId);
-            bson.put("tripId", tripId);
+        Document bson = new Document();
+        bson.put("emailId", emailId);
+        bson.put("tripId", tripId);
 
-            // this should return trip document inside array
-            Document trip = mongoClient.getDatabase(database).getCollection(collection).find(bson).first();
-            tripJson = trip.toJson();
+        // this should return trip document inside array
+        Document trip = mongoClient.getDatabase(database).getCollection(collection).find(bson).first();
+        tripJson = trip.toJson();
 
-        } catch (EmptyResultDataAccessException e) {
-            tripJson = "NOT_FOUND";
+    } catch (EmptyResultDataAccessException e) {
+        tripJson = "NOT_FOUND";
 
-        } catch (DataAccessException e) {
-            tripJson = "DB_ERROR";
-            logger.error(e,e);
-        }
+    } catch (DataAccessException e) {
+        tripJson = "DB_ERROR";
+        logger.error(e,e);
+    }
 
         return tripJson;
 
-    }
+}
 
 
     public static <T> List<T> toList(String json, Class<T> clazz) {
@@ -146,8 +150,9 @@ public class TripDAOImpl implements TripDAO {
             return null;
         }
         Gson gson = new Gson();
-        return gson.fromJson(json, new TypeToken<T>() {
+        ArrayList<T> list=gson.fromJson(json, new TypeToken<T>() {
         }.getType());
+        return list;
     }
 
     @Override
@@ -316,5 +321,8 @@ public class TripDAOImpl implements TripDAO {
     public boolean isExactTripMatch(Trip trip, String src, String dest) {
         return (trip != null && trip.getSource().equalsIgnoreCase(src) && trip.getDestination().equalsIgnoreCase(dest));
     }
+
+
+
 
 }

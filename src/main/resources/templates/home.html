@@ -18,7 +18,9 @@
           content="579504878975-0l8ngko4cf3nnhp71qqj8hpuiu2e1aik.apps.googleusercontent.com">
 
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/switch.css}"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--<script src="js/home.js"></script>-->
     <script th:src="@{js/home.js}"></script>
 
@@ -70,6 +72,12 @@
         search a trip companion, use Find Trip from menu. Good luck!
     </div>
 
+    <div class="tip-content">
+
+        Tips: Turn ON the alerts if you are actively looking for travel companion and receive notifications from copayana.
+
+    </div>
+
 
     <div id="bottom-bar"  class="row">
         <div class="col-lg-12 text-center">
@@ -77,8 +85,6 @@
 
             <div id="trips" class="trip-list"></div>
 
-            <p id="disclaimer" class="disclaimer">Note:  <i>Trips highlighted in yellow have alerts enabled by you. You may receive
-           emails, when there is a matching traveller on the same route.</i></p>
             <p class="lead bottomline"> Happy and Safe Journey!</p>
 
             <hr>

@@ -1,5 +1,6 @@
 package com.designdreams.copass.dao;
 
+import com.designdreams.copass.bean.Alert;
 import com.designdreams.copass.bean.Trip;
 
 import java.util.List;

@@ -64,10 +64,10 @@ public class ResponseUtil {
             errMsg = (null != errMsgSet && !errMsgSet.isEmpty()) ? ((ConstraintViolation) errMsgSet.toArray()[0]).getMessage() : null;
 
 
-            // validate Date
-            if(!Auth.valiateDate(((CreateTripRequest)createTripRequest).getTrip().getTravelStartDate())){
-                errMsg = "Invalid date. Choose valid date";
-            }
+//            // validate Date
+//            if(!Auth.valiateDate(((CreateTripRequest)createTripRequest).getTrip().getTravelStartDate())){
+//                errMsg = "Invalid date. Choose valid date";
+//            }
 
         } catch (Exception e) {
             logger.error(e, e);

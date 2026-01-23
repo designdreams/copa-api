@@ -382,6 +382,15 @@ color: #839212;
  }
 
 
+.tip-content{
+     padding: 2%;
+     background-color: #ffffff94;
+     margin-bottom: 3%;
+     color: #5a5109;
+     font-family: serif;
+ }
+
+
 .trip-type{
    /* margin-top: 3%; */
     color: #ffffff;
@@ -398,10 +407,9 @@ color: #839212;
 }
 
 #disclaimer{
-    margin-top: 10px;
-    color: #76797b;
-    font-size: 0.8em;
-    margin-left: 15px;
+	color:#afb2b4;
+	font-size:0.8em;
+	margin-left:15px;
 	
 }
 
@@ -629,7 +637,7 @@ width:5%;
     font-weight: bolder;
 }
 
-.alert{
-border-width: medium;
-border-color: #f1ef08;
+#swap-icon{
+width:2%
 }
+

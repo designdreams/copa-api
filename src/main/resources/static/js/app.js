@@ -51,4 +51,15 @@ document.getElementById("login-auth").submit();
   }
 
 
+    function swapCtryCode(){
 
+    var dest = document.getElementById("dest").value;
+    var src = document.getElementById("src").value;
+    var tempHTML = dest;
+    dest = src;
+    src = tempHTML;
+    document.getElementById("dest").value=dest;
+    document.getElementById("src").value=src;
+
+
+    }
